@@ -1,1 +1,0 @@
-<h1>consulta page</h1><?php /**PATH /home/kenny/Desktop/WWW/usefullsystem/resources/views/consulta/index.blade.php ENDPATH**/ ?>

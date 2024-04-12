@@ -51,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-2 col-md-3">
-                    <a class="navbar-brand " href="index.html">
+                    <a class="navbar-brand " href=s"index.html">
                         <i class="icofont-medical-sign-alt fs-2 fw-medium text-primary"></i>
                         <span class="fw-bolder fs-5"> EAB</span> <br> <span
                             class="fw-light fs-6 fst-italic text-muted lh-sm">Efortless
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="col-12 col-lg-2 col-md-3 text-right">
-                    <a href="<?php echo e(route('consulta.index')); ?>" class="appointment-btn">Marcar Consulta</a>
+                    <a href="<?php echo e(route('consultas.index')); ?>" class="appointment-btn">Marcar Consulta</a>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
                                         de excelência em todas as áreas da
                                         saúde.
                                     </p>
-                                    <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Consulta Agora</a>
+                                    <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Consulta Agora</a>
                                 </div>
 
                                 <div class="hero-content">
@@ -125,7 +125,7 @@
                                         Experimente agora mesmo a facilidade de cuidar da sua saúde com apenas um
                                         clique!"
                                     </p>
-                                    <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Consulta Agora</a>
+                                    <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Consulta Agora</a>
                                 </div>
 
                             </div>
@@ -172,7 +172,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="single-box">
                         <i class="icofont-operation-theater"></i>
-                        <h3>Sem Burocracia</h3>
+                        <h3>Burocracia Zero</h3>
                         <p>
                             "Nossa abordagem sem burocracia simplifica o processo de agendamento e atendimento médico.
                             Eliminamos formulários
@@ -294,7 +294,7 @@
                             especializado, estamos aqui para
                             ajudá-lo a encontrar o melhor médico para você.
                         </p>
-                        <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Agora</a>
+                        <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
                     </div>
                 </div>
 
@@ -525,7 +525,7 @@
                                                 <li>Cirurgias Cardíacas</li>
                                                 <li>Reabilitação Cardíaca</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Consulta</a>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Consulta</a>
                                         </div>
                                     </div>
                                 </div>
@@ -551,7 +551,7 @@
                                                 <li>Tratamento de Emergências Neurológicas</li>
                                                 <li>Gestão de Doenças Crônicas</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Consulta</a>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Consulta</a>
                                         </div>
                                     </div>
                                 </div>
@@ -577,7 +577,7 @@
                                                 <li>Tratamento Conservador:</li>
                                                 <li>Cirurgias Ortopédicas</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Agora</a>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
                                         </div>
                                     </div>
                                 </div>
@@ -608,7 +608,7 @@
                                                 </li>
                                                 <li>Relatórios e Laudos</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Agora</a>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
                                         </div>
                                     </div>
                                 </div>
@@ -636,7 +636,7 @@
                                                 <li>Cirurgias de Urgência</li>
                                                 <li>Cirurgias Especializadas</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Agora</a>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
                                         </div>
                                     </div>
                                 </div>
@@ -670,7 +670,7 @@
                                                 </li>
                                                 <li>Acompanhamento e Orientação</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marcar Agora</a>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
                                         </div>
                                     </div>
                                 </div>
@@ -791,7 +791,7 @@
                                 </div>
 
                                 <div class="col-lg-12">
-                                    <a href="<?php echo e(route('consulta.index')); ?>" type="submit" class="btn">Agenda Agora</a>
+                                    <a href="<?php echo e(route('consultas.index')); ?>" type="submit" class="btn">Agenda Agora</a>
                                 </div>
                             </div>
                         </form>
@@ -1058,7 +1058,7 @@
                         </div>
 
                         <div class="pricing-footer">
-                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marque Agora</a>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marque Agora</a>
                         </div>
                     </div>
                 </div>
@@ -1086,7 +1086,7 @@
                         </div>
 
                         <div class="pricing-footer">
-                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marque Agora</a>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marque Agora</a>
                         </div>
                     </div>
                 </div>
@@ -1114,7 +1114,7 @@
                         </div>
 
                         <div class="pricing-footer">
-                            <a href="<?php echo e(route('consulta.index')); ?>" class="btn">Marque Agora</a>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marque Agora</a>
                         </div>
                     </div>
                 </div>
@@ -1457,4 +1457,4 @@
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
 </body>
 
-</html><?php /**PATH /home/kenny/Desktop/WWW/usefullsystem/resources/views/welcome.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>
