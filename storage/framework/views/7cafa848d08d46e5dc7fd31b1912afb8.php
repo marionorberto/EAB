@@ -51,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-2 col-md-3">
-                    <a class="navbar-brand " href=s"index.html">
+                    <a class="navbar-brand " href="http://localhost:8000/">
                         <i class="icofont-medical-sign-alt fs-2 fw-medium text-primary"></i>
                         <span class="fw-bolder fs-5"> EAB</span> <br> <span
                             class="fw-light fs-6 fst-italic text-muted lh-sm">Efortless
@@ -73,18 +73,22 @@
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="#about">Sobre</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#department">Departmentos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#department">Departamentos</a></li>
                             <li class="nav-item"><a class="nav-link" href="#service">Serviços</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#gallery">Galeria</a></li>
                             <li class="nav-item"><a class="nav-link" href="#price">Preços</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="#contact">Contactos</a></li>
+                            <li class="nav-item"><a class="nav-link text-secondary"
+                                    href="http://localhost:8000/login">Login</a></li>
+                            <li class="nav-item d-flex gap-1 align-items-center">
+                                <a class="nav-link text-secondary"
+                                    href="http://localhost:8000/register">Registrar-se</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-12 col-lg-2 col-md-3 text-right">
-                    <a href="<?php echo e(route('consultas.index')); ?>" class="appointment-btn">Marcar Consulta</a>
+                    <a href="<?php echo e(route('consultas.index')); ?>" class="appointment-btn nowrap w-75 h-75">Marcar Consulta</a>
                 </div>
             </div>
         </div>
@@ -97,10 +101,11 @@
             <div class="d-table-cell">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-7 col-md-12">
+                        <div class="col-lg-6 col-md-12">
                             <div class="hero-slides owl-carousel owl-theme">
                                 <div class="hero-content">
-                                    <h1>Proporcionando saúde de qualidade. <br> A tua saúde e bem estar é o nosso maior
+                                    <h1 class="fs-2">Proporcionando saúde de qualidade. <br> A tua saúde e bem estar é o
+                                        nosso maior
                                         <span>Compromisso</span>
                                     </h1>
                                     <p>
@@ -114,7 +119,7 @@
                                 </div>
 
                                 <div class="hero-content">
-                                    <h1>Marca uma consulta nunca foi tão fácil. <br> Tudo a distância de um
+                                    <h1 class="fs-2">Marca uma consulta nunca foi tão fácil. <br> Tudo a distância de um
                                         <span>Clique</span>
                                     </h1>
                                     <p>
@@ -130,6 +135,10 @@
 
                             </div>
                         </div>
+                        <div class="col-6">
+                            <img src="<?php echo e(URL::to('img/landing-image.jpg')); ?>" alt=""
+                                class="landing-image z-3 position-absolute">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,7 +147,7 @@
     <!-- End Main Banner Area -->
 
     <!-- Start Boxes Area -->
-    <section class="boxes-area ptb-100">
+    <section class="boxes-area ptb-100 mt-2">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -268,7 +277,7 @@
                             <li>Serviços disponível 24/24</li>
                         </ul>
 
-                        <a href="#" class="btn"> Nossos trabalhos</a>
+                        <a href="#service" class="btn"> Nossos trabalhos</a>
                     </div>
                 </div>
             </div>
@@ -365,7 +374,7 @@
 
                             <div class="member-details">
                                 <div>
-                                    <img src="<?php echo e(URL::to('img/doctor-img2.png')); ?>" alt="doctor">
+                                    <img src="<?php echo e(URL::to('img/doctor-img5.png')); ?>" alt="doctor">
                                     <div class="member-info">
                                         <h3>DR. Daniel João</h3>
                                         <p>Especialista em Fisioterapia</p>
@@ -380,7 +389,7 @@
 
                             <div class="member-details">
                                 <div>
-                                    <img src="<?php echo e(URL::to('img/doctor-img1.png')); ?>" alt="doctor">
+                                    <img src="<?php echo e(URL::to('img/doctor-img6.png')); ?>" alt="doctor">
                                     <div class="member-info">
                                         <h3>DR. Mara Mendonça</h3>
                                         <p>Especialista em Ginecologia</p>
@@ -397,7 +406,7 @@
                         <li class="clearfix">
                             <div class="member-details">
                                 <div>
-                                    <img src="<?php echo e(URL::to('img/doctor-img1.png')); ?>" alt="doctor">
+                                    <img src="<?php echo e(URL::to('img/doctor-img7.png')); ?>" alt="doctor">
                                     <div class="member-info">
                                         <h3>DR. Maria Norberto</h3>
                                         <p>Especialista em Sexologia</p>
@@ -412,7 +421,7 @@
 
                             <div class="member-details">
                                 <div>
-                                    <img src="<?php echo e(URL::to('img/doctor-img4.png')); ?>" alt="doctor">
+                                    <img src="<?php echo e(URL::to('img/doctor-img8.png')); ?>" alt="doctor">
                                     <div class="member-info">
                                         <h3>DR. Manuel Vimbi</h3>
                                         <p>Especialista em Odontologia</p>
@@ -427,7 +436,7 @@
 
                             <div class="member-details">
                                 <div>
-                                    <img src="<?php echo e(URL::to('img/doctor-img2.png')); ?>" alt="doctor">
+                                    <img src="<?php echo e(URL::to('img/doctor-img9.png')); ?>" alt="doctor">
                                     <div class="member-info">
                                         <h3>DR. Maria Fátima</h3>
                                         <p>Especialista em Ortopedia</p>
@@ -506,7 +515,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="tabs_item_img">
-                                            <img src="<?php echo e(URL::to('img/department-img1.jpg')); ?>" alt="department">
+                                            <img src="<?php echo e(URL::to('img/cardiologia.jpg')); ?>" alt="department">
                                         </div>
                                     </div>
 
@@ -535,7 +544,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="tabs_item_img">
-                                            <img src="<?php echo e(URL::to('img/department-img1.jpg')); ?>" alt="department">
+                                            <img src="<?php echo e(URL::to('img/neurologia.jpg')); ?>" alt="department">
                                         </div>
                                     </div>
 
@@ -561,7 +570,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="tabs_item_img">
-                                            <img src="<?php echo e(URL::to('img/department-img1.jpg')); ?>" alt="department">
+                                            <img src="<?php echo e(URL::to('img/ortopedia.jpg')); ?>" alt="department">
                                         </div>
                                     </div>
 
@@ -587,7 +596,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="tabs_item_img">
-                                            <img src="<?php echo e(URL::to('img/department-img1.jpg')); ?>" alt="department">
+                                            <img src="<?php echo e(URL::to('img/radiologia.jpg')); ?>" alt="department">
                                         </div>
                                     </div>
 
@@ -618,7 +627,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="tabs_item_img">
-                                            <img src="<?php echo e(URL::to('img/department-img1.jpg')); ?>" alt="department">
+                                            <img src="<?php echo e(URL::to('img/fun-facts-bg.jpg')); ?>" alt="department">
                                         </div>
                                     </div>
 
@@ -684,7 +693,7 @@
     <!-- End Departments Area -->
 
     <!-- Start Make an Appointment Area -->
-    <section id="appointment" class="appointment-area ptb-100">
+    <section id="appointment" class=" ptb-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -727,75 +736,54 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
-                    <div class="appointment-form">
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nome">
-                                    </div>
-                                </div>
+                <div class="col-lg-6 col-md-6 bg-primary p-5">
+                    <h4 class="text-white fw-light"><strong>Porque marcar uma consulta connosco?</strong></h4>
+                    <ul class="text-white fw-light">
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
+                        <li class="fw-lighter fs-6">
+                            <strong class="fw-bold">Facilidade de Agendamento:</strong>
+                            Nosso sistema simplificado de
+                            agendamento permite que você marque sua consulta de forma
+                            rápida e sem complicações, economizando tempo e esforço.
+                        </li>
+                        <li class="fw-lighter fs-6">
+                            <strong class="fw-bold">
+                                Acompanhamento Personalizado:
+                            </strong>
+                            Oferecemos um sistema de lembretes de consulta e acompanhamento,
+                            mantendo você informado
+                            sobre suas consultas marcadas, garantindo que você nunca perca um compromisso importante.
+                        </li>
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Telefone">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Departmentos</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Doctores</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" id="datepicker" class="form-control"
-                                            placeholder="Data da Consulta">
-                                        <span><i class="icofont-calendar"></i></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" cols="30" rows="4"
-                                            placeholder="Messagem"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <a href="<?php echo e(route('consultas.index')); ?>" type="submit" class="btn">Agenda Agora</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    </ul>
+                    <h4 class="text-white fw-light"><strong>Qual é o nosso grande diferencial competitivo?</strong></h4>
+                    <ul class="text-white fw-light">
+                        <li class="fw-lighter fs-6">
+                            <strong class="fw-bold">Facilidade e Eficiência:</strong>
+                            Oferecemos um sistema de agendamento simplificado e eficiente,
+                            permitindo que os usuários
+                            marquem consultas de forma rápida e conveniente, economizando tempo e esforço.
+                        </li>
+                        <li class="fw-lighter fs-6">
+                            <strong class="fw-bold">
+                                Variedade de Especialidades:
+                            </strong>
+                            Trabalhamos com uma ampla gama de profissionais de saúde e
+                            especialidades médicas,
+                            garantindo que os usuários encontrem o especialista adequado às suas necessidades
+                            específicas de
+                            saúde.
+                        </li>
+                        <li class="fw-lighter fs-6">
+                            <strong class="fw-bold">
+                                Transparência e Confiança:
+                            </strong>
+                            Priorizamos a transparência e a confiança em nossos serviços,
+                            fornecendo informações claras
+                            sobre os profissionais de saúde, avaliações de pacientes e um ambiente seguro para cuidar da
+                            saúde dos nossos usuários.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -943,9 +931,9 @@
                         <div class="single-photo">
                             <img src="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" alt="gallery">
                             <div class="gallery-content">
-                                <h3>Pressão Sanguíneo</h3>
+                                <h3>Electrocardiograma</h3>
                                 <span>Cardiologia</span>
-                                <a href="#" class="link-btn"><i class="icofont-link"></i></a>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -956,9 +944,9 @@
                         <div class="single-photo">
                             <img src="<?php echo e(URL::to('img/gallery-img2.jpg')); ?>" alt="gallery">
                             <div class="gallery-content">
-                                <h3>Pressão sanguínea</h3>
-                                <span>Cardiologia</span>
-                                <a href="#" class="link-btn"><i class="icofont-link"></i></a>
+                                <h3>Exame Neurológico</h3>
+                                <span>Neurologia</span>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img2.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -969,9 +957,9 @@
                         <div class="single-photo">
                             <img src="<?php echo e(URL::to('img/gallery-img3.jpg')); ?>" alt="gallery">
                             <div class="gallery-content">
-                                <h3>Blood Pressure</h3>
-                                <span>Cardiology</span>
-                                <a href="#" class="link-btn"><i class="icofont-link"></i></a>
+                                <h3>Operações de risco</h3>
+                                <span>Cirurgia</span>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img3.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -982,9 +970,9 @@
                         <div class="single-photo">
                             <img src="<?php echo e(URL::to('img/gallery-img4.jpg')); ?>" alt="gallery">
                             <div class="gallery-content">
-                                <h3>Blood Pressure</h3>
-                                <span>Cardiology</span>
-                                <a href="#" class="link-btn"><i class="icofont-link"></i></a>
+                                <h3>Exames ortotpédicos</h3>
+                                <span>Ortopedia</span>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img4.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -995,9 +983,9 @@
                         <div class="single-photo">
                             <img src="<?php echo e(URL::to('img/gallery-img5.jpg')); ?>" alt="gallery">
                             <div class="gallery-content">
-                                <h3>Blood Pressure</h3>
-                                <span>Cardiology</span>
-                                <a href="#" class="link-btn"><i class="icofont-link"></i></a>
+                                <h3>Exames Urológicos</h3>
+                                <span>Urologia</span>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img5.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -1008,9 +996,9 @@
                         <div class="single-photo">
                             <img src="<?php echo e(URL::to('img/gallery-img6.jpg')); ?>" alt="gallery">
                             <div class="gallery-content">
-                                <h3>Pressão Sanguínea</h3>
-                                <span>Cardiologia</span>
-                                <a href="#" class="link-btn"><i class="icofont-link"></i></a>
+                                <h3>Exames Urológicos</h3>
+                                <span>Urologia</span>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img6.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -1141,7 +1129,7 @@
                     <div class="single-feedback">
                         <div class="client-info">
                             <div class="img">
-                                <img src="<?php echo e(URL::to('img/client-avatar1.jpg')); ?>" alt="client')">
+                                <img src="<?php echo e(URL::to('img/client-avatar1.jpg')); ?>" class="img-reduced" alt="client')">
                             </div>
                             <h4>Milton Cunha</h4>
                             <span>Estudante Universitário</span>
@@ -1157,7 +1145,7 @@
                     <div class="single-feedback">
                         <div class="client-info">
                             <div class="img">
-                                <img src="<?php echo e(URL::to('img/client-avatar2.jpg')); ?>" alt="client')">
+                                <img src="<?php echo e(URL::to('img/client-avatar3.jpg')); ?>" alt="client')">
                             </div>
                             <h4>Milagre Silva</h4>
                             <span>Cuzinheira</span>
@@ -1174,7 +1162,7 @@
                     <div class="single-feedback">
                         <div class="client-info">
                             <div class="img">
-                                <img src="<?php echo e(URL::to('img/client-avatar3.jpg')); ?>" alt="client">
+                                <img src="<?php echo e(URL::to('img/client-avatar7.jpg')); ?>" alt="client">
                             </div>
                             <h4>Paulo Correia</h4>
                             <span>Advogado</span>
@@ -1191,7 +1179,7 @@
                     <div class="single-feedback">
                         <div class="client-info">
                             <div class="img">
-                                <img src="<?php echo e(URL::to('img/client-avatar4.jpg')); ?>" alt="client">
+                                <img src="<?php echo e(URL::to('img/client-avatar5.jpg')); ?>" alt="client" class="img-reduced">
                             </div>
                             <h4>Elisângela Filomena</h4>
                             <span>Vendedora</span>
@@ -1208,7 +1196,7 @@
                     <div class="single-feedback">
                         <div class="client-info">
                             <div class="img">
-                                <img src="<?php echo e(URL::to('img/client-avatar5.jpg')); ?>" alt="client">
+                                <img src="<?php echo e(URL::to('img/client-avatar4.jpg')); ?>" alt="client" class="img-reduced">
                             </div>
                             <h4>Messias Aleixo</h4>
                             <span>Técnico de Informática</span>
@@ -1428,13 +1416,13 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <p>© EAB - Efortless Appointment Booking é patrocinado por <a href="https://envytheme.com/"
-                            target="_blank">EnvyTheme</a></p>
+                            target="_blank">xTech</a></p>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                     <ul>
-                        <li><a href="#">Termos & Condicões</a></li>
-                        <li><a href="#">Políticas de privacidade</a></li>
+                        <li><a href="http://localhost:8000/termos-de-uso">Termos & Condicões</a></li>
+                        <li><a href="http://localhost:8000/politicas-de-privacidade">Políticas de privacidade</a></li>
                     </ul>
                 </div>
             </div>

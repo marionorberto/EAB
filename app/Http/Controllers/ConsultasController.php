@@ -12,7 +12,7 @@ class ConsultasController extends Controller
      */
     public function index()
     {
-        echo  '<h1>consulta page</h1>';
+        return view('consulta.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class ConsultasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
