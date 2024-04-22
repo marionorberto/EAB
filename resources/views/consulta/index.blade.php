@@ -69,7 +69,20 @@
             </div>
         </div>
     </nav>
-
+    @if (isset($alert_success))
+    <div class="d-flex ">
+        <section class="align-self-center text-sm-center alert alert-success w-75 opacity-75 ms-auto me-auto">
+            {{$alert_success}}. <span><strong>verifique o seu email!</strong></span>
+        </section>
+    </div>
+    @endif
+    {{-- @if (isset($alert_danger)) --}}
+    {{-- <div class="d-flex ">
+        <section class="align-self-center text-sm-center alert alert-danger w-75 opacity-75 ms-auto me-auto">
+            {{$alert_danger}} <span><strong>verifique os seus dados!</strong></span>
+        </section>
+    </div>
+    @endif --}}
     <div class="consulta-container pt-5">
         <section class="consulta-section-container">
             <div class="consulta-section-left d-flex">
@@ -90,7 +103,7 @@
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Primeiro Nome</label>
-                        <input type="text" required class="text-primary input-consulta" name="lastname">
+                        <input type="text" required class="text-primary input-consulta" name="firstname">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Último Nome</label>
@@ -98,25 +111,31 @@
                     </div>
                 </div>
                 @if($errors->has('firstname'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('telefone')}}</span> <br>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('firstname')}}</span> <br>
                 @endif
                 @if($errors->has('lastname'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('telefone')}}</span> <br>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('lastname')}}</span> <br>
                 @endif
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Email</label>
-                        <input type="email" required class="text-primary input-consulta" name="email">
+                        <input type="email" class="text-primary input-consulta" name="email">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Telefone</label>
                         <input type="tel" required class="text-primary input-consulta" name="telefone">
                     </div>
                 </div>
+                @if($errors->has('email'))
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('email')}}</span> <br>
+                @endif
+                @if($errors->has('telefone'))
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('telefone')}}</span> <br>
+                @endif
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Idade</label>
-                        <input type="number" required name="idade" id="" min="0" max="90"
+                        <input type="number" required name="idade" id="" min="0" max="90" value="0"
                             class="bg-light text-primary input-consulta">
                     </div>
                     <div class="">
@@ -130,44 +149,61 @@
                             class="bg-light text-primary input-consulta">
                     </div>
                 </div>
+                @if($errors->has('idade'))
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('idade')}}</span> <br>
+                @endif
+                {{--@if($errors->has('peso'))
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('peso')}}</span> <br>
+                @endif
+                @if($errors->has('altura'))
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('altura')}}</span> <br>
+                @endif --}}
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
-                        <input type="datetime-local" required name="data_consulta" id=""
+                        <input type="datetime-local" required name="horario" id=""
                             class="p-2 bg-light text-primary border-0 input-consulta-data">
                     </div>
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Tipo de consulta</label>
-                        <select name="tipo_consulta" id="" required
+                        <select name="especialidade" required
                             class="text-primary p-2 bg-light border-0 input-consulta-data">
-                            <option value="">Oftalmologia</option>
-                            <option value="">Neurologia</option>
-                            <option value="">Cirurgia</option>
+                            <option value="" class="text-opacity-50">selecione...</option>
+                            @if (isset($especialidades_data))
+                            @foreach ($especialidades_data as $esp)
+                            <option value="{{$esp['idEspecialidade']}}">{{$esp['descricao']}}</option>
+                            @endforeach
+                            @endif
                         </select>
                     </div>
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Dotor</label>
-                        <select name="dotor" id="" required
-                            class="text-primary p-2 bg-light border-0 input-consulta-data">
-                            <option value="">Mario Norberto</option>
-                            <option value="">Sílvio Oliveira</option>
-                            <option value="">Maria José</option>
+                        <select name="doutor" required class="text-primary p-2 bg-light border-0 input-consulta-data">
+                            <option value="" class="text-opacity-50">selecione...</option>
+                            @if (isset($doutores_data))
+                            @foreach ($doutores_data as $dout)
+                            <option value="{{$dout['idDoutor']}}">{{$dout['firstname']}} {{$dout['lastname']}}</option>
+                            @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
                 <div class="d-flex flex-column gap-3">
                     <span class="text-primary">Motivo da consulta</span>
-                    <textarea name="motivo_consulta" id="" required cols="30" rows="10" class="consulta-textarea p-3"
+                    <textarea name="motivo" id="" required cols="30" rows="10" class="consulta-textarea p-3"
                         placeholder="Mensagem"></textarea>
+                    @if($errors->has('motivo'))
+                    <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('motivo')}}</span> <br>
+                    @endif
                 </div>
                 <button type="submit" class="btn rounded-0">Marcar consulta </button>
             </form>
 
         </section>
         <div class="d-flex gap-3 align-items-center justify-content-center mt-5 pt-5 mb-5 pb-5">
-            <a href="http://localhost:8000/politicas-de-privacidade" class="text-primary">Policy privacy</a> <span
-                class="text-primary fw-bolder">|</span>
-            <a href="http://localhost:8000/termos-de-uso" class="text-primary">Terms of services</a></span>
+            <a href="http://localhost:8000/politicas-de-privacidade" class="text-primary">Políticas de privacidade</a>
+            <span class="text-primary fw-bolder">|</span>
+            <a href="http://localhost:8000/termos-de-uso" class="text-primary">Termos de Uso</a></span>
         </div>
     </div>
 

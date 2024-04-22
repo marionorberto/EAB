@@ -49,8 +49,8 @@
     <!-- Start Navbar Area -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-2 col-md-3">
+            <div class="row g-2">
+                <div class="col-12 col-lg-2 col-md-2">
                     <a class="navbar-brand " href="http://localhost:8000/">
                         <i class="icofont-medical-sign-alt fs-2 fw-medium text-primary"></i>
                         <span class="fw-bolder fs-5"> EAB</span> <br> <span
@@ -60,7 +60,7 @@
                     </a>
                 </div>
 
-                <div class="col-12 col-lg-8 col-md-6">
+                <div class="col-12 col-lg-8 col-md-8">
                     <div class="navbar-toggle-btn">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -77,20 +77,52 @@
                             <li class="nav-item"><a class="nav-link" href="#service">Serviços</a></li>
                             <li class="nav-item"><a class="nav-link" href="#price">Preços</a></li>
                             <li class="nav-item"><a class="nav-link" href="#contact">Contactos</a></li>
-                            <li class="nav-item"><a class="nav-link text-secondary"
+
+                            <?php if(!Session::has('loginSession')): ?>
+                            <li class="nav-item"><a
+                                    class="nav-link text-secondary <?php echo e(request()->routeIs('login') ? 'ative' : ''); ?>"
                                     href="http://localhost:8000/login">Login</a></li>
                             <li class="nav-item d-flex gap-1 align-items-center">
                                 <a class="nav-link text-secondary"
                                     href="http://localhost:8000/register">Registrar-se</a>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-2 col-md-3 text-right">
-                    <a href="<?php echo e(route('consultas.index')); ?>" class="appointment-btn nowrap w-75 h-75">Marcar Consulta</a>
+                <div class="col-12 col-lg-2 col-md-2 text-right">
+                    <div class="d-flex gap-2">
+
+                        <a href="<?php echo e(route('consultas.index')); ?>" class="appointment-btn">Marcar Consulta </a>
+                        <?php if(Session::has('loginSession')): ?>
+                        <div class="dropdown rounded-1">
+                            <button class=" dropdown-toggle dropdown-profile-user div-profile-img" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="<?php echo e(URL::to('img/img-profile.png')); ?>" alt="profile-page-img"
+                                    class="img-profile-page">
+                                <?php echo e(@Session::get('loginSession')['username']); ?>
+
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item li-profile fw-light">
+                                    <?php echo e(@Session::get('loginSession')['username']); ?>
+
+                                </li>
+                                <li class="dropdown-item li-profile fw-light">
+                                    <?php echo e(@Session::get('loginSession')['email']); ?>
+
+                                </li>
+                                <hr class="dropdown-divider">
+                                <li><a class="dropdown-item fw-bold li-profile fw-light"
+                                        href="http://localhost:8000/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
+
         </div>
     </nav>
     <!-- End Navbar Area -->
@@ -135,10 +167,7 @@
 
                             </div>
                         </div>
-                        <div class="col-6">
-                            <img src="<?php echo e(URL::to('img/landing-image.jpg')); ?>" alt=""
-                                class="landing-image z-3 position-absolute">
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -1371,36 +1400,41 @@
                 </div>
 
                 <div class="col-lg-8 col-md-12">
-                    <form id="contactForm">
+                    <form id="" method="POST" action="<?php echo e(route('mensagem.store')); ?>">
+                        <?php echo csrf_field(); ?>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="name" id="name" required
-                                        data-error="Please enter your name" placeholder="Nome">
-                                    <div class="help-block with-errors"></div>
+                                    <input type="text" class="form-control" name="nome" id="name" required
+                                        placeholder="Nome">
+                                    
                                 </div>
                             </div>
-
+                            <?php if($errors->has('nome')): ?>
+                            <span class="text-danger"><?php echo e($errors->first('conteudo')); ?></span>
+                            <?php endif; ?>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <input type="email" class="form-control" name="email" id="email" required
-                                        data-error="Please enter your email" placeholder="Email">
-                                    <div class="help-block with-errors"></div>
+                                        placeholder="Email">
+                                    
                                 </div>
                             </div>
-
+                            <?php if($errors->has('email')): ?>
+                            <span class="text-danger"><?php echo e($errors->first('conteudo')); ?></span>
+                            <?php endif; ?>
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="4"
-                                        required data-error="Write your message" placeholder="Messagem"></textarea>
-                                    <div class="help-block with-errors"></div>
+                                    <textarea name="conteudo" class="form-control" id="message" cols="30" rows="4"
+                                        placeholder="Messagem"></textarea>
+                                    
                                 </div>
                             </div>
-
+                            <?php if($errors->has('conteudo')): ?>
+                            <span class="text-danger"><?php echo e($errors->first('conteudo')); ?></span>
+                            <?php endif; ?>
                             <div class="col-lg-12 col-md-12">
                                 <button type="submit" class="btn">Envie uma mensagem</button>
-                                <div id="msgSubmit" class="h3 text-center hidden"></div>
-                                <div class="clearfix"></div>
                             </div>
                         </div>
                     </form>

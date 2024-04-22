@@ -38,9 +38,16 @@
             </div>
         </div>
     </nav>
-
+    <?php if(isset($alert_success)): ?>
+    <div class="d-flex ">
+        <section
+            class="align-self-center text-sm-center alert alert-success w-75 text-opacity-50 bg-opacity-25 ms-auto me-auto">
+            <?php echo e($alert_success); ?> <span><strong>Faça o seu login!</strong></span>
+        </section>
+    </div>
+    <?php endif; ?>
     <section class="login-section mt-5 pt-5 mb-5 pb-5">
-        <div class="bg-primary login-section-1 mt-5 ps-4 pt-5">
+        <div class="bg-primary login-section-1 mt-5 ps-4 pt-5 pb-5">
             <a class="navbar-brand align-self-center mb-3" href="http://localhost:8000/">
                 <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
                 <span class="fw-bolder fs-5 text-light"> EAB</span> <br> <span
@@ -49,11 +56,11 @@
                     Booking</span>
             </a>
             <h1 class="text-white fw-medium mt-5">Faça o seu <strong>Login</strong></h1>
-            <h1 class="text-white fw-medium">na plataforma</h1>
+            <h1 class="text-white fw-medium mb-5">na plataforma</h1>
         </div>
         <div class="login-section-2">
-            <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Don't have a account?<a
-                    href="http://localhost:8000/register" class="">Register</a></span>
+            <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Não tem conta?<a
+                    href="http://localhost:8000/register" class="">Registar</a></span>
             <form action="http://localhost:8000/login" method="post" class="d-flex flex-column gap-3">
                 <?php echo csrf_field(); ?>
                 <h3 class="text-start">Sign In</h3>
@@ -72,19 +79,14 @@
                 <div>
                     <button type="submit" class="btn">Entrar</button>
                 </div>
-                <div class="d-flex flex-column ">
-                    <span class="text-secondary text-center fs-6">ou</span>
-                    <div>
-                        <button type="submit" class="btn-login-social-media">Google</button>
-                    </div>
-                </div>
+                
             </form>
         </div>
     </section>
     <div class="d-flex gap-3 align-items-center justify-content-center mt-5 pt-5 mb-5 pb-5">
-        <a href="http://localhost:8000/politicas-de-privacidade" class="text-primary">Policy privacy</a> <span
+        <a href="http://localhost:8000/politicas-de-privacidade" class="text-primary">Políticas de privacidade</a> <span
             class="text-primary fw-bolder">|</span>
-        <a href="http://localhost:8000/termos-de-uso" class="text-primary">Terms of services</a></span>
+        <a href="http://localhost:8000/termos-de-uso" class="text-primary">Termos de uso</a></span>
     </div>
     </div>
 

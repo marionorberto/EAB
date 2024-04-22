@@ -45,6 +45,8 @@ class loginControlador extends Controller
 
     public function logout()
     {
-        return session()->flush('loginSession');
+        session()->flush('loginSession');
+
+        return redirect()->route('login');
     }
 }

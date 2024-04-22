@@ -7,19 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Link of CSS files -->
-    <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/fontawesome.min')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/animate.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/fontawesome.min')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/animate.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.carousel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/magnific-popup.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.theme.default.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
@@ -58,37 +58,37 @@
         <div class="login-section-2">
             <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Já tem conta? <a
                     href="http://localhost:8000/login" class="">Login</a></span>
-            <form action="{{route('usuarios.store')}}" method="post" class="d-flex flex-column gap-3">
-                @csrf
+            <form action="<?php echo e(route('usuarios.store')); ?>" method="post" class="d-flex flex-column gap-3">
+                <?php echo csrf_field(); ?>
                 <h3 class="text-start">Sign Up</h3>
                 <div class="d-flex gap-2">
                     <input type="text" required placeholder="Primeiro Nome" name="firstname" class="input-login">
                     <input type="text" required placeholder="Último Nome" name="lastname" class="input-login">
                 </div>
-                @if($errors->has('firstname'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('firstname')}}</span> <br>
-                @endif
-                @if($errors->has('lastname'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('lastname')}}</span> <br>
-                @endif
+                <?php if($errors->has('firstname')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('firstname')); ?></span> <br>
+                <?php endif; ?>
+                <?php if($errors->has('lastname')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('lastname')); ?></span> <br>
+                <?php endif; ?>
                 <div class="gap-2">
                     <input type="text" required placeholder="username" name="username" class="input-login">
                 </div>
-                @if($errors->has('username'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('username')}}</span> <br>
-                @endif
+                <?php if($errors->has('username')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('username')); ?></span> <br>
+                <?php endif; ?>
                 <div class="gap-2">
                     <input type="email" required placeholder="Email Address" name="email" class="input-login">
                 </div>
-                @if($errors->has('email'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('email')}}</span> <br>
-                @endif
+                <?php if($errors->has('email')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('email')); ?></span> <br>
+                <?php endif; ?>
                 <div>
                     <input type="text" required placeholder="Telefone" name="telefone" class="input-login">
                 </div>
-                @if($errors->has('telefone'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('telefone')}}</span> <br>
-                @endif
+                <?php if($errors->has('telefone')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('telefone')); ?></span> <br>
+                <?php endif; ?>
                 <div class="login-container-bi-nacionalidade g-3">
                     <input type="text" required class="text-secondary w-50 text-start input-login"
                         placeholder="BI - Bilhete de identidade" name="bi">
@@ -100,12 +100,12 @@
                         <option value="RDC">🇨🇩 Congo Kinshasa</option>
                     </select>
                 </div>
-                @if($errors->has('naturalidade'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('naturalidade')}}</span> <br>
-                @endif
-                @if($errors->has('bi'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('bi')}}</span> <br>
-                @endif
+                <?php if($errors->has('naturalidade')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('naturalidade')); ?></span> <br>
+                <?php endif; ?>
+                <?php if($errors->has('bi')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('bi')); ?></span> <br>
+                <?php endif; ?>
                 <div>
                     <select name="sexo" required id="" class="w-25 input-login bg-white">
                         <option value="null">Selecione...</option>
@@ -113,36 +113,27 @@
                         <option value="F">F</option>
                     </select>
                 </div>
-                @if($errors->has('sexo'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('sexo')}}</span> <br>
-                @endif
+                <?php if($errors->has('sexo')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('sexo')); ?></span> <br>
+                <?php endif; ?>
                 <div class="d-flex flex-column gap-4">
                     <input type="password" required placeholder="Password" name="password" class="input-login">
                     <input type="password" required placeholder="Repeat password" name="repeat_password"
                         class="input-login">
                 </div>
-                @if($errors->has('repeat_password'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('repeat_password')}}</span> <br>
-                @endif
-                @if($errors->has('password'))
-                <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('password')}}</span> <br>
-                @endif
-                @if(isset($passwordError))
-                <span class="text-start text-danger span-error2 fs-6 mb-4">{{$passwordError}}</span>
-                @endif
+                <?php if($errors->has('repeat_password')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('repeat_password')); ?></span> <br>
+                <?php endif; ?>
+                <?php if($errors->has('password')): ?>
+                <span class="text-start text-danger span-error2 fs-6"> <?php echo e($errors->first('password')); ?></span> <br>
+                <?php endif; ?>
+                <?php if(isset($passwordError)): ?>
+                <span class="text-start text-danger span-error2 fs-6 mb-4"><?php echo e($passwordError); ?></span>
+                <?php endif; ?>
                 <div>
                     <button type="submit" class="btn">Registrar</button>
                 </div>
-                {{-- <div class="d-flex flex-column ">
-                    <span class="text-secondary text-center fs-6">ou</span>
-                    <div>
-                        <button type="submit"
-                            class="btn-login-social-media d-flex align-items-center justify-content-around gap-3">
-                            <i class="icofont-google-plus"></i>
-                            <span>Google</span>
-                        </button>
-                    </div>
-                </div> --}}
+                
             </form>
 
         </div>
@@ -160,15 +151,15 @@
 
     <!-- Link of JS files -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/owl.carousel.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{URL::to('js/form-validator.min.js')}}"></script>
-    <script src="{{URL::to('js/contact-form-script.js')}}"></script>
-    <script src="{{URL::to('js/main.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
 </body>
 
-</html>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/register.blade.php ENDPATH**/ ?>

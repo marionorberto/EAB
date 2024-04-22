@@ -90,7 +90,9 @@ class UsuariosController extends Controller
 
         $usuario->save();
 
-        return view('login');
+        return view('login', [
+            'alert_success' => 'Usuário registrado com successo. '
+        ]);
     }
 
     public function show(Usuarios $usuarios)
