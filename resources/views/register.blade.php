@@ -62,8 +62,10 @@
                 @csrf
                 <h3 class="text-start">Sign Up</h3>
                 <div class="d-flex gap-2">
-                    <input type="text" required placeholder="Primeiro Nome" name="firstname" class="input-login">
-                    <input type="text" required placeholder="Último Nome" name="lastname" class="input-login">
+                    <input type="text" required placeholder="Primeiro Nome" name="firstname"
+                        value="{{old('firstname')}}" class="input-login">
+                    <input type="text" required placeholder="Último Nome" name="lastname" value="{{old('lastname')}}"
+                        class="input-login">
                 </div>
                 @if($errors->has('firstname'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('firstname')}}</span> <br>
@@ -72,26 +74,29 @@
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('lastname')}}</span> <br>
                 @endif
                 <div class="gap-2">
-                    <input type="text" required placeholder="username" name="username" class="input-login">
+                    <input type="text" required placeholder="username" name="username" value="{{old('username')}}"
+                        class="input-login">
                 </div>
                 @if($errors->has('username'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('username')}}</span> <br>
                 @endif
                 <div class="gap-2">
-                    <input type="email" required placeholder="Email Address" name="email" class="input-login">
+                    <input type="email" required placeholder="Email Address" name="email" value="{{old('email')}}"
+                        class="input-login">
                 </div>
                 @if($errors->has('email'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('email')}}</span> <br>
                 @endif
                 <div>
-                    <input type="text" required placeholder="Telefone" name="telefone" class="input-login">
+                    <input type="text" required placeholder="Telefone" name="telefone" value="{{old('telefone')}}"
+                        class="input-login">
                 </div>
                 @if($errors->has('telefone'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('telefone')}}</span> <br>
                 @endif
                 <div class="login-container-bi-nacionalidade g-3">
                     <input type="text" required class="text-secondary w-50 text-start input-login"
-                        placeholder="BI - Bilhete de identidade" name="bi">
+                        placeholder="BI - Bilhete de identidade" name="bi" value="{{old('bi')}}">
 
                     <select name="naturalidade" required id="" class="w-50 text-start input-login bg-transparent">
                         <option value="Angolana">🇦🇴 Angola</option>
@@ -106,12 +111,13 @@
                 @if($errors->has('bi'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('bi')}}</span> <br>
                 @endif
-                <div>
+                <div class="d-flex gap-2">
                     <select name="sexo" required id="" class="w-25 input-login bg-white">
-                        <option value="null">Selecione...</option>
-                        <option value="M">M</option>
-                        <option value="F">F</option>
+                        <option value="M">M - Masculino</option>
+                        <option value="F">F - Femenino</option>
                     </select>
+                    <input type="file" name="foto" id="" placeholder="Foto" class="input-login w-50 bg-text-dark"
+                        title="Escolher">
                 </div>
                 @if($errors->has('sexo'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('sexo')}}</span> <br>
@@ -133,16 +139,7 @@
                 <div>
                     <button type="submit" class="btn">Registrar</button>
                 </div>
-                {{-- <div class="d-flex flex-column ">
-                    <span class="text-secondary text-center fs-6">ou</span>
-                    <div>
-                        <button type="submit"
-                            class="btn-login-social-media d-flex align-items-center justify-content-around gap-3">
-                            <i class="icofont-google-plus"></i>
-                            <span>Google</span>
-                        </button>
-                    </div>
-                </div> --}}
+
             </form>
 
         </div>

@@ -65,21 +65,29 @@
                 <?php echo csrf_field(); ?>
                 <h3 class="text-start">Sign In</h3>
                 <div>
-                    <input type="email" placeholder="Email Address" required class="input-login" name="email">
+                    <input type="email" value="<?php echo e(old('email')); ?>" placeholder="Email Address" required
+                        class="input-login" name="email">
                 </div>
+                <?php if($errors->has('emailError')): ?>
+                <span class="text-danger fs-6 span-error"><?php echo e($errors->first('emailError')); ?></span>
+                <?php endif; ?>
                 <?php if(isset($emailError)): ?>
                 <span class="text-danger fs-6 span-error"><?php echo e($emailError); ?></span>
                 <?php endif; ?>
                 <div>
-                    <input type="password" placeholder="Password" class="input-login" required name="password">
+                    <input type="password" placeholder="Password" class="input-login" required name="password"
+                        value="<?php echo e(old('password')); ?>">
                 </div>
+                <?php if($errors->has('passwordError')): ?>
+                <span class="text-danger fs-6 span-error"><?php echo e($errors->first('passwordError')); ?></span>
+                <?php endif; ?>
                 <?php if(isset($passwordError)): ?>
                 <span class="text-danger fs-6 span-error"><?php echo e($passwordError); ?></span>
                 <?php endif; ?>
                 <div>
                     <button type="submit" class="btn">Entrar</button>
                 </div>
-                
+
             </form>
         </div>
     </section>

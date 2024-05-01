@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConsultaMail;
+use App\Mail\Contact;
 use App\Models\Consultas;
 use App\Models\Doutores;
 use App\Models\Especialidades;
@@ -13,20 +15,26 @@ use Illuminate\Support\Facades\Log;
 
 use function Laravel\Prompts\error;
 use function Psy\debug;
+use Illuminate\Contracts\Mail\Mailable;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConsultaMarcada;
+use App\Models\User;
+use App\Notifications\consultaMarcada as NotificationsConsultaMarcada;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ConsultasController extends Controller
 {
 
-    public function __construct(private $doutores = new Doutores(), private $especialidades = new Especialidades())
+    public function __construct(private $especialidades = new Especialidades())
     {
-        $this->doutores = $doutores::all()->toArray();
         $this->especialidades = $especialidades::all()->toArray();
     }
 
     public function index()
     {
         return view('consulta.index', [
-            'doutores_data' => $this->doutores,
             'especialidades_data' => $this->especialidades,
         ]);
     }
@@ -41,16 +49,15 @@ class ConsultasController extends Controller
     public function store(Request $request)
     {
         $status = ['Pendente', 'Feita'];
-        $this->validate(
-            $request,
+
+        $validator = Validator::make(
+            $request->all(),
             [
                 'firstname' => 'required|min:3|max:30',
                 'lastname' => 'required|min:3|max:30',
                 'email' => 'required|max:40|email',
                 'telefone' => 'required|min:9|max:15',
                 'idade' => 'required|min:0|max:90',
-                // 'peso' => 'required|min:2|max:300',
-                // 'altura' => 'required|min:0|max:3',
                 'motivo' => 'required|min:10'
             ],
             [
@@ -69,20 +76,22 @@ class ConsultasController extends Controller
                 'idade.required' => 'Idade é um campo requerido.',
                 'idade.min' => 'idade deve estar entre 0 à 90 anos.',
                 'idade.max' => 'idade deve estar entre 0 à 90 anos.',
-                // 'peso.required' => 'Peso é um campo requerido.',
-                // 'peso.min' => 'peso deve estar entre 2 à 300 kg.',
-                // 'peso.max' => 'peso deve estar entre 2 à 300 kg.',
-                // 'altura.required' => 'Altura é um campo requerido.',
-                // 'altura.min' => 'altura deve estar entre 0.60 à 3 metros.',
-                // 'altura.max' => 'altura deve estar entre 0.60 à 3 metros.',
                 'motivo.required' => 'Motivo da consulta é campo requerido.',
                 'motivo.min' => 'Motivo da consulta deve ter no mínimo 10 caracteres.',
             ]
         );
 
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $paciente = new Pacientes();
         $telefone = new Telefone();
         $consulta = new Consultas();
+
         $paciente->firstname = $request->firstname;
         $paciente->lastname = $request->lastname;
         $paciente->email = $request->email;
@@ -98,21 +107,36 @@ class ConsultasController extends Controller
         $telefone->idPaciente = $idPaciente;
         $telefone->save();
 
+
+
+
         $consulta->status = $status[0];
         $consulta->motivoDaConsulta = $request->motivo;
         $consulta->Horario = $request->horario;
         $consulta->idEspecialidade = $request->especialidade;
-        $consulta->idDoutor = $request->doutor;
 
+        $arrayDoutorName = explode(" ", $request->doutor);
+        $firstname = $arrayDoutorName[0];
+        $lastname = $arrayDoutorName[1];
+
+        $resultado = DB::connection('mysql')->select("
+          select idDoutor
+            from Doutores
+            where Doutores.firstname='$firstname' and Doutores.lastname='$lastname'
+        ");
+
+        if (!empty($resultado)) {
+            $primeiroResultado = $resultado[0];
+
+            $idDoutor = $primeiroResultado->idDoutor;
+        } else
+            return;
+
+        $consulta->idDoutor = $idDoutor;
         $consulta->save();
 
-        // if(error())
-
-        Log::debug('marquei');
         return view('consulta.index', [
             'alert_success' => 'Consulta marcada com sucesso',
-            // 'alert_danger' => 'Erro ao registrar a consulta.',
-            'doutores_data' => $this->doutores,
             'especialidades_data' => $this->especialidades
         ]);
     }
@@ -135,5 +159,20 @@ class ConsultasController extends Controller
     public function destroy(Consultas $consultas)
     {
         //
+    }
+
+    public function getAllDoutores(Request $request)
+    {
+
+        $doutores = DB::connection('mysql')->select("
+          select Doutores.firstname, Doutores.lastname
+            from Doutores
+            inner join Especialidade
+            on Doutores.idEspecialidade = Especialidade.idEspecialidade
+            where Especialidade.idEspecialidade='$request->data'
+        ");
+
+        return response()->json($doutores);
+        // dd($doutores[0]);
     }
 }

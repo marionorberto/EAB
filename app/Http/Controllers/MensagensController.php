@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Contact;
 use App\Models\Mensagens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -56,22 +57,21 @@ class MensagensController extends Controller
         $mensagens->conteudo = $request->conteudo;
         $mensagens->save();
 
-        Mail::send(
-            'home.blade.php',
-            ['var_email_sent' => 'email sent successfully'],
-            function ($message) {
-                $message->from('');
-                $message->sender('');
-                $message->to('');
-                $message->subject('');
-            }
-        );
+        Mail::to('marionorberto2018@gmail.com', 'Mário Norberto')->send(new Contact(
+            [
+                'fromName' => $request->nome,
+                'fromEmail' => $request->email,
+                'subject' => 'Mensagem de availiação da aplicação',
+                'message' => $request->conteudo
+            ]
+        ));
+
 
         return view('home');
     }
 
     /**
-     * Display the specified resource.
+     * Display the speclified resource.
      */
     public function show(Mensagens $mensagens)
     {

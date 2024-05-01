@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsuariosController extends Controller
 {
@@ -29,8 +30,8 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
+        $validator = Validator::make(
+            $request->all(),
             [
                 'firstname' => 'required|min:3|max:30',
                 'lastname' => 'required|min:3|max:30',
@@ -72,6 +73,12 @@ class UsuariosController extends Controller
                 'bi.unique' => 'BI já cadastrado',
             ]
         );
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $usuario = new Usuarios();
 

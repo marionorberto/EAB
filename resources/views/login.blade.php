@@ -65,26 +65,29 @@
                 @csrf
                 <h3 class="text-start">Sign In</h3>
                 <div>
-                    <input type="email" placeholder="Email Address" required class="input-login" name="email">
+                    <input type="email" value="{{old('email')}}" placeholder="Email Address" required
+                        class="input-login" name="email">
                 </div>
+                @if ($errors->has('emailError'))
+                <span class="text-danger fs-6 span-error">{{$errors->first('emailError')}}</span>
+                @endif
                 @if (isset($emailError))
                 <span class="text-danger fs-6 span-error">{{$emailError}}</span>
                 @endif
                 <div>
-                    <input type="password" placeholder="Password" class="input-login" required name="password">
+                    <input type="password" placeholder="Password" class="input-login" required name="password"
+                        value="{{old('password')}}">
                 </div>
+                @if ($errors->has('passwordError'))
+                <span class="text-danger fs-6 span-error">{{$errors->first('passwordError')}}</span>
+                @endif
                 @if (isset($passwordError))
                 <span class="text-danger fs-6 span-error">{{$passwordError}}</span>
                 @endif
                 <div>
                     <button type="submit" class="btn">Entrar</button>
                 </div>
-                {{-- <div class="d-flex flex-column ">
-                    <span class="text-secondary text-center fs-6">ou</span>
-                    <div>
-                        <button type="submit" class="btn-login-social-media">Google</button>
-                    </div>
-                </div> --}}
+
             </form>
         </div>
     </section>

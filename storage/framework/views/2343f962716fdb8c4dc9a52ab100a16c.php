@@ -2,11 +2,9 @@
 <html lang="pt-br">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Link of CSS files -->
     <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/fontawesome.min')); ?>">
@@ -26,8 +24,6 @@
 
 <body class="pb-4 body-login">
 
-
-    <!-- Start Navbar Area -->
     <nav class="bg-light mb-5">
         <div class="container">
             <div class="row">
@@ -76,8 +72,13 @@
         </section>
     </div>
     <?php endif; ?>
-    
-    
+    <?php if(count($errors) > 0): ?>
+    <div class="d-flex ">
+        <section class="align-self-center text-sm-center alert alert-danger w-75 opacity-75 ms-auto me-auto">
+            Algum erro tento registrar. <span><strong>Por favor verifique os seus dados!</strong></span>
+        </section>
+    </div>
+    <?php endif; ?>
     <div class="consulta-container pt-5">
         <section class="consulta-section-container">
             <div class="consulta-section-left d-flex">
@@ -89,8 +90,8 @@
                         Booking</span>
                 </a>
             </div>
-            <form action="<?php echo e(route('consultas.store')); ?>" method="post"
-                class="consulta-section-right d-flex flex-column gap-3">
+            <form action="<?php echo e(route('consultas.store')); ?>" method="post" class="
+                consulta-section-right d-flex flex-column gap-3">
                 <?php echo csrf_field(); ?>
                 <h1 class="text-decoration-underline fs-1 text-primary text-center pb-4">
                     Consulta Online no EAB
@@ -98,11 +99,13 @@
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Primeiro Nome</label>
-                        <input type="text" required class="text-primary input-consulta" name="firstname">
+                        <input type="text" required class="text-primary input-consulta" value="<?php echo e(old('firstname')); ?>"
+                            name="firstname">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Último Nome</label>
-                        <input type="text" required class="text-primary input-consulta" name="lastname">
+                        <input type="text" required value="<?php echo e(old('lastname')); ?>" class="text-primary input-consulta"
+                            name="lastname">
                     </div>
                 </div>
                 <?php if($errors->has('firstname')): ?>
@@ -114,11 +117,12 @@
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Email</label>
-                        <input type="email" class="text-primary input-consulta" name="email">
+                        <input type="email" class="text-primary input-consulta" value="<?php echo e(old('email')); ?>" name="email">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Telefone</label>
-                        <input type="tel" required class="text-primary input-consulta" name="telefone">
+                        <input type="tel" required class="text-primary input-consulta" value=" <?php echo e(old('telefone')); ?>"
+                            name="telefone">
                     </div>
                 </div>
                 <?php if($errors->has('email')): ?>
@@ -130,34 +134,34 @@
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Idade</label>
-                        <input type="number" required name="idade" id="" min="0" max="90" value="0"
-                            class="bg-light text-primary input-consulta">
+                        <input type="number" required name="idade" value="<?php echo e(old('idade')); ?>" id="" min="0" max="90"
+                            value="0" class="bg-light text-primary input-consulta">
                     </div>
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Peso <sub>(Kg)</sub></label>
-                        <input type="number" required class="text-primary input-consulta" max="300" min="2" step=".1"
-                            name="peso">
+                        <input type="number" required class="text-primary input-consulta" value="<?php echo e(old('peso')); ?>"
+                            max="300" min="2" step=".1" name="peso">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Altura <sub>(m)</sub></label>
-                        <input type="number" required name="altura" id="" min="0.60" max="3" step=".01"
-                            class="bg-light text-primary input-consulta">
+                        <input type="number" required name="altura" value="<?php echo e(old('altura')); ?>" id="" min="0.60" max="3"
+                            step=".01" class="bg-light text-primary input-consulta">
                     </div>
                 </div>
                 <?php if($errors->has('idade')): ?>
                 <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('idade')); ?></span> <br>
                 <?php endif; ?>
-                
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
-                        <input type="datetime-local" required name="horario" id=""
+                        <input type="datetime-local" min="2024-05-01T06:00" value="<?php echo e(old('horario')); ?>"
+                            max="2024-12-31T12:00" pattern="[0-9]{2}:[0-9]{2}" required name="horario" id=""
                             class="p-2 bg-light text-primary border-0 input-consulta-data">
                     </div>
                     <div class="">
-                        <label for="" class="text-primary fw-light d-block">Tipo de consulta</label>
-                        <select name="especialidade" required
-                            class="text-primary p-2 bg-light border-0 input-consulta-data">
+                        <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>
+                        <select name="especialidade" id="especialidade" onchange="carregarDados()" required
+                            <?php echo e(old('especialidade')); ?> class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
                             <?php if(isset($especialidades_data)): ?>
                             <?php $__currentLoopData = $especialidades_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $esp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -167,21 +171,17 @@
                         </select>
                     </div>
                     <div class="">
-                        <label for="" class="text-primary fw-light d-block">Dotor</label>
-                        <select name="doutor" required class="text-primary p-2 bg-light border-0 input-consulta-data">
+                        <label for="doutor" class="text-primary fw-light d-block">Doutor</label>
+                        <select name="doutor" <?php echo e(old('doutor')); ?> required id="doutor"
+                            class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
-                            <?php if(isset($doutores_data)): ?>
-                            <?php $__currentLoopData = $doutores_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dout): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($dout['idDoutor']); ?>"><?php echo e($dout['firstname']); ?> <?php echo e($dout['lastname']); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
                         </select>
                     </div>
                 </div>
                 <div class="d-flex flex-column gap-3">
                     <span class="text-primary">Motivo da consulta</span>
                     <textarea name="motivo" id="" required cols="30" rows="10" class="consulta-textarea p-3"
-                        placeholder="Mensagem"></textarea>
+                        placeholder="Mensagem"><?php echo e(old('motivo')); ?></textarea>
                     <?php if($errors->has('motivo')): ?>
                     <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('motivo')); ?></span> <br>
                     <?php endif; ?>
@@ -207,6 +207,31 @@
     <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function carregarDados() {
+        var valorSelecionado = $('#especialidade').val();
+
+        $.ajax({
+            url: "http://localhost:8000/getData",
+            type: "GET",
+            data: { data: valorSelecionado },
+            success: function(response) {
+                $('#doutor').empty();
+                $.each(response, function(index, item) {
+                    $('#doutor').append($('<option>', {
+                        value: item.firstname + ' ' +item.lastname,
+                        text: item.firstname + ' ' +item.lastname
+                    }));
+                });
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+    </script>
 </body>
 
 </html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/index.blade.php ENDPATH**/ ?>

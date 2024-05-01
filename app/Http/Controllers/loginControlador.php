@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
+use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use function Laravel\Prompts\error;
 
 class loginControlador extends Controller
 {
@@ -23,14 +27,23 @@ class loginControlador extends Controller
 
         $usuario = $usuarios::where('email', $request->email)->get()->toArray();
 
-        if (Count($usuario) <= 0)
-            return view('login', ['emailError' => 'Email inválido']);
+        if (Count($usuario) <= 0) {
+
+            return redirect()
+                ->back()
+                ->withErrors('Email Inválido', 'emailError')
+                ->withInput();
+        }
+
 
 
         $isPasswordRight = password_verify($request->password, $usuario[0]['pass']);
 
         if (!$isPasswordRight)
-            return view('login', ['passwordError' => 'Password inválida']);
+            return redirect()
+                ->back()
+                ->withErrors('password inválida', 'passwordError')
+                ->withInput();
 
         session()->put(
             'loginSession',
@@ -40,7 +53,8 @@ class loginControlador extends Controller
             ]
         );
 
-        return redirect()->route('consultas.index');
+        return redirect()
+            ->route('consultas.index');
     }
 
     public function logout()

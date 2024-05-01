@@ -1,7 +1,4 @@
-[] - Upload all pictures
-[] - Make consult page
-[] - login & registration
-[] - upload image profile
-[] - Authentication(Search for the best way in laravel)
 [] - Email message for notification
-
+[] - upload image profile
+[] - Upload all pictures
+[] - Other auth strategy

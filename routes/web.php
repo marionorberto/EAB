@@ -49,3 +49,4 @@ Route::resource('pacientes_consultas', PacienteConsultasController::class);
 Route::resource('telefone', TelefoneController::class);
 Route::resource('tipo_consulta', TipoConsultasController::class);
 Route::resource('mensagem', MensagensController::class);
+Route::get('getData', [ConsultasController::class, 'getAllDoutores']);

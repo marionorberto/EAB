@@ -83,7 +83,7 @@
                                     class="nav-link text-secondary {{request()->routeIs('login') ? 'ative' : ''}}"
                                     href="http://localhost:8000/login">Login</a></li>
                             <li class="nav-item d-flex gap-1 align-items-center">
-                                <a class="nav-link text-secondary"
+                                <a class="nav-link text-dark border-bottom-3"
                                     href="http://localhost:8000/register">Registrar-se</a>
                             </li>
                             @endif
@@ -93,12 +93,15 @@
 
                 <div class="col-12 col-lg-2 col-md-2 text-right">
                     <div class="d-flex gap-2">
-
+                        @if (Session::has('loginSession'))
+                        <a href="{{route('consultas.index')}}" class="appointment-btn d-none">Marcar Consulta </a>
+                        @else
                         <a href="{{route('consultas.index')}}" class="appointment-btn">Marcar Consulta </a>
+                        @endif
                         @if (Session::has('loginSession'))
                         <div class="dropdown rounded-1">
-                            <button class=" dropdown-toggle dropdown-profile-user div-profile-img" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class=" dropdown-toggle dropdown-profile-user div-profile-img nav-link"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{URL::to('img/img-profile.png')}}" alt="profile-page-img"
                                     class="img-profile-page">
                                 {{@Session::get('loginSession')['username']}}
@@ -109,7 +112,7 @@
                                     @Session::get('loginSession')['username']
                                     }}
                                 </li>
-                                <li class="dropdown-item li-profile fw-light">
+                                <li class="dropdown-item li-profile fw-medium">
                                     {{
                                     @Session::get('loginSession')['email']
                                     }}
