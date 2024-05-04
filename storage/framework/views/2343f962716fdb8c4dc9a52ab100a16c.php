@@ -154,9 +154,24 @@
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
-                        <input type="datetime-local" min="2024-05-01T06:00" value="<?php echo e(old('horario')); ?>"
-                            max="2024-12-31T12:00" pattern="[0-9]{2}:[0-9]{2}" required name="horario" id=""
-                            class="p-2 bg-light text-primary border-0 input-consulta-data">
+                        <input type="date" required min="2024-05-01" value="<?php echo e(old('data')); ?>" max="2024-12-31"
+                            name="data" id="" class="p-2 bg-light text-primary border-0 input-consulta-data">
+                        <select name="hora" id="hora" pattern="[0-9]{2}:[0-9]{2}" class="text-primary input-consulta"
+                            required>
+                            <option value="06:00" class="text-secondary">06:00 AM</option>
+                            <option value="06:30" class="text-secondary">06:30 AM</option>
+                            <option value="07:00" class="text-secondary">07:00 AM</option>
+                            <option value="07:30" class="text-secondary">07:30 AM</option>
+                            <option value="08:00" class="text-secondary">08:00 AM</option>
+                            <option value="08:30" class="text-secondary">08:30 AM</option>
+                            <option value="09:00" class="text-secondary">09:00 AM</option>
+                            <option value="09:30" class="text-secondary">09:30 AM</option>
+                            <option value="10:00" class="text-secondary">10:00 AM</option>
+                            <option value="10:30" class="text-secondary">10:30 AM</option>
+                            <option value="11:00" class="text-secondary">11:00 AM</option>
+                            <option value="11:30" class="text-secondary">11:30 AM</option>
+                            <option value="12:00" class="text-secondary">12:00 AM</option>
+                        </select>
                     </div>
                     <div class="">
                         <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>

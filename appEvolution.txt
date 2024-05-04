@@ -2,3 +2,6 @@
 [] - upload image profile
 [] - Upload all pictures
 [] - Other auth strategy
+
+
+como trabalhar com strings no laravel?  split | slice

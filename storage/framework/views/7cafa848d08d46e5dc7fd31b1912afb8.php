@@ -102,22 +102,26 @@
                         <div class="dropdown rounded-1">
                             <button class=" dropdown-toggle dropdown-profile-user div-profile-img nav-link"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="<?php echo e(URL::to('img/img-profile.png')); ?>" alt="profile-page-img"
-                                    class="img-profile-page">
+                                <img <?php if(null !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
+                                    src="<?php echo e(env('APP_URL')); ?>/storage/app/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>"
+                                    <?php endif; ?> alt="profile-page-img" class="img-profile-page">
                                 <?php echo e(@Session::get('loginSession')['username']); ?>
 
                             </button>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item li-profile fw-light">
+                                <li>
+                                    <a href="#" class="dropdown-item li-profile fw-ligh fs-6">Minhas Consultas</a>
+                                </li>
+                                <li class="dropdown-item li-profile fw-light fs-6">
                                     <?php echo e(@Session::get('loginSession')['username']); ?>
 
                                 </li>
-                                <li class="dropdown-item li-profile fw-medium">
+                                <li class="dropdown-item li-profile fw-medium fs-6">
                                     <?php echo e(@Session::get('loginSession')['email']); ?>
 
                                 </li>
                                 <hr class="dropdown-divider">
-                                <li><a class="dropdown-item fw-bold li-profile fw-light"
+                                <li><a class="dropdown-item fw-bold li-profile fw-light fs-6"
                                         href="http://localhost:8000/logout">Logout</a></li>
                             </ul>
                         </div>
@@ -1482,4 +1486,5 @@
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
 </body>
 
-</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuarios;
 use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 use function Laravel\Prompts\error;
@@ -45,11 +46,19 @@ class loginControlador extends Controller
                 ->withErrors('password inválida', 'passwordError')
                 ->withInput();
 
+        $auxUsuario = $usuario[0]['idUsuario'];
+        $urlUsuario = DB::connection()->select("
+            select url
+            from UsuarioImagens
+            where idUsuario= '$auxUsuario'
+        ");
+
         session()->put(
             'loginSession',
             [
                 'username' =>  $usuario[0]['username'],
                 'email' =>  $usuario[0]['email'],
+                'urlImgUsuario' => $urlUsuario[0]->url
             ]
         );
 

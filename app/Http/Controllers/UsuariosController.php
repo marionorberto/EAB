@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserImages;
+use App\Models\UsuarioImagem;
 use App\Models\Usuarios;
+// use App\Models\
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Stringable;
 
 class UsuariosController extends Controller
 {
@@ -30,6 +36,7 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -94,8 +101,38 @@ class UsuariosController extends Controller
         $usuario->email = $request->email;
         $usuario->pass = Hash::make($request->password);
         $usuario->naturalidade = $request->naturalidade;
-
         $usuario->save();
+
+        // store image in UserImages table:
+        $userImages = new UsuarioImagem();
+
+        $idUsuario = DB::connection()
+            ->select("
+            select Usuarios.idUsuario
+            from Usuarios
+            where Usuarios.BI = '$request->bi'
+        ");
+
+        $userImages->extension = $request->file('fotoFile')
+            ->getClientOriginalExtension();
+
+        $originalNameImage = $request->file('fotoFile')->getClientOriginalName();
+
+        if (str_ends_with(substr($originalNameImage, 0, -4), '.')) {
+            $basenameImage = substr($originalNameImage, 0,  -5);
+        } else {
+            $basenameImage = substr($originalNameImage, 0, -4);
+        }
+
+        $userImages->idUsuario = $idUsuario[0]->idUsuario;
+        $userImages->filename = $request->file('fotoFile')
+            ->getClientOriginalName();
+
+        $userImages->basename = $basenameImage;
+        $userImages->url = $request->file('fotoFile')
+            ->store('userPhotos');
+
+        $userImages->save();
 
         return view('login', [
             'alert_success' => 'Usuário registrado com successo. '
@@ -104,7 +141,6 @@ class UsuariosController extends Controller
 
     public function show(Usuarios $usuarios)
     {
-        //
     }
 
     public function edit(Usuarios $usuarios)

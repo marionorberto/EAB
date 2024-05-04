@@ -58,7 +58,8 @@
         <div class="login-section-2">
             <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Já tem conta? <a
                     href="http://localhost:8000/login" class="">Login</a></span>
-            <form action="{{route('usuarios.store')}}" method="post" class="d-flex flex-column gap-3">
+            <form action="{{route('usuarios.store')}}" enctype="multipart/form-data" method="post"
+                class="d-flex flex-column gap-3">
                 @csrf
                 <h3 class="text-start">Sign Up</h3>
                 <div class="d-flex gap-2">
@@ -116,8 +117,8 @@
                         <option value="M">M - Masculino</option>
                         <option value="F">F - Femenino</option>
                     </select>
-                    <input type="file" name="foto" id="" placeholder="Foto" class="input-login w-50 bg-text-dark"
-                        title="Escolher">
+                    <input type="file" name="fotoFile" id="fotoFile" placeholder="Foto"
+                        class="input-login w-50 bg-text-dark" required title="Escolher">
                 </div>
                 @if($errors->has('sexo'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('sexo')}}</span> <br>

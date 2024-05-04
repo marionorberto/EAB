@@ -39,7 +39,6 @@ class ConsultasController extends Controller
         ]);
     }
 
-
     public function create()
     {
         //
@@ -88,6 +87,7 @@ class ConsultasController extends Controller
                 ->withInput();
         }
 
+
         $paciente = new Pacientes();
         $telefone = new Telefone();
         $consulta = new Consultas();
@@ -107,12 +107,10 @@ class ConsultasController extends Controller
         $telefone->idPaciente = $idPaciente;
         $telefone->save();
 
-
-
-
         $consulta->status = $status[0];
         $consulta->motivoDaConsulta = $request->motivo;
-        $consulta->Horario = $request->horario;
+        $consulta->Horario = $request->data . 'T' . $request->hora;
+
         $consulta->idEspecialidade = $request->especialidade;
 
         $arrayDoutorName = explode(" ", $request->doutor);
@@ -129,8 +127,7 @@ class ConsultasController extends Controller
             $primeiroResultado = $resultado[0];
 
             $idDoutor = $primeiroResultado->idDoutor;
-        } else
-            return;
+        }
 
         $consulta->idDoutor = $idDoutor;
         $consulta->save();
@@ -143,22 +140,18 @@ class ConsultasController extends Controller
 
     public function show(Consultas $consultas)
     {
-        //
     }
 
     public function edit(Consultas $consultas)
     {
-        //
     }
 
     public function update(Request $request, Consultas $consultas)
     {
-        //
     }
 
     public function destroy(Consultas $consultas)
     {
-        //
     }
 
     public function getAllDoutores(Request $request)
@@ -173,6 +166,20 @@ class ConsultasController extends Controller
         ");
 
         return response()->json($doutores);
-        // dd($doutores[0]);
+    }
+
+    private function verifyDataConsulta($horario, $doutorFirstname, $doutorLastname)
+    {
+
+        $doutores = DB::connection('mysql')->select("
+            select Consultas.horario,
+            from Consultas
+            inner join Doutores
+            on Consultas.idDoutor = Doutores.idDoutor
+            where
+
+        ");
+
+        return $doutores;
     }
 }
