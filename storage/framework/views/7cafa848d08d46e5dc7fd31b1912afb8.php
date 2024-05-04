@@ -103,8 +103,8 @@
                             <button class=" dropdown-toggle dropdown-profile-user div-profile-img nav-link"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img <?php if(null !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
-                                    src="<?php echo e(env('APP_URL')); ?>/storage/app/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>"
-                                    <?php endif; ?> alt="profile-page-img" class="img-profile-page">
+                                    src="<?php echo e(env('APP_URL')); ?>:8000/storage/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>"
+                                    <?php endif; ?> alt=" profile-page-img" class="img-profile-page">
                                 <?php echo e(@Session::get('loginSession')['username']); ?>
 
                             </button>

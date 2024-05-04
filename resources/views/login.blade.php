@@ -68,21 +68,15 @@
                     <input type="email" value="{{old('email')}}" placeholder="Email Address" required
                         class="input-login" name="email">
                 </div>
-                @if ($errors->has('emailError'))
-                <span class="text-danger fs-6 span-error">{{$errors->first('emailError')}}</span>
-                @endif
-                @if (isset($emailError))
-                <span class="text-danger fs-6 span-error">{{$emailError}}</span>
+                @if (null !== (session('emailError')))
+                <span class="text-danger fs-6 span-error">{{session('emailError')}}</span>
                 @endif
                 <div>
                     <input type="password" placeholder="Password" class="input-login" required name="password"
                         value="{{old('password')}}">
                 </div>
-                @if ($errors->has('passwordError'))
-                <span class="text-danger fs-6 span-error">{{$errors->first('passwordError')}}</span>
-                @endif
-                @if (isset($passwordError))
-                <span class="text-danger fs-6 span-error">{{$passwordError}}</span>
+                @if (null !== session('passwordError'))
+                <span class="text-danger fs-6 span-error">{{session('passwordError')}}</span>
                 @endif
                 <div>
                     <button type="submit" class="btn">Entrar</button>

@@ -103,8 +103,8 @@
                             <button class=" dropdown-toggle dropdown-profile-user div-profile-img nav-link"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
-                                    src="{{env('APP_URL')}}/storage/app/{{ @Session::get('loginSession')['urlImgUsuario']}}"
-                                    @endif alt="profile-page-img" class="img-profile-page">
+                                    src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}"
+                                    @endif alt=" profile-page-img" class="img-profile-page">
                                 {{@Session::get('loginSession')['username']}}
                             </button>
                             <ul class="dropdown-menu">

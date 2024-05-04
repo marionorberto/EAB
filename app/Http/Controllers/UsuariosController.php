@@ -129,8 +129,8 @@ class UsuariosController extends Controller
             ->getClientOriginalName();
 
         $userImages->basename = $basenameImage;
-        $userImages->url = $request->file('fotoFile')
-            ->store('userPhotos');
+        $userImages->url =
+            $request->file('fotoFile')->store('userPhotos');
 
         $userImages->save();
 

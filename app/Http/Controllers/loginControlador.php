@@ -32,19 +32,18 @@ class loginControlador extends Controller
 
             return redirect()
                 ->back()
-                ->withErrors('Email Inválido', 'emailError')
-                ->withInput();
+                ->with(["emailError" => "Email inválido"])
+                ->withInput($request->all());
         }
-
-
 
         $isPasswordRight = password_verify($request->password, $usuario[0]['pass']);
 
-        if (!$isPasswordRight)
+        if (!$isPasswordRight) {
             return redirect()
                 ->back()
-                ->withErrors('password inválida', 'passwordError')
-                ->withInput();
+                ->with(["passwordError" => "Password inválida"])
+                ->withInput($request->all());
+        }
 
         $auxUsuario = $usuario[0]['idUsuario'];
         $urlUsuario = DB::connection()->select("
@@ -58,7 +57,7 @@ class loginControlador extends Controller
             [
                 'username' =>  $usuario[0]['username'],
                 'email' =>  $usuario[0]['email'],
-                'urlImgUsuario' => $urlUsuario[0]->url
+                'urlImgUsuario' =>  $urlUsuario[0]->url
             ]
         );
 
