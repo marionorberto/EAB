@@ -19,8 +19,10 @@ use Illuminate\Contracts\Mail\Mailable;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConsultaMarcada;
+use App\Models\PacienteConsultas;
 use App\Models\User;
 use App\Notifications\consultaMarcada as NotificationsConsultaMarcada;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,15 +41,8 @@ class ConsultasController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        //
-    }
-
-
     public function store(Request $request)
     {
-        $status = ['Pendente', 'Feita'];
 
         $validator = Validator::make(
             $request->all(),
@@ -100,37 +95,51 @@ class ConsultasController extends Controller
         $paciente->altura = $request->altura;
         $paciente->save();
 
-        $idPaciente = $paciente::where('lastname', $request->lastname)
-            ->get()->last()->toArray()['idPaciente'];
+        $idPaciente = DB::connection()->select("
+            select idPaciente from Pacientes
+            where firstname = '$request->firstname'
+            and lastname = '$request->lastname'
+        ");
 
         $telefone->telefone = $request->telefone;
-        $telefone->idPaciente = $idPaciente;
+        $telefone->idPaciente = $idPaciente[0]->idPaciente;
         $telefone->save();
 
-        $consulta->status = $status[0];
-        $consulta->motivoDaConsulta = $request->motivo;
-        $consulta->Horario = $request->data . 'T' . $request->hora;
-
+        $consulta->motivo_consulta = $request->motivo;
+        $consulta->horario = $request->data . 'T' . $request->hora;
         $consulta->idEspecialidade = $request->especialidade;
 
         $arrayDoutorName = explode(" ", $request->doutor);
-        $firstname = $arrayDoutorName[0];
-        $lastname = $arrayDoutorName[1];
+        // $firstname = $arrayDoutorName[0];
+        // $lastname = $arrayDoutorName[1];
 
         $resultado = DB::connection('mysql')->select("
-          select idDoutor
-            from Doutores
-            where Doutores.firstname='$firstname' and Doutores.lastname='$lastname'
+        select idDoutor
+        from Doutores
+        where Doutores.firstname='$arrayDoutorName[0]'
+        and Doutores.lastname='$arrayDoutorName[1]'
         ");
 
         if (!empty($resultado)) {
             $primeiroResultado = $resultado[0];
-
             $idDoutor = $primeiroResultado->idDoutor;
         }
 
+        $emailUsuario = Session('loginSession')['email'];
+        $idUsuario = DB::connection()
+            ->select("
+            select idUsuario
+            from Usuarios
+            where email = '$emailUsuario'
+        ");
+
+        $consulta->idUsuario = $idUsuario[0]->idUsuario;
         $consulta->idDoutor = $idDoutor;
         $consulta->save();
+
+        //store in PacienteConsulta table (see how to get id after saving):
+
+
 
         return view('consulta.index', [
             'alert_success' => 'Consulta marcada com sucesso',
@@ -172,14 +181,42 @@ class ConsultasController extends Controller
     {
 
         $doutores = DB::connection('mysql')->select("
-            select Consultas.horario,
-            from Consultas
+            select consulta_marcada.horario,
+            from consulta_marcada
             inner join Doutores
-            on Consultas.idDoutor = Doutores.idDoutor
+            on consulta_marcada.idDoutor = Doutores.idDoutor
             where
 
         ");
 
         return $doutores;
+    }
+
+    public function minhasConsultas()
+    {
+        $allConsultas = [
+            0 => [
+                "motivo" => "aadaada  dadaad",
+                "data" => "08-02-2000 09:00"
+            ],
+            1 => [
+                "motivo" => "aadaada  dadaad",
+                "data" => "08-02-2000 09:00"
+            ],
+            2 => [
+                "motivo" => "aadaada  dadaad",
+                "data" => "08-02-2000 09:00"
+            ],
+            3 => [
+                "motivo" => "aadaada  dadaad",
+                "data" => "08-02-2000 09:00"
+            ],
+            4 => [
+                "motivo" => "aadaada  dadaad",
+                "data" => "08-02-2000 09:00"
+            ],
+        ];
+
+        return view('consulta.minhas-consultas');
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AgendamentoConsultasController;
-use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ConsultasController;
+use App\Http\Controllers\DoutoresController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\EstadoConsultasController;
 use App\Http\Controllers\HorariosController;
@@ -50,3 +50,12 @@ Route::resource('telefone', TelefoneController::class);
 Route::resource('tipo_consulta', TipoConsultasController::class);
 Route::resource('mensagem', MensagensController::class);
 Route::get('getData', [ConsultasController::class, 'getAllDoutores']);
+Route::get('minhas-consultas', [ConsultasController::class, 'minhasConsultas'])
+    ->name('minhas-consultas');
+
+Route::get('dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
+
+
+Route::resource('doutores', DoutoresController::class);

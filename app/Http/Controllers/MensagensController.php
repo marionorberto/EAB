@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Contact;
+use App\Mail\UserMessage;
 use App\Models\Mensagens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -57,13 +57,13 @@ class MensagensController extends Controller
         $mensagens->conteudo = $request->conteudo;
         $mensagens->save();
 
-        Mail::to('marionorberto2018@gmail.com', 'Mário Norberto')->send(new Contact(
-            [
-                'fromName' => $request->nome,
-                'fromEmail' => $request->email,
-                'subject' => 'Mensagem de availiação da aplicação',
-                'message' => $request->conteudo
-            ]
+        $fromEmail = $request->email;
+        $subject = 'Mensagem de availiação da aplicação';
+        $message = $request->conteudo;
+
+        Mail::to($fromEmail)->send(new UserMessage(
+            $message,
+            $subject,
         ));
 
 

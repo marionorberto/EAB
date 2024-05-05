@@ -72,10 +72,11 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#about">Sobre</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{route('doutores.create')}}">Ser
+                                    colaborador</a></li>
                             <li class="nav-item"><a class="nav-link" href="#department">Departamentos</a></li>
                             <li class="nav-item"><a class="nav-link" href="#service">Serviços</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#price">Preços</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#about">Sobre</a></li>
                             <li class="nav-item"><a class="nav-link" href="#contact">Contactos</a></li>
 
                             @if (!Session::has('loginSession'))
@@ -109,7 +110,16 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#" class="dropdown-item li-profile fw-ligh fs-6">Minhas Consultas</a>
+                                    <a href="{{route('minhas-consultas')}}"
+                                        class="dropdown-item li-profile fw-ligh fs-6">Minhas Consultas</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('dashboard')}}"
+                                        class="dropdown-item li-profile fw-ligh fs-6">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('doutores.create')}}"
+                                        class="dropdown-item li-profile fw-ligh fs-6">Registar Doutores</a>
                                 </li>
                                 <li class="dropdown-item li-profile fw-light fs-6">
                                     {{
@@ -317,7 +327,7 @@
                             <li>Serviços disponível 24/24</li>
                         </ul>
 
-                        <a href="#service" class="btn"> Nossos trabalhos</a>
+                        <a href="{{route('doutores.create')}}" class="btn"> Ser colaborador</a>
                     </div>
                 </div>
             </div>
@@ -1460,8 +1470,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
-                    <p>© EAB - Efortless Appointment Booking é patrocinado por <a href="https://envytheme.com/"
-                            target="_blank">xTech</a></p>
+                    <p>© EAB - Efortless Appointment Booking é patrocinado por <a href="#" target="_blank">xTech</a></p>
                 </div>
 
                 <div class="col-lg-6 col-md-6">

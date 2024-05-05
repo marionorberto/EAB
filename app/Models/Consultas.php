@@ -9,5 +9,5 @@ class Consultas extends Model
 {
     use HasFactory;
 
-    protected $table = 'Consultas';
+    protected $table = 'consulta_marcada';
 }

@@ -51,7 +51,7 @@
             <a class="navbar-brand align-self-center mb-3" href="http://localhost:8000/">
                 <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
                 <span class="fw-bolder fs-5 text-light"> EAB</span> <br> <span
-                    class="fw-light fs-6 fst-italic text-dark lh-sm">Efortless
+                    class="fw-bold fs-6 fst-italic text-white lh-sm">Efortless
                     Appointment
                     Booking</span>
             </a>

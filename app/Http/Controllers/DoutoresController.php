@@ -20,7 +20,7 @@ class DoutoresController extends Controller
      */
     public function create()
     {
-        //
+        return view('doutor.store');
     }
 
     /**
@@ -28,7 +28,6 @@ class DoutoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

@@ -252,6 +252,25 @@ button {
     outline: 0;
     box-shadow: unset;
 }
+table{
+}
+.table-container{
+    width: 80%;
+    margin: 80px auto;
+}
+.container-logo-minhas-consultas{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-top: 70px ;
+}
+
+thead {
+    background-color: #0072ff;
+    color: #ffffff;
+}
+
+
 .form-control::placeholder {
     color: #92a5b8;
 }
@@ -413,6 +432,44 @@ button {
 .navbar.navbar-two.is-sticky {
     position: fixed;
 }
+
+
+/* dashboard-css */
+.dashboard-sidebar-left{
+    background-color: #0f73bb;
+    width: 20%;
+    height: 100vh;
+    border-right: 1px solid #2b4db3;
+}
+
+.dashboard-sidebar-right{
+    background-color: #0072ff;
+    width: 80%;
+    height: 100vh;
+}
+
+.sidebar-right-container{
+    width: 90%;
+    margin: 25px auto;
+}
+
+
+.sidebar-right-top{
+    height: 55px;
+    width: 100%;
+    background-color: #0f73bb;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+.sidebar-right-bottom{
+    height: 31em;
+    width: 100%;
+    background-color: #0f73bb;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
 .main-banner {
     height: 730px;
     background-image: url(../../assets/img/hero-bg.jpg);

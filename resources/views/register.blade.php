@@ -47,7 +47,7 @@
             <a class="navbar-brand align-self-center mb-3" href="http://localhost:8000/">
                 <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
                 <span class="fw-bolder fs-5 text-light"> EAB</span> <br> <span
-                    class="fw-light fs-6 fst-italic text-dark lh-sm">Efortless
+                    class="fw-bold fs-6 fst-italic text-white lh-sm">Efortless
                     Appointment
                     Booking</span>
             </a>
@@ -100,10 +100,9 @@
                         placeholder="BI - Bilhete de identidade" name="bi" value="{{old('bi')}}">
 
                     <select name="naturalidade" required id="" class="w-50 text-start input-login bg-transparent">
-                        <option value="Angolana">🇦🇴 Angola</option>
-                        <option value="Brasileira">🇧🇷 Brasil</option>
-                        <option value="Portuguesa">🇵🇹 Portugal</option>
-                        <option value="RDC">🇨🇩 Congo Kinshasa</option>
+                        <option value="Angolana">🇦🇴 Angola (+244)</option>
+                        <option value="Brasileira">🇧🇷 Brasil (+55)</option>
+                        <option value="Portuguesa">🇵🇹 Portugal (+351)</option>
                     </select>
                 </div>
                 @if($errors->has('naturalidade'))
@@ -120,7 +119,7 @@
                     <input type="file" name="fotoFile" id="fotoFile" placeholder="Foto"
                         class="input-login w-50 bg-text-dark" required title="Escolher">
                 </div>
-                @if($errors->has('sexo'))
+                @if($errors->has('sexof'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('sexo')}}</span> <br>
                 @endif
                 <div class="d-flex flex-column gap-4">
