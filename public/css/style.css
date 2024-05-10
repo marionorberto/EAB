@@ -436,14 +436,14 @@ thead {
 
 /* dashboard-css */
 .dashboard-sidebar-left{
-    background-color: #0f73bb;
+    background-color: #ffffff;
     width: 20%;
     height: 100vh;
-    border-right: 1px solid #2b4db3;
+    border-right: 1px solid #f0f0f1;
 }
 
 .dashboard-sidebar-right{
-    background-color: #0072ff;
+    background-color: #f0f0f1;
     width: 80%;
     height: 100vh;
 }
@@ -457,7 +457,7 @@ thead {
 .sidebar-right-top{
     height: 55px;
     width: 100%;
-    background-color: #0f73bb;
+    background-color: #ffffff;
     margin: 10px auto;
     border-radius: 5px;
 }
@@ -465,11 +465,84 @@ thead {
 .sidebar-right-bottom{
     height: 31em;
     width: 100%;
-    background-color: #0f73bb;
+    background-color: #ffffff;
     margin: 10px auto;
+    columns: black;
     border-radius: 5px;
 }
 
+.dashboard-sl-span::before{
+    position: absolute;
+    content: '';
+    height: 3px;
+    width: 16px;
+    left: 0;
+    margin-top: 10px;
+    background: #dfdada;
+}
+
+.dashboard-sl-li::before{
+    position: absolute;
+    content: '';
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    height: 25px;
+    width: 0;
+    right: 0;
+    margin-right: -6.2rem;
+    background: #0072ff;
+    scale: 0;
+    transform-origin: right;
+    transition: ease-in-out 0.4s ;
+}
+
+.dashboard-sl-li:hover::before{
+    transition: all 0.2s;
+    width: 3px;
+    scale: 1;
+}
+
+.dashboard-sl-li2::before{
+    position: absolute;
+    content: '';
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    height: 25px;
+    width: 0;
+    right: 0;
+    margin-right: -8.3rem;
+    background: #0072ff;
+    scale: 0;
+    transform-origin: right;
+    transition: ease-in-out 0.4s ;
+}
+
+.dashboard-sl-li2:hover::before{
+    transition: all 0.2s;
+    width: 3px;
+    scale: 1;
+}
+
+.dashboard-sl-li3::before{
+    position: absolute;
+    content: '';
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    height: 25px;
+    width: 0;
+    right: 0;
+    margin-right: -9.1rem;
+    background: #0072ff;
+    scale: 0;
+    transform-origin: right;
+    transition: ease-in-out 0.4s ;
+}
+
+.dashboard-sl-li3:hover::before{
+    transition: all 0.2s;
+    width: 3px;
+    scale: 1;
+}
 .main-banner {
     height: 730px;
     background-image: url(../../assets/img/hero-bg.jpg);

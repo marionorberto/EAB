@@ -90,13 +90,8 @@
                     <a class="rounded-1 border-0 py-1 px-4 text-bg-success opacity-75"> <i class="icofont-ui-text-loading fw-lighter text-white fs-5 w-8"></i> </a>
                 </div>
                 </div>
-                <div class="sidebar-right-bottom text-dark">
-                    <?php if(request()->routeIs('dashboard-paginas-usuarios')): ?>
-                    <?php echo e('consultasnnnnnnnnnnnnnnnnnnnnnnnnnn'); ?>
-
-                    <?php endif; ?>
-                    <h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
-                    nnnnnnnnnnnn
+                <div class="sidebar-right-bottom">
+                    dados dos usuarios;
                 </div>
             </div>
         </div>
@@ -118,4 +113,4 @@
 </body>
 
 </html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-paginas-usuario.blade.php ENDPATH**/ ?>

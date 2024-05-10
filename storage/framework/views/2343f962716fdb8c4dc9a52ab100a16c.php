@@ -5,19 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/fontawesome.min')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/animate.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/fontawesome.min')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/animate.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.carousel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/magnific-popup.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.theme.default.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
@@ -65,21 +65,21 @@
             </div>
         </div>
     </nav>
-    @if (isset($alert_success))
+    <?php if(isset($alert_success)): ?>
     <div class="d-flex ">
         <section class="align-self-center text-sm-center alert alert-success w-75 opacity-75 ms-auto me-auto">
-            {{$alert_success}}. <span><strong>verifique o seu email <i class="icofont-email"></i></strong></span>
+            <?php echo e($alert_success); ?>. <span><strong>verifique o seu email <i class="icofont-email"></i></strong></span>
         </section>
     </div>
-    @endif
-    @if (count($errors) > 0)
+    <?php endif; ?>
+    <?php if(count($errors) > 0): ?>
     <div class="d-flex ">
         <section class="align-self-center text-sm-center alert alert-danger w-75 opacity-75 ms-auto me-auto">
              Algum erro tento registrar <i class="icofont-info-circle"></i> <span> <br> <strong>Por favor verifique os seus dados!</strong></span>
         </section>
     </div>
-    @endif
-    @if (null !== (session('dataOccupedError')) )
+    <?php endif; ?>
+    <?php if(null !== (session('dataOccupedError')) ): ?>
     <div class="d-flex ">
         <section class="align-self-center text-sm-center alert alert-danger w-75 opacity-75 ms-auto me-auto">
             <span><strong>Data para esta consulta já ocupada <i class="icofont-info-circle"></i> </strong> <br>Por favor escolha uma outra data conveniente
@@ -88,7 +88,7 @@
                 consulta</span>
         </section>
     </div>
-    @endif
+    <?php endif; ?>
     <div class="consulta-container pt-5">
         <section class="consulta-section-container">
             <div class="consulta-section-left d-flex">
@@ -100,40 +100,40 @@
                         Booking</span>
                 </a>
             </div>
-            <form action="{{route('consultas.store')}}" method="post" class="
+            <form action="<?php echo e(route('consultas.store')); ?>" method="post" class="
                 consulta-section-right d-flex flex-column gap-3">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <h1 class="text-decoration-underline fs-1 text-primary text-center pb-4">
                     Consulta Online no EAB
                 </h1>
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Primeiro Nome</label>
-                        <input type="text" required class="text-primary input-consulta" value="{{old('firstname')}}"
+                        <input type="text" required class="text-primary input-consulta" value="<?php echo e(old('firstname')); ?>"
                             name="firstname">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Último Nome</label>
-                        <input type="text" required value="{{old('lastname')}}" class="text-primary input-consulta"
+                        <input type="text" required value="<?php echo e(old('lastname')); ?>" class="text-primary input-consulta"
                             name="lastname">
                     </div>
                 </div>
-                @if($errors->has('firstname'))
-                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('firstname')}}</span> <br>
-                @endif
-                @if($errors->has('lastname'))
-                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('lastname')}}</span> <br>
-                @endif
+                <?php if($errors->has('firstname')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('firstname')); ?></span> <br>
+                <?php endif; ?>
+                <?php if($errors->has('lastname')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('lastname')); ?></span> <br>
+                <?php endif; ?>
                 <div class="d-flex gap-5 w-100 mt-4">
 
                     <div>
                         <label for="" class="text-primary fw-light d-block">Telefone</label>
-                        <input type="tel" required class="text-primary input-consulta" value=" {{old('telefone')}}"
+                        <input type="tel" required class="text-primary input-consulta" value=" <?php echo e(old('telefone')); ?>"
                             name="telefone">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
-                        <input type="date" required min="2024-05-01" value="{{old('data')}}" max="2024-12-31"
+                        <input type="date" required min="2024-05-01" value="<?php echo e(old('data')); ?>" max="2024-12-31"
                             name="data" id="" class="p-2 bg-light text-primary border-0 input-consulta-data">
                         <select name="hora" id="hora" pattern="[0-9]{2}:[0-9]{2}" class="text-primary input-consulta"
                             required>
@@ -154,46 +154,46 @@
                     </div>
                 </div>
 
-                @if($errors->has('telefone'))
-                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('telefone')}}</span> <br>
-                @endif
+                <?php if($errors->has('telefone')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('telefone')); ?></span> <br>
+                <?php endif; ?>
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div>
                         <label for="" class="text-primary fw-light d-block">Idade</label>
-                        <input type="number" required name="idade" value="{{old('idade')}}" id="" min="0" max="90"
+                        <input type="number" required name="idade" value="<?php echo e(old('idade')); ?>" id="" min="0" max="90"
                             value="0" class="bg-light text-primary input-consulta">
                     </div>
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Peso <sub>(Kg)</sub></label>
-                        <input type="number" required class="text-primary input-consulta" value="{{old('peso')}}"
+                        <input type="number" required class="text-primary input-consulta" value="<?php echo e(old('peso')); ?>"
                             max="300" min="2" step=".1" name="peso">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Altura <sub>(m)</sub></label>
-                        <input type="number" required name="altura" value="{{old('altura')}}" id="" min="0.60" max="3"
+                        <input type="number" required name="altura" value="<?php echo e(old('altura')); ?>" id="" min="0.60" max="3"
                             step=".01" class="bg-light text-primary input-consulta">
                     </div>
                 </div>
-                @if($errors->has('idade'))
-                <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('idade')}}</span> <br>
-                @endif
+                <?php if($errors->has('idade')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('idade')); ?></span> <br>
+                <?php endif; ?>
                 <div class="d-flex gap-5 w-100 mt-4">
 
                     <div class="">
                         <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>
                         <select name="especialidade" id="especialidade" onchange="carregarDados()" required
-                            {{old('especialidade')}} class="text-primary p-2 bg-light border-0 input-consulta-data">
+                            <?php echo e(old('especialidade')); ?> class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
-                            @if (isset($especialidades_data))
-                            @foreach ($especialidades_data as $esp)
-                            <option value="{{$esp['idEspecialidade']}}">{{$esp['descricao']}}</option>
-                            @endforeach
-                            @endif
+                            <?php if(isset($especialidades_data)): ?>
+                            <?php $__currentLoopData = $especialidades_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $esp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($esp['idEspecialidade']); ?>"><?php echo e($esp['descricao']); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
                         </select>
                     </div>
                     <div class="">
                         <label for="doutor" class="text-primary fw-light d-block">Doutor</label>
-                        <select name="doutor" {{old('doutor')}} required id="doutor"
+                        <select name="doutor" <?php echo e(old('doutor')); ?> required id="doutor"
                             class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
                         </select>
@@ -202,10 +202,10 @@
                 <div class="d-flex flex-column gap-3">
                     <span class="text-primary">Motivo da consulta</span>
                     <textarea name="motivo" id="" required cols="30" rows="10" class="consulta-textarea p-3"
-                        placeholder="Mensagem">{{old('motivo')}}</textarea>
-                    @if($errors->has('motivo'))
-                    <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('motivo')}}</span> <br>
-                    @endif
+                        placeholder="Mensagem"><?php echo e(old('motivo')); ?></textarea>
+                    <?php if($errors->has('motivo')): ?>
+                    <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('motivo')); ?></span> <br>
+                    <?php endif; ?>
                 </div>
                 <button type="submit" class="btn rounded-0">Marcar consulta </button>
             </form>
@@ -219,15 +219,15 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/owl.carousel.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{URL::to('js/form-validator.min.js')}}"></script>
-    <script src="{{URL::to('js/contact-form-script.js')}}"></script>
-    <script src="{{URL::to('js/main.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -256,3 +256,4 @@
 </body>
 
 </html>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/index.blade.php ENDPATH**/ ?>

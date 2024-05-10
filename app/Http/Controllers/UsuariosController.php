@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\welcome;
 use App\Models\UserImages;
 use App\Models\UsuarioImagem;
 use App\Models\Usuarios;
-// use App\Models\
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Stringable;
+use Illuminate\Support\Facades\Mail;
 
 class UsuariosController extends Controller
 {
@@ -133,6 +134,12 @@ class UsuariosController extends Controller
             $request->file('fotoFile')->store('userPhotos');
 
         $userImages->save();
+
+        $emailData = [
+            "username" => $request->username
+        ];
+
+        Mail::to($request->email)->send(new welcome($emailData));
 
         return view('login', [
             'alert_success' => 'Usuário registrado com successo. '

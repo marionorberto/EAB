@@ -1,7 +1,2 @@
-[v] - upload image profile
-[v] - Upload all pictures
-[] - Email message for notification
 [] - Other auth strategy
-[] - reject consulta already booked
 
-como trabalhar com strings no laravel?  split | slice

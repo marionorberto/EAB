@@ -6,12 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        //
+        Schema::table('Usuarios', function (Blueprint $table) {
+            $table->text('username')->change();
+        });
     }
 
     /**
@@ -19,6 +18,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+
+        Schema::table('Usuarios', function (Blueprint $table) {
+            $table->string('username')->change();
+        });
     }
 };

@@ -94,8 +94,7 @@
                     @if (request()->routeIs('dashboard-paginas-usuarios'))
                     {{'consultasnnnnnnnnnnnnnnnnnnnnnnnnnn'}}
                     @endif
-                    <h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
-                    nnnnnnnnnnnn
+                    <h1 class="text-dark">sssss</h1>
                 </div>
             </div>
         </div>

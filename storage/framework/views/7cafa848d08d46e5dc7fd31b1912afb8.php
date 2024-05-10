@@ -110,18 +110,23 @@
 
                             </button>
                             <ul class="dropdown-menu">
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
                                 <li>
                                     <a href="<?php echo e(route('minhas-consultas')); ?>"
                                         class="dropdown-item li-profile fw-ligh fs-6">Minhas Consultas</a>
                                 </li>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
                                 <li>
-                                    <a href="<?php echo e(route('dashboard')); ?>"
+                                    <a href="<?php echo e(route('dashboard.index')); ?>"
                                         class="dropdown-item li-profile fw-ligh fs-6">Dashboard</a>
                                 </li>
-                                <li>
-                                    <a href="<?php echo e(route('doutores.create')); ?>"
-                                        class="dropdown-item li-profile fw-ligh fs-6">Registar Doutores</a>
-                                </li>
+                                <?php endif; ?>
+
                                 <li class="dropdown-item li-profile fw-light fs-6">
                                     <?php echo e(@Session::get('loginSession')['username']); ?>
 

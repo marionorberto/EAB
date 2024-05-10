@@ -109,18 +109,23 @@
                                 {{@Session::get('loginSession')['username']}}
                             </button>
                             <ul class="dropdown-menu">
+
+                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal')
                                 <li>
                                     <a href="{{route('minhas-consultas')}}"
                                         class="dropdown-item li-profile fw-ligh fs-6">Minhas Consultas</a>
                                 </li>
+                                @endif
+
+                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin')
                                 <li>
-                                    <a href="{{route('dashboard')}}"
+                                    <a href="{{route('dashboard.index')}}"
                                         class="dropdown-item li-profile fw-ligh fs-6">Dashboard</a>
                                 </li>
-                                <li>
-                                    <a href="{{route('doutores.create')}}"
-                                        class="dropdown-item li-profile fw-ligh fs-6">Registar Doutores</a>
-                                </li>
+                                @endif
+
                                 <li class="dropdown-item li-profile fw-light fs-6">
                                     {{
                                     @Session::get('loginSession')['username']

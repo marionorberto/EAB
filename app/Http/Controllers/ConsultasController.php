@@ -49,7 +49,6 @@ class ConsultasController extends Controller
             [
                 'firstname' => 'required|min:3|max:30',
                 'lastname' => 'required|min:3|max:30',
-                'email' => 'required|max:40|email',
                 'telefone' => 'required|min:9|max:15',
                 'idade' => 'required|min:0|max:90',
                 'motivo' => 'required|min:10'
@@ -64,9 +63,6 @@ class ConsultasController extends Controller
                 'telefone.required' => 'Telefone é um campo requerido.',
                 'telefone.max' => 'telefone deve ter entre 9 à 15 caracteres.',
                 'telefone.min' => 'telefone deve ter entre 9 à 15 caracteres.',
-                'email.required' => 'Email é um campo  requerido.',
-                'email.max' => 'Email deve ter no máximo 40 caracteres .',
-                'email' => 'Email inválido (exemplo@gmail.com)',
                 'idade.required' => 'Idade é um campo requerido.',
                 'idade.min' => 'idade deve estar entre 0 à 90 anos.',
                 'idade.max' => 'idade deve estar entre 0 à 90 anos.',
@@ -86,32 +82,9 @@ class ConsultasController extends Controller
         $paciente = new Pacientes();
         $telefone = new Telefone();
         $consulta = new Consultas();
-
-        $paciente->firstname = $request->firstname;
-        $paciente->lastname = $request->lastname;
-        $paciente->email = $request->email;
-        $paciente->idade = $request->idade;
-        $paciente->peso = $request->peso;
-        $paciente->altura = $request->altura;
-        $paciente->save();
-
-        $idPaciente = DB::connection()->select("
-            select idPaciente from Pacientes
-            where firstname = '$request->firstname'
-            and lastname = '$request->lastname'
-        ");
-
-        $telefone->telefone = $request->telefone;
-        $telefone->idPaciente = $idPaciente[0]->idPaciente;
-        $telefone->save();
-
-        $consulta->motivo_consulta = $request->motivo;
-        $consulta->horario = $request->data . 'T' . $request->hora;
-        $consulta->idEspecialidade = $request->especialidade;
+        $pacienteConsulta = new PacienteConsultas();
 
         $arrayDoutorName = explode(" ", $request->doutor);
-        // $firstname = $arrayDoutorName[0];
-        // $lastname = $arrayDoutorName[1];
 
         $resultado = DB::connection('mysql')->select("
         select idDoutor
@@ -125,6 +98,43 @@ class ConsultasController extends Controller
             $idDoutor = $primeiroResultado->idDoutor;
         }
 
+        $occupedDate = DB::connection()
+            ->select("
+            select idDoutor, horario
+            from consulta_marcada
+            where idDoutor='$idDoutor' and horario='$request->data $request->hora'
+        ");
+
+        if (count($occupedDate) > 0) {
+            return redirect()
+                ->back()
+                ->with(
+                    ["dataOccupedError" => true]
+                )
+                ->withInput($request->all());
+        }
+
+        $paciente->firstname = $request->firstname;
+        $paciente->lastname = $request->lastname;
+        $paciente->email =  @Session('loginSession')['email'];
+        $paciente->idade = $request->idade;
+        $paciente->peso = $request->peso;
+        $paciente->altura = $request->altura;
+        $paciente->save();
+
+        $idPaciente = DB::connection()->select("
+            select max(idPaciente) idPaciente from Pacientes
+        ");
+
+        $telefone->telefone = $request->telefone;
+        $telefone->idPaciente = $idPaciente[0]->idPaciente;
+        $telefone->save();
+
+        $consulta->motivo = $request->motivo;
+        $consulta->idPaciente = $idPaciente[0]->idPaciente;
+        $consulta->horario = $request->data . 'T' . $request->hora;
+        $consulta->idEspecialidade = $request->especialidade;
+
         $emailUsuario = Session('loginSession')['email'];
         $idUsuario = DB::connection()
             ->select("
@@ -137,9 +147,28 @@ class ConsultasController extends Controller
         $consulta->idDoutor = $idDoutor;
         $consulta->save();
 
-        //store in PacienteConsulta table (see how to get id after saving):
+        // store in PacienteConsulta table (see how to get id after saving):
+        $lastConsultaRegister =  DB::connection()->select("
+            select max(idConsulta) lastRegister from consulta_marcada
+        ");
 
+        $lastPacientesRegister =  DB::connection()->select("
+            select max(idPaciente) lastRegister from Pacientes
+        ");
 
+        $pacienteConsulta->idPaciente = $lastPacientesRegister[0]->lastRegister;
+        $pacienteConsulta->idConsulta = $lastConsultaRegister[0]->lastRegister;
+        $pacienteConsulta->save();
+
+        $emailBody = [
+            "subject" => 'Marcação de consulta online',
+            "username" => @Session('loginSession')['username'],
+            "dotor" => "$arrayDoutorName[0] $arrayDoutorName[1]",
+            "horario" => $consulta->horario,
+        ];
+
+        Mail::to(@Session('loginSession')['email'])
+        ->send(new ConsultaMarcada($emailBody));
 
         return view('consulta.index', [
             'alert_success' => 'Consulta marcada com sucesso',
@@ -177,46 +206,81 @@ class ConsultasController extends Controller
         return response()->json($doutores);
     }
 
-    private function verifyDataConsulta($horario, $doutorFirstname, $doutorLastname)
-    {
-
-        $doutores = DB::connection('mysql')->select("
-            select consulta_marcada.horario,
-            from consulta_marcada
-            inner join Doutores
-            on consulta_marcada.idDoutor = Doutores.idDoutor
-            where
-
-        ");
-
-        return $doutores;
-    }
-
     public function minhasConsultas()
     {
-        $allConsultas = [
-            0 => [
-                "motivo" => "aadaada  dadaad",
-                "data" => "08-02-2000 09:00"
-            ],
-            1 => [
-                "motivo" => "aadaada  dadaad",
-                "data" => "08-02-2000 09:00"
-            ],
-            2 => [
-                "motivo" => "aadaada  dadaad",
-                "data" => "08-02-2000 09:00"
-            ],
-            3 => [
-                "motivo" => "aadaada  dadaad",
-                "data" => "08-02-2000 09:00"
-            ],
-            4 => [
-                "motivo" => "aadaada  dadaad",
-                "data" => "08-02-2000 09:00"
-            ],
-        ];
 
-        return view('consulta.minhas-consultas');
+        $consultas = new Consultas();
+        $consultas = Consultas::all();
+
+        $usuarioEmail = @Session('loginSession')['email'];
+
+        $usuarioData = DB::connection()->select("
+            select * from Usuarios where email = '$usuarioEmail'
+        ");
+
+        $idUsuario = $usuarioData[0]->idUsuario;
+
+
+        $consultaData = DB::connection()->select("
+        SELECT
+            Doutores.firstname AS firstname_doutor,
+            Doutores.lastname AS lastname_doutor,
+            Pacientes.firstname AS firstname_paciente,
+            Pacientes.lastname AS lastname_paciente,
+            Especialidade.descricao AS nome_especialidade,
+            consulta_marcada.motivo AS motivo,
+            consulta_marcada.status AS status,
+            consulta_marcada.horario AS horario
+        FROM
+            consulta_marcada
+        JOIN
+            Doutores ON consulta_marcada.idDoutor = Doutores.idDoutor
+        JOIN
+            Pacientes ON consulta_marcada.idPaciente = Pacientes.idPaciente
+        JOIN
+            Especialidade ON consulta_marcada.idEspecialidade = Especialidade.idEspecialidade
+        WHERE
+            consulta_marcada.idUsuario = '$idUsuario';
+        ");
+
+        $consultaPendenteContagem = DB::connection()
+        ->select("
+        SELECT
+            count(status) as count
+        FROM
+            consulta_marcada
+        WHERE
+            status = 'pendente' and consulta_marcada.idUsuario = '$idUsuario';
+        ");
+
+        $consultaCanceladaContagem = DB::connection()
+        ->select("
+        SELECT
+            count(status) as count
+        FROM
+            consulta_marcada
+        WHERE
+            status = 'cancelada' and consulta_marcada.idUsuario = '$idUsuario';
+        ");
+
+        $consultaFeitaContagem = DB::connection()
+        ->select("
+        SELECT
+            count(status) as count
+        FROM
+            consulta_marcada
+        WHERE
+            status = 'feita' and consulta_marcada.idUsuario = '$idUsuario';
+        ");
+
+        // dd($consultaPendenteContagem[0]->count);
+
+        return view('consulta.minhas-consultas', compact(
+            'consultaData',
+             'usuarioData',
+              'consultaPendenteContagem',
+               'consultaCanceladaContagem',
+                'consultaFeitaContagem'
+        ));
     }
 }

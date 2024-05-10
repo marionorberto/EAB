@@ -57,15 +57,14 @@ class MensagensController extends Controller
         $mensagens->conteudo = $request->conteudo;
         $mensagens->save();
 
-        $fromEmail = $request->email;
-        $subject = 'Mensagem de availiação da aplicação';
-        $message = $request->conteudo;
+        // $fromEmail = $request->email;
+        // $subject = 'Mensagem de availiação da aplicação';
+        // $message = $request->conteudo;
 
-        Mail::to($fromEmail)->send(new UserMessage(
-            $message,
-            $subject,
-        ));
-
+        // Mail::to($fromEmail)->send(new UserMessage(
+        //     $message,
+        //     $subject,
+        // ));
 
         return view('home');
     }

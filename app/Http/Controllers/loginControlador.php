@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\welcome;
 use App\Models\Usuarios;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 use function Laravel\Prompts\error;
@@ -57,9 +59,17 @@ class loginControlador extends Controller
             [
                 'username' =>  $usuario[0]['username'],
                 'email' =>  $usuario[0]['email'],
-                'urlImgUsuario' =>  $urlUsuario[0]->url
+                'tipoUsuario' =>  $usuario[0]['tipo_usuario'],
+                'urlImgUsuario' =>  $urlUsuario[0]->url,
             ]
         );
+
+        if ($usuario[0]['tipo_usuario'] == 'admin') {
+            return redirect()->route('dashboard.index');
+        }
+
+        $title = 'welcome message';
+        Mail::to($usuario[0]['email'])->send(new welcome($usuario[0]['username'], $title));
 
         return redirect()
             ->route('consultas.index');
