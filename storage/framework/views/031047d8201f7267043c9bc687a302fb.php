@@ -20,7 +20,13 @@
     <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
+    <style>
+        #canvas{
+  background:#0072ff;
 
+
+}
+    </style>
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
 
@@ -42,10 +48,10 @@
     <!-- End Navbar Area -->
 
     <section class="login-section mt-5 pt-5 mb-5">
-
-        <div class="bg-primary login-section-1 mt-5 ps-4 pt-5">
+        
+        <div id="s-l" class="login-section-1 ">
             <a class="navbar-brand align-self-center mb-3" href="http://localhost:8000/">
-                <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
+                <i class="icofont-medical-sign-alt fs-2 fw-medium text-primary"></i>
                 <span class="fw-bolder fs-5 text-light"> EAB</span> <br> <span
                     class="fw-bold fs-6 fst-italic text-white lh-sm">Efortless
                     Appointment
@@ -53,6 +59,7 @@
             </a>
             <h1 class="text-white fw-medium mt-5">Faça o seu <strong>Registro</strong></h1>
             <h1 class="text-white fw-medium">na plataforma</h1>
+
         </div>
 
         <div class="login-section-2">
@@ -155,6 +162,8 @@
     </div>
 
 
+
+
     <!-- Link of JS files -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
@@ -166,6 +175,23 @@
     <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/three.r134.min.js')); ?>"></script>
+<script src="<?php echo e(URL::to('js/vanta.net.min.js')); ?>"></script>
+<script src="<?php echo e(URL::to('js/vanta.halo.min.js')); ?>"></script>
+<script>
+VANTA.HALO({
+  el: "#s-l",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+})
+</script>
 </body>
 
-</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/register.blade.php ENDPATH**/ ?>
+</html>
+
+
+
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/register.blade.php ENDPATH**/ ?>

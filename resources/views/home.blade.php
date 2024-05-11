@@ -47,7 +47,7 @@
     </div>
 
     <!-- Start Navbar Area -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <div class="row g-2">
                 <div class="col-12 col-lg-2 col-md-2">
@@ -148,10 +148,93 @@
 
         </div>
     </nav>
-    <!-- End Navbar Area -->
+    <!-- End Navbar Area --> --}}
 
+    <header class="header-home">
+
+        <nav class="w-full py-4 px-3 bg-transparent align-self-auto z-10">
+            <div class="container d-flex justify-content-between align-items-center ">
+                <ul class="d-flex gap-3 justify-content-center align-items-center list-unstyled">
+                    <div class="">
+                        <a class="navbar-brand text-white" href="http://localhost:8000/">
+                            <i class="icofont-medical-sign-alt fs-3 fw-medium text-dark"></i>
+                            <span class="fw-bolder fs-5"> EAB</span>
+                        </a>
+                    </div>
+                    <li class="ms-3"><a href="" class="text-white opacity-75">Home</a></li>
+                    <li><a href="#department" class="text-white opacity-75">Departamentos</a></li>
+                    <li><a href="#team" class="text-white opacity-75">Team</a></li>
+                    <li><a href="#service" class="text-white opacity-75">Serviços</a></li>
+                    <li><a href="#contact" class="text-white opacity-75">Contactos</a></li>
+                </ul>
+                <ul class="d-flex gap-3 justify-content-center align-items-center list-unstyled">
+                <div class="d-flex gap-2">
+                    @if (Session::has('loginSession'))
+                    <div class="dropdown rounded-1">
+                        <button class=" dropdown-toggle dropdown-profile-user bg-transparent text-white opacity-75 fw-light border-0"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
+                                src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}"
+                                @endif alt=" profile-page-img" class="img-profile-page">
+                            {{@Session::get('loginSession')['username']}}
+                        </button>
+                        <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-secondary opacity-75">
+
+                            @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'normal')
+                            <li>
+                                <a href="{{route('minhas-consultas')}}"
+                                    class="dropdown-item li-profile fw-light fs-6 text-white">Minhas Consultas</a>
+                            </li>
+                            @endif
+
+                            @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'admin')
+                            <li>
+                                <a href="{{route('dashboard.index')}}"
+                                    class="dropdown-item li-profile fw-light fs-6 text-white">Dashboard</a>
+                            </li>
+                            @endif
+
+                            <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                                {{
+                                @Session::get('loginSession')['username']
+                                }}
+                            </li>
+                            <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                                {{
+                                @Session::get('loginSession')['email']
+                                }}
+                            </li>
+                            <hr class="dropdown-divider text-white">
+                            <li><a class="dropdown-item fw-bold li-profile fw-light fs-6 text-white"
+                                    href="http://localhost:8000/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                @else
+                <li><a href="http://localhost:8000/login"  class="fw-light fs-6 text-white opacity-75">Login</a></li>
+                <li><a href="http://localhost:8000/register" class="fw-light fs-6 text-primary bg-secondary opacity-50 fw-bold rounded-4 py-1 px-2">Register</a></li>
+                @endif
+            </div>
+        </div>
+
+                </ul>
+
+            </div>
+        </nav>
+        <h1 class="fs-1 mx-auto fw-lighter text-center mt-5 text-white">Marcar uma consulta <br> nunca foi tão fácil</h1>
+        <p class="fs-6 mx-auto fw-lighter text-center w-50 mx-auto my-3 text-white opacity-75">
+            Nosso sistema online permite que você escolha a data e hora <br> que melhor se
+            adequam à sua agenda
+        </p>
+        <p class="rounded-4 mx-auto py-2 px-3 mt-3 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15">
+            <span class="ps-1"><a href="{{route('doutores.create')}}" class="text-white fw-bold" >ser colaborador</a></span>
+            <span><a href="{{route('consultas.index')}}" class="text-primary fw-medium">marcar consulta <i class="icofont-arrow-right"></i></a></span>
+        </p>
+    </header>
     <!-- Start Main Banner Area -->
-    <div id="home" class="main-banner">
+    {{-- <div id="home" class="main-banner">
         <div class="d-table">
             <div class="d-table-cell">
                 <div class="container">
@@ -194,15 +277,15 @@
                             <img src="{{URL::to('img/landing-image.jpg')}}" alt=""
                                 class="landing-image z-3 position-absolute">
                         </div> --}}
-                    </div>
+                    {{-- </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Main Banner Area -->
 
     <!-- Start Boxes Area -->
-    <section class="boxes-area ptb-100 mt-2">
+    <section class="boxes-area ptb-100 mt-5 pt-3 ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -341,7 +424,7 @@
     <!-- End Why Choose Us Area -->
 
     <!-- Start Who We Are Area -->
-    <section class="who-we-are ptb-100">
+    <section id="team" class="who-we-are ptb-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12">

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dataTables.dataTables.min.css')); ?>">
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
@@ -65,7 +66,7 @@
                     <h2 class="fw-bold fst-italic fs-1 "><i class="icofont-table"></i> CONSULTAS</h2>
                 </div>
             </section>
-            <table class="table table-hover">
+            <table id="myTable" class="table table-hover">
                 <thead class="tborder-0 border-bottom border-opacity-75">
                     <tr class="text-medium">
                         <th>ID</th>
@@ -199,6 +200,52 @@
             <li><a href="http://localhost:8000/politicas-de-privacidade">Políticas de privacidade</a></li>
         </ul>
     </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.dataTables.min.js')); ?>"></script>
+
+    <script>
+        $('#myTable').DataTable({
+        "ordering": true,
+        "paging": true,
+        "searching": true,
+        "oLanguage": {
+            "sEmptyTable": "Nenhum registro encontrado na tabela",
+            "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
+            "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "Mostrar _MENU_ registros por página",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
+            "oPaginate": {
+                "sNext": "Próximo",
+                "sPrevious": "Anterior",
+                "sFirst": "Primeiro",
+                "sLast": "Último"
+            },
+            "oAria": {
+                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                "sSortDescending": ": Ordenar colunas de forma descendente"
+            }
+        }
+    });
+    </script>
+
 </body>
 </html>
 <?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/minhas-consultas.blade.php ENDPATH**/ ?>

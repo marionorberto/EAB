@@ -47,7 +47,7 @@
     </div>
     @endif
     <section class="login-section mt-5 pt-5 mb-5 pb-5">
-        <div class="bg-primary login-section-1 mt-5 ps-4 pt-5 pb-5">
+        <div class="bg-primary login-section-1 mt-5 ps-4 pt-5 pb-5" style="max-height: 35rem">
             <a class="navbar-brand align-self-center mb-3" href="http://localhost:8000/">
                 <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
                 <span class="fw-bolder fs-5 text-light"> EAB</span> <br> <span
@@ -57,8 +57,9 @@
             </a>
             <h1 class="text-white fw-medium mt-5">Faça o seu <strong>Login</strong></h1>
             <h1 class="text-white fw-medium mb-5">na plataforma</h1>
+            <img src="{{URL::to('img/login.svg')}}" alt="login-image" style="width: 60%; height: 50%; padding-bottom:10px; ">
         </div>
-        <div class="login-section-2">
+        <div class="login-section-2 pt-5 mt-5">
             <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Não tem conta?<a
                     href="http://localhost:8000/register" class="">Registar</a></span>
             <form action="http://localhost:8000/login" method="post" class="d-flex flex-column gap-3">

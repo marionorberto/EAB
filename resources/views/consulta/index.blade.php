@@ -20,6 +20,13 @@
     <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
+    <style>
+       .anime{
+        position: absolute;
+        z-index: 1000;
+        margin-left: 30px;
+       }
+    </style>
 </head>
 
 <body class="pb-4 body-login">
@@ -91,7 +98,7 @@
     @endif
     <div class="consulta-container pt-5">
         <section class="consulta-section-container">
-            <div class="consulta-section-left d-flex">
+            <div id="" class="consulta-section-left d-flex">
                 <a class="navbar-brand align-self-top ps-5 pt-5 mt-5" href="http://localhost:8000/">
                     <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
                     <span class="fw-bolder fs-5 text-light fs-2"> EAB</span> <br> <span
@@ -178,7 +185,9 @@
                 <span class="text-start text-danger span-error2 fs-6 mt-2"> {{$errors->first('idade')}}</span> <br>
                 @endif
                 <div class="d-flex gap-5 w-100 mt-4">
-
+                    {{-- <div class="anime">
+                        <dotlottie-player src="https://lottie.host/f98347fe-c0e3-44f3-bdf8-d45b20df20c3/LrBll9McpP.lottie" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+                    </div> --}}
                     <div class="">
                         <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>
                         <select name="especialidade" id="especialidade" onchange="carregarDados()" required
@@ -230,6 +239,8 @@
     <script src="{{URL::to('js/main.js')}}"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
     <script>
         function carregarDados() {
         var valorSelecionado = $('#especialidade').val();
@@ -253,6 +264,23 @@
         });
     }
     </script>
+
+<script src="{{URL::to('three2.min.js')}}"></script>
+<script src="{{URL::to('js/vanta.net.min.js')}}"></script>
+
+<script>
+VANTA.NET({
+  el: "#vanta-net",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  color: 0xf2f2f2
+})
+</script>
 </body>
 
 </html>

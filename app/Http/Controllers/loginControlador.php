@@ -68,9 +68,6 @@ class loginControlador extends Controller
             return redirect()->route('dashboard.index');
         }
 
-        $title = 'welcome message';
-        Mail::to($usuario[0]['email'])->send(new welcome($usuario[0]['username'], $title));
-
         return redirect()
             ->route('consultas.index');
     }

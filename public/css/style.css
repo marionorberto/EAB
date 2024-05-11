@@ -1900,7 +1900,7 @@ thead {
     left: 0;
     bottom: 0;
     text-transform: uppercase;
-    background: #0075ff;
+    background: #0077ff;
     color: #fff;
     padding: 10px 20px;
     font-size: 22px;
@@ -2109,7 +2109,7 @@ textarea.form-control {
 .login-section-1{
   width: 40%;
   padding: 30px;
-  background-color: #007aff;
+  /* background-color: #007aff; */
 }
 
 .login-section-2{
@@ -2238,4 +2238,19 @@ textarea.form-control {
 
 .li-profile {
     font-size: 12px;
+}
+
+.header-home {
+    background: #000;
+    width: 100%;
+    height: 42rem;
+    background:  radial-gradient(#1e3056,#274077,#2b4c94, #6079af);
+}
+
+.p-w-15 {
+    width: 23%;
+}
+
+.icofont-arrow-right{
+    width: 110%;
 }
