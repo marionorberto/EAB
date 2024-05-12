@@ -150,7 +150,7 @@
     </nav>
     <!-- End Navbar Area --> --}}
 
-    <header class="header-home">
+    <header class="header-home" style="background: linear-gradient(115deg, #62cff4, #2c67f2);">
 
         <nav class="w-full py-4 px-3 bg-transparent align-self-auto z-10">
             <div class="container d-flex justify-content-between align-items-center ">
@@ -168,7 +168,7 @@
                     <li><a href="#contact" class="text-white opacity-75">Contactos</a></li>
                 </ul>
                 <ul class="d-flex gap-3 justify-content-center align-items-center list-unstyled">
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-2 align-items-center">
                     @if (Session::has('loginSession'))
                     <div class="dropdown rounded-1">
                         <button class=" dropdown-toggle dropdown-profile-user bg-transparent text-white opacity-75 fw-light border-0"
@@ -213,8 +213,8 @@
                     </div>
                 </div>
                 @else
-                <li><a href="http://localhost:8000/login"  class="fw-light fs-6 text-white opacity-75">Login</a></li>
-                <li><a href="http://localhost:8000/register" class="fw-light fs-6 text-primary bg-secondary opacity-50 fw-bold rounded-4 py-1 px-2">Register</a></li>
+                <li><a href="http://localhost:8000/login"  class="fw-light fs-6 text-white opacity-75 align-self-center">Login</a></li>
+                <li><a href="http://localhost:8000/register" class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 " style="background-color: rgb(128, 128, 128); color: rgb(100, 166, 253);">Register</a></li>
                 @endif
             </div>
         </div>
@@ -228,10 +228,26 @@
             Nosso sistema online permite que você escolha a data e hora <br> que melhor se
             adequam à sua agenda
         </p>
-        <p class="rounded-4 mx-auto py-2 px-3 mt-3 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15">
+        <p class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15" style="background-color: rgb(128, 128, 128)">
             <span class="ps-1"><a href="{{route('doutores.create')}}" class="text-white fw-bold" >ser colaborador</a></span>
-            <span><a href="{{route('consultas.index')}}" class="text-primary fw-medium">marcar consulta <i class="icofont-arrow-right"></i></a></span>
+            <span><a href="{{route('consultas.index')}}" class="fw-medium" style="color: rgb(100, 166, 253);">marcar consulta <i class="icofont-arrow-right"></i></a></span>
         </p>
+        <div class="hero-bottom-img mx-auto mt-5 position-relative bg-black overflow-y-hidden rounded-top" style="width: 60rem; height: 15.2rem;">
+            <div class="position-absolute bg-white h-75 rounded" style="left:-97px; top: 18px; bottom: 0; width: 17rem; -webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+        -moz-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+        box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);">
+        <img src="{{URL::to('img/hero-left.png')}}" class="w-full rounded" alt="">
+    </div>
+
+    <img src="{{URL::to('img/hero-svg.svg')}}" class="position-absolute" style="right: 230px; top: 94px; width: 60px;" alt="">
+    <div class="position-absolute bg-white h-100 rounded" style="right:-97px; top: 18px; bottom: 0; width: 17rem;-webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+    box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);">
+        <img src="{{URL::to('img/hero-right.png')}}" class="w-full rounded" alt="">
+    </div>
+
+        </div>
+
     </header>
     <!-- Start Main Banner Area -->
     {{-- <div id="home" class="main-banner">
@@ -288,7 +304,7 @@
     <section class="boxes-area ptb-100 mt-5 pt-3 ">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 left">
                     <div class="single-box">
                         <i class="icofont-doctor"></i>
                         <h3>Doctores Qualificados</h3>
@@ -330,7 +346,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 right">
                     <div class="single-box">
                         <i class="icofont-stretcher"></i>
                         <h3>24h</h3>
@@ -339,7 +355,7 @@
                             saúde. Nosso sistema de
                             agendamento online permite que você marque consultas a qualquer momento, garantindo
                             flexibilidade e conveniência para
-                            sua agenda ocupada. Cuide da sua saúde quando for mais conveniente para você.
+                            sua agenda ocupada. Cuide da sua saúde .
                         </p>
                     </div>
                 </div>
@@ -987,8 +1003,7 @@
                             eficazes para a recuperação
                             e reabilitação de nossos pacientes. Nossa equipe de fisioterapeutas altamente qualificados e
                             experientes utiliza
-                            técnicas avançadas para ajudar na melhoria da mobilidade, alívio da dor e recuperação
-                            funciona
+                            técnicas avançadas para ajudar na melhoria da mobilidade.
                         </p>
                         <a href="#" class="icofont-paper-plane"></a>
                     </div>

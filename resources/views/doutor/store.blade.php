@@ -59,7 +59,7 @@
         <div class="login-section-2">
             <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Já sou um colaborador? <a
                     href="http://localhost:8000/login" class="">Login</a></span>
-            <form action="{{route('usuarios.store')}}" enctype="multipart/form-data" method="post"
+            <form action="{{route('doutores.store')}}" enctype="multipart/form-data" method="post"
                 class="d-flex flex-column gap-3">
                 @csrf
                 <h3 class="text-start">Pretendo ser um coloborador da EAB</h3>
