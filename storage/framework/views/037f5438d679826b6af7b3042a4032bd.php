@@ -114,8 +114,7 @@
                                 <?php echo e($consulta->horario); ?>
 
                             </td>
-                            <td
-                                class="
+                            <td class="
                                     <?php if($consulta->status == 'pendente'): ?>
                                         <?php echo e('text-warning opacity-50'); ?>
 
@@ -181,7 +180,8 @@
                     </div>
                     <div>
                         <button class="text-white bg-primary px-5 nowrap border-0 fw-bold align-content-center">
-                            TOTAL <?php echo e($consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count + $consultaFeitaContagem[0]->count); ?></button>
+                            TOTAL <?php echo e($consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count +
+                            $consultaFeitaContagem[0]->count); ?></button>
                     </div>
                 </div>
 
@@ -247,5 +247,5 @@
     </script>
 
 </body>
-</html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/minhas-consultas.blade.php ENDPATH**/ ?>
+
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/minhas-consultas.blade.php ENDPATH**/ ?>

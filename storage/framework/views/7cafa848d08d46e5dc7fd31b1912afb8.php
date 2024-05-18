@@ -2,11 +2,9 @@
 <html lang="pt-br">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Link of CSS files -->
     <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::to('css/fontawesome.min')); ?>">
@@ -26,7 +24,6 @@
 
 <body data-bs-spy="scroll" data-bs-offset="70">
 
-    <!-- Start Preloader Area -->
     <div class="preloader-area">
         <div class="spinner">
             <div class="rect1"></div>
@@ -36,18 +33,13 @@
             <div class="rect5"></div>
         </div>
     </div>
-    <!-- End Preloader Area -->
 
-    <!-- Dark Version Btn -->
     <div class="dark-version-btn">
         <label id="switch" class="switch">
             <input type="checkbox" onchange="toggleTheme()" id="slider">
             <span class="slider round"></span>
         </label>
     </div>
-
-    <!-- Start Navbar Area -->
-    
 
     <header class="header-home" style="background: linear-gradient(115deg, #62cff4, #2c67f2);">
 
@@ -60,102 +52,107 @@
                             <span class="fw-bolder fs-5"> EAB</span>
                         </a>
                     </div>
-                    <li class="ms-3"><a href="" class="text-white opacity-75">Home</a></li>
+                    <li class="ms-3 position-relative"><a href="#" class="text-white opacity-75">Home</a>
+                    </li>
                     <li><a href="#department" class="text-white opacity-75">Departamentos</a></li>
                     <li><a href="#team" class="text-white opacity-75">Team</a></li>
                     <li><a href="#service" class="text-white opacity-75">Serviços</a></li>
                     <li><a href="#contact" class="text-white opacity-75">Contactos</a></li>
                 </ul>
                 <ul class="d-flex gap-3 justify-content-center align-items-center list-unstyled">
-                <div class="d-flex gap-2 align-items-center">
-                    <?php if(Session::has('loginSession')): ?>
-                    <div class="dropdown rounded-1">
-                        <button class=" dropdown-toggle dropdown-profile-user bg-transparent text-white opacity-75 fw-light border-0"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img <?php if(null !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
-                                src="<?php echo e(env('APP_URL')); ?>:8000/storage/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>"
-                                <?php endif; ?> alt=" profile-page-img" class="img-profile-page">
-                            <?php echo e(@Session::get('loginSession')['username']); ?>
-
-                        </button>
-                        <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-secondary opacity-75">
-
-                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
-                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
-                            <li>
-                                <a href="<?php echo e(route('minhas-consultas')); ?>"
-                                    class="dropdown-item li-profile fw-light fs-6 text-white">Minhas Consultas</a>
-                            </li>
-                            <?php endif; ?>
-
-                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
-                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
-                            <li>
-                                <a href="<?php echo e(route('dashboard.index')); ?>"
-                                    class="dropdown-item li-profile fw-light fs-6 text-white">Dashboard</a>
-                            </li>
-                            <?php endif; ?>
-
-                            <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                    <div class="d-flex gap-2 align-items-center">
+                        <?php if(Session::has('loginSession')): ?>
+                        <div class="dropdown rounded-1">
+                            <button
+                                class=" dropdown-toggle dropdown-profile-user bg-transparent text-white opacity-75 fw-light border-0"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img <?php if(null !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
+                                    src="<?php echo e(env('APP_URL')); ?>:8000/storage/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>"
+                                    <?php endif; ?> alt=" profile-page-img" class="img-profile-page">
                                 <?php echo e(@Session::get('loginSession')['username']); ?>
 
-                            </li>
-                            <li class="dropdown-item li-profile fw-light fs-6 text-white">
-                                <?php echo e(@Session::get('loginSession')['email']); ?>
+                            </button>
+                            <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-secondary opacity-75">
 
-                            </li>
-                            <hr class="dropdown-divider text-white">
-                            <li><a class="dropdown-item fw-bold li-profile fw-light fs-6 text-white"
-                                    href="http://localhost:8000/logout">Logout</a></li>
-                        </ul>
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <li>
+                                    <a href="<?php echo e(route('minhas-consultas')); ?>"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Minhas Consultas</a>
+                                </li>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <li>
+                                    <a href="<?php echo e(route('dashboard.index')); ?>"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Dashboard</a>
+                                </li>
+                                <?php endif; ?>
+
+                                <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                                    <?php echo e(@Session::get('loginSession')['username']); ?>
+
+                                </li>
+                                <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                                    <?php echo e(@Session::get('loginSession')['email']); ?>
+
+                                </li>
+                                <hr class="dropdown-divider text-white">
+                                <li><a class="dropdown-item fw-bold li-profile fw-light fs-6 text-white"
+                                        href="http://localhost:8000/logout">Logout</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <?php else: ?>
-                <li><a href="http://localhost:8000/login"  class="fw-light fs-6 text-white opacity-75 align-self-center">Login</a></li>
-                <li><a href="http://localhost:8000/register" class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 " style="background-color: rgb(128, 128, 128); color: rgb(100, 166, 253);">Register</a></li>
-                <?php endif; ?>
+                    <?php else: ?>
+                    <li><a href="http://localhost:8000/login"
+                            class="fw-light fs-6 text-white opacity-75 align-self-center">Login</a></li>
+                    <li><a href="http://localhost:8000/register"
+                            class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 "
+                            style="background-color: rgb(128, 128, 128); color: rgb(100, 166, 253);">Register</a></li>
+                    <?php endif; ?>
             </div>
-        </div>
-
-                </ul>
-
+            </div>
+            </ul>
             </div>
         </nav>
-        <h1 class="fs-1 mx-auto fw-lighter text-center mt-5 text-white">Marcar uma consulta <br> nunca foi tão fácil</h1>
+        <h1 class="fs-1 mx-auto fw-lighter text-center mt-5 text-white">Marcar uma consulta <br> nunca foi tão fácil
+        </h1>
         <p class="fs-6 mx-auto fw-lighter text-center w-50 mx-auto my-3 text-white opacity-75">
             Nosso sistema online permite que você escolha a data e hora <br> que melhor se
             adequam à sua agenda
         </p>
-        <p class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15" style="background-color: rgb(128, 128, 128)">
-            <span class="ps-1"><a href="<?php echo e(route('doutores.create')); ?>" class="text-white fw-bold" >ser colaborador</a></span>
-            <span><a href="<?php echo e(route('consultas.index')); ?>" class="fw-medium" style="color: rgb(100, 166, 253);">marcar consulta <i class="icofont-arrow-right"></i></a></span>
+        <p class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15"
+            style="background-color: rgb(128, 128, 128)">
+            <span class="ps-1"><a href="<?php echo e(route('doutores.create')); ?>" class="text-white fw-bold">ser
+                    colaborador</a></span>
+            <span><a href="<?php echo e(route('consultas.index')); ?>" class="fw-medium" style="color: rgb(100, 166, 253);">marcar
+                    consulta <i class="icofont-arrow-right"></i></a></span>
         </p>
-        <div class="hero-bottom-img mx-auto mt-5 position-relative bg-black overflow-y-hidden rounded-top" style="width: 60rem; height: 15.2rem;">
-            <div class="position-absolute bg-white h-75 rounded" style="left:-97px; top: 18px; bottom: 0; width: 17rem; -webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+        <div class="hero-bottom-img mx-auto mt-5 position-relative bg-black overflow-y-hidden rounded-top"
+            style="width: 60rem; height: 15.2rem;">
+            <div class="position-absolute bg-white rounded" style="max-height: 75%;left:-97px; top: 18px; bottom: 0; width: 17rem; -webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
         -moz-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
         box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);">
-        <img src="<?php echo e(URL::to('img/hero-left.png')); ?>" class="w-full rounded" alt="">
-    </div>
+                <img src="<?php echo e(URL::to('img/hero-left.png')); ?>" class="w-full rounded" alt="" style="">
+            </div>
 
-    <img src="<?php echo e(URL::to('img/hero-svg.svg')); ?>" class="position-absolute" style="right: 230px; top: 94px; width: 60px;" alt="">
-    <div class="position-absolute bg-white h-100 rounded" style="right:-97px; top: 18px; bottom: 0; width: 17rem;-webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+            <img src="<?php echo e(URL::to('img/hero-svg.svg')); ?>" class="position-absolute"
+                style="right: 230px; top: 94px; width: 60px;" alt="">
+            <div class="position-absolute bg-white h-100 rounded" style="right:-97px; top: 18px; bottom: 0; width: 17rem;-webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
     box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);">
-        <img src="<?php echo e(URL::to('img/hero-right.png')); ?>" class="w-full rounded" alt="">
-    </div>
-
+                <img src="<?php echo e(URL::to('img/hero-right.png')); ?>" class="w-full rounded" alt="">
+            </div>
         </div>
-
     </header>
-    <!-- Start Main Banner Area -->
-    
-                    
-    <!-- End Main Banner Area -->
 
-    <!-- Start Boxes Area -->
-    <section class="boxes-area ptb-100 mt-5 pt-3 ">
+    <section class="boxes-area ptb-100 mt-5 pt-5 ">
         <div class="container">
             <div class="row">
+                <h3 class="text-center pt-5 text-dark opacity-75">Nosso Diferencial</h3>
+                <span class="text-center pb-5 text-primary opacity-75">Oque nos diferencia dos nossos
+                    concorrentes</span>
                 <div class="col-lg-3 col-md-6 left">
                     <div class="single-box">
                         <i class="icofont-doctor"></i>
@@ -193,7 +190,7 @@
                             Eliminamos formulários
                             extensos e tempo de espera, garantindo uma experiência ágil e eficiente para nossos
                             pacientes. Concentre-se no que
-                            realmente importa: sua saúde."
+                            realmente importa: sua saúde e o seu bem estar pessoal, onde tudo isso encontras no EAB."
                         </p>
                     </div>
                 </div>
@@ -207,7 +204,7 @@
                             saúde. Nosso sistema de
                             agendamento online permite que você marque consultas a qualquer momento, garantindo
                             flexibilidade e conveniência para
-                            sua agenda ocupada. Cuide da sua saúde .
+                            sua agenda ocupada. Cuide da sua saúde a qualquer momento apartir de um click.
                         </p>
                     </div>
                 </div>
@@ -903,9 +900,6 @@
             </div>
         </div>
     </section>
-    <!-- End Fun Facts Area -->
-
-    <!-- Start Gallery Area -->
     <section id="gallery" class="gallery-area ptb-100">
         <div class="container">
             <div class="section-title">
@@ -1013,9 +1007,6 @@
             </div>
         </div>
     </section>
-    <!-- End Gallery Area -->
-
-    <!-- Start Pricing Area -->
     <section id="price" class="pricing-area ptb-100 bg-f9faff">
         <div class="container">
             <div class="section-title">
@@ -1114,9 +1105,6 @@
             </div>
         </div>
     </section>
-    <!-- End Pricing Area -->
-
-    <!-- Start Testimonials Area -->
     <section class="testimonials-area ptb-100">
         <div class="container">
             <div class="section-title">
@@ -1226,16 +1214,12 @@
 
                         <p>"Conheci a plataforma por meio do meu pai ele a utiliza para marcar as suas consultas
                             online."</p>
-
                         <i class="icofont-quote-right"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Testimonials Area -->
-
-    <!-- Start News Area -->
     <section id="blog" class="news-area ptb-100 bg-f9faff">
         <div class="container">
             <div class="section-title">
@@ -1312,9 +1296,6 @@
             </div>
         </div>
     </section>
-    <!-- End News Area -->
-
-    <!-- Start Contact Area -->
     <section id="contact" class="contact-area ptb-100">
         <div class="container">
             <div class="row">
@@ -1345,7 +1326,6 @@
                         <p><a href="#">+244 922 222 222</a></p>
                     </div>
                 </div>
-
                 <div class="col-lg-3 col-md-6">
                     <div class="contact-box">
                         <h3><i class="icofont-clock-time"></i> Horário</h3>
@@ -1374,7 +1354,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="col-lg-8 col-md-12">
                     <form id="" method="POST" action="<?php echo e(route('mensagem.store')); ?>">
                         <?php echo csrf_field(); ?>
@@ -1383,7 +1362,6 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="nome" id="name" required
                                         placeholder="Nome">
-                                    
                                 </div>
                             </div>
                             <?php if($errors->has('nome')): ?>
@@ -1393,7 +1371,6 @@
                                 <div class="form-group">
                                     <input type="email" class="form-control" name="email" id="email" required
                                         placeholder="Email">
-                                    
                                 </div>
                             </div>
                             <?php if($errors->has('email')): ?>
@@ -1403,7 +1380,6 @@
                                 <div class="form-group">
                                     <textarea name="conteudo" class="form-control" id="message" cols="30" rows="4"
                                         placeholder="Messagem"></textarea>
-                                    
                                 </div>
                             </div>
                             <?php if($errors->has('conteudo')): ?>
@@ -1418,9 +1394,6 @@
             </div>
         </div>
     </section>
-    <!-- End Contact Area -->
-
-    <!-- Start Footer Area -->
     <footer class="footer-area bg-f9faff">
         <div class="container">
             <div class="row">
@@ -1437,11 +1410,8 @@
             </div>
         </div>
     </footer>
-    <!-- End Footer Area -->
 
     <div class="go-top"><i class="icofont-stylish-up"></i></div>
-
-    <!-- Link of JS files -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>

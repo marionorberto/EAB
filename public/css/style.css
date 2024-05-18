@@ -546,6 +546,28 @@ thead {
     width: 3px;
     scale: 1;
 }
+
+.dashboard-img-container-admin-img {
+    background-color: #dfdada;
+    width: 12rem;
+    height: 13rem;
+    padding: 15px;
+}
+
+.dashboard-right-admin-img {
+    width: 12rem;
+    height: 11rem;
+    margin-left: 7px;
+}
+
+.small-fs-6 {
+    font-size: 10px;
+}
+
+.md-fs-6 {
+    font-size: 12px;
+}
+
 .main-banner {
     height: 730px;
     background-image: url(../../assets/img/hero-bg.jpg);
@@ -2262,4 +2284,3 @@ textarea.form-control {
 .hero-bottom-img{
     background-image: url('../img/center-hero.png');
 }
-

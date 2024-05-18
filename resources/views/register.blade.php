@@ -21,11 +21,11 @@
     <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
     <style>
-        #canvas{
-  background:#0072ff;
+        #canvas {
+            background: #0072ff;
 
 
-}
+        }
     </style>
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
@@ -70,11 +70,19 @@
                 @csrf
                 <h3 class="text-start">Sign Up</h3>
                 <div class="d-flex gap-2">
-                    <input type="text" required placeholder="Primeiro Nome" name="firstname"
-                        value="{{old('firstname')}}" class="input-login">
+                    <input type="text" placeholder="Primeiro Nome" name="firstname" value="{{old('firstname')}}"
+                        class="input-login">
                     <input type="text" required placeholder="Último Nome" name="lastname" value="{{old('lastname')}}"
                         class="input-login">
                 </div>
+                @if (null !== session('namesIncorret'))
+                <span class="text-start text-danger span-error2 fs-6">
+                    Campo Primeiro Nome & Último Nome devem ter apenas um único
+                    nome.
+                </span>
+                <br>
+                @endif
+
                 @if($errors->has('firstname'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('firstname')}}</span> <br>
                 @endif
@@ -82,31 +90,37 @@
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('lastname')}}</span> <br>
                 @endif
                 <div class="gap-2">
-                    <input type="text" required placeholder="username" name="username" value="{{old('username')}}"
+                    <input type="text" placeholder="username" name="username" value="{{old('username')}}"
                         class="input-login">
                 </div>
+                @if (null !== session('usernameIncorrect'))
+                <span class="text-start text-danger span-error2 fs-6">
+                    Campo username não deve conter espaços.
+                </span>
+                <br>
+                @endif
                 @if($errors->has('username'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('username')}}</span> <br>
                 @endif
                 <div class="gap-2">
-                    <input type="email" required placeholder="Email Address" name="email" value="{{old('email')}}"
+                    <input type="email" placeholder="Email Address" name="email" value="{{old('email')}}"
                         class="input-login">
                 </div>
                 @if($errors->has('email'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('email')}}</span> <br>
                 @endif
                 <div>
-                    <input type="text" required placeholder="Telefone" name="telefone" value="{{old('telefone')}}"
+                    <input type="text" placeholder="Telefone" name="telefone" value="{{old('telefone')}}"
                         class="input-login">
                 </div>
                 @if($errors->has('telefone'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('telefone')}}</span> <br>
                 @endif
                 <div class="login-container-bi-nacionalidade g-3">
-                    <input type="text" required class="text-secondary w-50 text-start input-login"
+                    <input type="text" class="text-secondary w-50 text-start input-login"
                         placeholder="BI - Bilhete de identidade" name="bi" value="{{old('bi')}}">
 
-                    <select name="naturalidade" required id="" class="w-50 text-start input-login bg-transparent">
+                    <select name="naturalidade" id="" class="w-50 text-start input-login bg-transparent">
                         <option value="Angolana">🇦🇴 Angola (+244)</option>
                         <option value="Brasileira">🇧🇷 Brasil (+55)</option>
                         <option value="Portuguesa">🇵🇹 Portugal (+351)</option>
@@ -119,20 +133,30 @@
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('bi')}}</span> <br>
                 @endif
                 <div class="d-flex gap-2">
-                    <select name="sexo" required id="" class="w-25 input-login bg-white">
+                    <select name="sexo" id="" class="w-50 input-login bg-white">
                         <option value="M">M - Masculino</option>
                         <option value="F">F - Femenino</option>
                     </select>
+
+                    <label for="fotoFile"
+                        class="text-secondary  cursor-pointer border-secondary text-secondary font-bold border-1 text-center"
+                        style="border-style: dashed">Carregar Foto <i class="icofont-cloud-upload p-0 fs-4"></i></label>
                     <input type="file" name="fotoFile" id="fotoFile" placeholder="Foto"
-                        class="input-login w-50 bg-text-dark" required title="Escolher">
+                        class="input-login w-50 bg-text-dark d-none" accept=".png,.jpg,.jpeg" title="Escolher">
+
                 </div>
-                @if($errors->has('sexof'))
+                @if (null !== session('fileFormatError'))
+                <span class="text-start text-danger span-error2 fs-6">
+                    Formato da foto inválida.
+                </span>
+                <br>
+                @endif
+                @if($errors->has('sexo'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('sexo')}}</span> <br>
                 @endif
                 <div class="d-flex flex-column gap-4">
-                    <input type="password" required placeholder="Password" name="password" class="input-login">
-                    <input type="password" required placeholder="Repeat password" name="repeat_password"
-                        class="input-login">
+                    <input type="password" placeholder="Password" name="password" class="input-login">
+                    <input type="password" placeholder="Repeat password" name="repeat_password" class="input-login">
                 </div>
                 @if($errors->has('repeat_password'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('repeat_password')}}</span> <br>
@@ -176,10 +200,10 @@
     <script src="{{URL::to('js/contact-form-script.js')}}"></script>
     <script src="{{URL::to('js/main.js')}}"></script>
     <script src="{{URL::to('js/three.r134.min.js')}}"></script>
-<script src="{{URL::to('js/vanta.net.min.js')}}"></script>
-<script src="{{URL::to('js/vanta.halo.min.js')}}"></script>
-<script>
-VANTA.HALO({
+    <script src="{{URL::to('js/vanta.net.min.js')}}"></script>
+    <script src="{{URL::to('js/vanta.halo.min.js')}}"></script>
+    <script>
+        VANTA.HALO({
   el: "#s-l",
   mouseControls: true,
   touchControls: true,
@@ -187,10 +211,7 @@ VANTA.HALO({
   minHeight: 200.00,
   minWidth: 200.00,
 })
-</script>
+    </script>
 </body>
 
 </html>
-
-
-

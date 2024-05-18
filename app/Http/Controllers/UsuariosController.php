@@ -14,27 +14,20 @@ use Illuminate\Support\Facades\Validator;
 use Stringable;
 use Illuminate\Support\Facades\Mail;
 
+use function PHPUnit\Framework\stringContains;
+
 class UsuariosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('register');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -88,6 +81,45 @@ class UsuariosController extends Controller
                 ->withInput();
         }
 
+        $isStringFirstnameIncorrect = count(explode(" ", $request->firstname)) > 1;
+        $isStringLastnameIncorrect = count(explode(" ", $request->lastname)) > 1;
+        $isStringUsernameIncorrect = count(explode(" ", $request->username)) > 1;
+
+        if ($isStringFirstnameIncorrect || $isStringLastnameIncorrect) {
+            return redirect()
+                ->back()
+                ->with(
+                    ["namesIncorret" => true]
+                )
+                ->withInput($request->all());
+        }
+
+        if ($isStringUsernameIncorrect) {
+            return redirect()
+                ->back()
+                ->with(
+                    ["usernameIncorrect" => true]
+                )
+                ->withInput($request->all());
+        }
+
+        $formatImagesAvailable = ["jpg", "png", "jpeg"];
+        $flag = false;
+
+        for ($i = 0; $i < count($formatImagesAvailable); $i++) {
+            if ($formatImagesAvailable[$i] == $request->file('fotoFile')->getClientOriginalExtension())
+                $flag  = true;
+        }
+
+        if ($flag == false) {
+            return redirect()
+                ->back()
+                ->with(
+                    ["fileFormatError" => true]
+                )
+                ->withInput($request->all());
+        }
+
         $usuario = new Usuarios();
 
         $isPasswordsEquals = $request->password == $request->repeat_password;
@@ -135,6 +167,7 @@ class UsuariosController extends Controller
 
         $userImages->save();
 
+        // send an email to new user:
         $emailData = [
             "username" => $request->username
         ];

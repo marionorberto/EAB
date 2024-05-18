@@ -21,11 +21,11 @@
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
     <style>
-       .anime{
-        position: absolute;
-        z-index: 1000;
-        margin-left: 30px;
-       }
+        .anime {
+            position: absolute;
+            z-index: 1000;
+            margin-left: 30px;
+        }
     </style>
 </head>
 
@@ -82,14 +82,16 @@
     <?php if(count($errors) > 0): ?>
     <div class="d-flex ">
         <section class="align-self-center text-sm-center alert alert-danger w-75 opacity-75 ms-auto me-auto">
-             Algum erro tento registrar <i class="icofont-info-circle"></i> <span> <br> <strong>Por favor verifique os seus dados!</strong></span>
+            Algum erro tento registrar <i class="icofont-info-circle"></i> <span> <br> <strong>Por favor verifique os
+                    seus dados!</strong></span>
         </section>
     </div>
     <?php endif; ?>
     <?php if(null !== (session('dataOccupedError')) ): ?>
     <div class="d-flex ">
         <section class="align-self-center text-sm-center alert alert-danger w-75 opacity-75 ms-auto me-auto">
-            <span><strong>Data para esta consulta já ocupada <i class="icofont-info-circle"></i> </strong> <br>Por favor escolha uma outra data conveniente
+            <span><strong>Data para esta consulta já ocupada <i class="icofont-info-circle"></i> </strong> <br>Por favor
+                escolha uma outra data conveniente
                 para
                 sua
                 consulta</span>
@@ -98,7 +100,7 @@
     <?php endif; ?>
     <div class="consulta-container pt-5">
         <section class="consulta-section-container">
-            <div id="" class="consulta-section-left d-flex">
+            <div id="" class="consulta-section-left d-flex flex-column gap-3">
                 <a class="navbar-brand align-self-top ps-5 pt-5 mt-5" href="http://localhost:8000/">
                     <i class="icofont-medical-sign-alt fs-2 fw-medium text-dark"></i>
                     <span class="fw-bolder fs-5 text-light fs-2"> EAB</span> <br> <span
@@ -106,6 +108,8 @@
                         Appointment
                         Booking</span>
                 </a>
+                <h2 class="text-white ms-5">Marque a sua consulta <br> <strong>hoje mesmo.</strong></h2>
+                <img src="<?php echo e(URL::to('img/undraw_doctor_kw-5-l.svg')); ?>" alt="">
             </div>
             <form action="<?php echo e(route('consultas.store')); ?>" method="post" class="
                 consulta-section-right d-flex flex-column gap-3">
@@ -125,12 +129,20 @@
                             name="lastname">
                     </div>
                 </div>
+                <?php if(null !== session('namesIncorret')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2">
+                    Campo <strong>Primeiro Nome</strong> & <strong>Último Nome</strong> devem ter apenas uma única
+                    nome
+                </span>
+                <br>
+                <?php endif; ?>
                 <?php if($errors->has('firstname')): ?>
                 <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('firstname')); ?></span> <br>
                 <?php endif; ?>
                 <?php if($errors->has('lastname')): ?>
                 <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('lastname')); ?></span> <br>
                 <?php endif; ?>
+
                 <div class="d-flex gap-5 w-100 mt-4">
 
                     <div>
@@ -138,6 +150,21 @@
                         <input type="tel" required class="text-primary input-consulta" value=" <?php echo e(old('telefone')); ?>"
                             name="telefone">
                     </div>
+                    <div>
+                        <label for="" class="text-primary fw-light d-block">Idade</label>
+                        <input type="number" required name="idade" value="<?php echo e(old('idade')); ?>" id="" min="0" max="90"
+                            value="0" class="bg-light text-primary input-consulta">
+                    </div>
+                </div>
+                <?php if($errors->has('idade')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('idade')); ?></span> <br>
+                <?php endif; ?>
+                <?php if($errors->has('telefone')): ?>
+                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('telefone')); ?></span> <br>
+                <?php endif; ?>
+
+                <div class="d-flex gap-5 w-100 mt-4">
+                    
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
                         <input type="date" required min="2024-05-01" value="<?php echo e(old('data')); ?>" max="2024-12-31"
@@ -159,33 +186,6 @@
                             <option value="12:00" class="text-secondary">12:00 AM</option>
                         </select>
                     </div>
-                </div>
-
-                <?php if($errors->has('telefone')): ?>
-                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('telefone')); ?></span> <br>
-                <?php endif; ?>
-                <div class="d-flex gap-5 w-100 mt-4">
-                    <div>
-                        <label for="" class="text-primary fw-light d-block">Idade</label>
-                        <input type="number" required name="idade" value="<?php echo e(old('idade')); ?>" id="" min="0" max="90"
-                            value="0" class="bg-light text-primary input-consulta">
-                    </div>
-                    <div class="">
-                        <label for="" class="text-primary fw-light d-block">Peso <sub>(Kg)</sub></label>
-                        <input type="number" required class="text-primary input-consulta" value="<?php echo e(old('peso')); ?>"
-                            max="300" min="2" step=".1" name="peso">
-                    </div>
-                    <div>
-                        <label for="" class="text-primary fw-light d-block">Altura <sub>(m)</sub></label>
-                        <input type="number" required name="altura" value="<?php echo e(old('altura')); ?>" id="" min="0.60" max="3"
-                            step=".01" class="bg-light text-primary input-consulta">
-                    </div>
-                </div>
-                <?php if($errors->has('idade')): ?>
-                <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('idade')); ?></span> <br>
-                <?php endif; ?>
-                <div class="d-flex gap-5 w-100 mt-4">
-                    
                     <div class="">
                         <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>
                         <select name="especialidade" id="especialidade" onchange="carregarDados()" required
@@ -205,7 +205,9 @@
                             <option value="" class="text-opacity-50">selecione...</option>
                         </select>
                     </div>
+
                 </div>
+
                 <div class="d-flex flex-column gap-3">
                     <span class="text-primary">Motivo da consulta</span>
                     <textarea name="motivo" id="" required cols="30" rows="10" class="consulta-textarea p-3"
@@ -263,11 +265,11 @@
     }
     </script>
 
-<script src="<?php echo e(URL::to('three2.min.js')); ?>"></script>
-<script src="<?php echo e(URL::to('js/vanta.net.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('three2.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/vanta.net.min.js')); ?>"></script>
 
-<script>
-VANTA.NET({
+    <script>
+        VANTA.NET({
   el: "#vanta-net",
   mouseControls: true,
   touchControls: true,
@@ -278,7 +280,7 @@ VANTA.NET({
   scaleMobile: 1.00,
   color: 0xf2f2f2
 })
-</script>
+    </script>
 </body>
 
 </html>

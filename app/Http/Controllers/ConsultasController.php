@@ -36,6 +36,10 @@ class ConsultasController extends Controller
 
     public function index()
     {
+        if (@Session('loginSession')['tipoUsuario'] == 'admin') {
+            return redirect()->back();
+        }
+
         return view('consulta.index', [
             'especialidades_data' => $this->especialidades,
         ]);
@@ -78,6 +82,17 @@ class ConsultasController extends Controller
                 ->withInput();
         }
 
+        $isStringFirstnameIncorrect = count(explode(" ", $request->firstname)) > 1;
+        $isStringLastnameIncorrect = count(explode(" ", $request->lastname)) > 1;
+
+        if ($isStringFirstnameIncorrect || $isStringLastnameIncorrect) {
+            return redirect()
+                ->back()
+                ->with(
+                    ["namesIncorret" => true]
+                )
+                ->withInput($request->all());
+        }
 
         $paciente = new Pacientes();
         $telefone = new Telefone();
@@ -118,8 +133,6 @@ class ConsultasController extends Controller
         $paciente->lastname = $request->lastname;
         $paciente->email =  @Session('loginSession')['email'];
         $paciente->idade = $request->idade;
-        $paciente->peso = $request->peso;
-        $paciente->altura = $request->altura;
         $paciente->save();
 
         $idPaciente = DB::connection()->select("
@@ -168,7 +181,7 @@ class ConsultasController extends Controller
         ];
 
         Mail::to(@Session('loginSession')['email'])
-        ->send(new ConsultaMarcada($emailBody));
+            ->send(new ConsultaMarcada($emailBody));
 
         return view('consulta.index', [
             'alert_success' => 'Consulta marcada com sucesso',
@@ -244,7 +257,7 @@ class ConsultasController extends Controller
         ");
 
         $consultaPendenteContagem = DB::connection()
-        ->select("
+            ->select("
         SELECT
             count(status) as count
         FROM
@@ -254,7 +267,7 @@ class ConsultasController extends Controller
         ");
 
         $consultaCanceladaContagem = DB::connection()
-        ->select("
+            ->select("
         SELECT
             count(status) as count
         FROM
@@ -264,7 +277,7 @@ class ConsultasController extends Controller
         ");
 
         $consultaFeitaContagem = DB::connection()
-        ->select("
+            ->select("
         SELECT
             count(status) as count
         FROM
@@ -273,14 +286,12 @@ class ConsultasController extends Controller
             status = 'feita' and consulta_marcada.idUsuario = '$idUsuario';
         ");
 
-        // dd($consultaPendenteContagem[0]->count);
-
         return view('consulta.minhas-consultas', compact(
             'consultaData',
-             'usuarioData',
-              'consultaPendenteContagem',
-               'consultaCanceladaContagem',
-                'consultaFeitaContagem'
+            'usuarioData',
+            'consultaPendenteContagem',
+            'consultaCanceladaContagem',
+            'consultaFeitaContagem'
         ));
     }
 }

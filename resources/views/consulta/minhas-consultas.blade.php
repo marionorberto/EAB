@@ -101,11 +101,11 @@
                             <td class="text-truncate">
                                 @if (Str::length($consulta->motivo) > 34)
                                 {{
-                                   Str::substr($consulta->motivo, 0, 34)
+                                Str::substr($consulta->motivo, 0, 34)
                                 }}...
                                 @else
                                 {{
-                                    $consulta->motivo
+                                $consulta->motivo
                                 }}
                                 @endif
                             </td>
@@ -117,8 +117,7 @@
                             <td>
                                 {{$consulta->horario}}
                             </td>
-                            <td
-                                class="
+                            <td class="
                                     @if ($consulta->status == 'pendente')
                                         {{ 'text-warning opacity-50'}}
                                     @endif
@@ -182,8 +181,9 @@
                     <div>
                         <button class="text-white bg-primary px-5 nowrap border-0 fw-bold align-content-center">
                             TOTAL {{
-                                $consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count + $consultaFeitaContagem[0]->count
-                                }}</button>
+                            $consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count +
+                            $consultaFeitaContagem[0]->count
+                            }}</button>
                     </div>
                 </div>
 
@@ -249,4 +249,5 @@
     </script>
 
 </body>
+
 </html>

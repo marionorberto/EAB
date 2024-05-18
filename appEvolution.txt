@@ -1,2 +1,24 @@
-[] - Other auth strategy
+[] - Fazer a página de financeiro
 
+[] - ver o erro post too large
+
+[] - admin não pode alterar um email igual à base de dados
+
+[] - doutor deve ver todas as suas consultas gendadas , deve cancelar consultas
+
+
+[] - responsividade
+
+
+
+
+
+[] -> validation store colarador
+[] -> ver pedidos aceites* e rejeitado*
+[] -> recuperar senha
+
+
+[] -> campo foto opcional
+[] - ordem descrente nas sms do admin
+[] meter o tel na pagian pedido de doutor no admin
+[] - ver pk não alterou quando atualizei os dados do admin

@@ -2,11 +2,9 @@
 <html lang="pt-br">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Link of CSS files -->
     <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/fontawesome.min')}}">
@@ -26,7 +24,6 @@
 
 <body data-bs-spy="scroll" data-bs-offset="70">
 
-    <!-- Start Preloader Area -->
     <div class="preloader-area">
         <div class="spinner">
             <div class="rect1"></div>
@@ -36,119 +33,13 @@
             <div class="rect5"></div>
         </div>
     </div>
-    <!-- End Preloader Area -->
 
-    <!-- Dark Version Btn -->
     <div class="dark-version-btn">
         <label id="switch" class="switch">
             <input type="checkbox" onchange="toggleTheme()" id="slider">
             <span class="slider round"></span>
         </label>
     </div>
-
-    <!-- Start Navbar Area -->
-    {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <div class="row g-2">
-                <div class="col-12 col-lg-2 col-md-2">
-                    <a class="navbar-brand " href="http://localhost:8000/">
-                        <i class="icofont-medical-sign-alt fs-2 fw-medium text-primary"></i>
-                        <span class="fw-bolder fs-5"> EAB</span> <br> <span
-                            class="fw-light fs-6 fst-italic text-muted lh-sm">Efortless
-                            Appointment
-                            Booking</span>
-                    </a>
-                </div>
-
-                <div class="col-12 col-lg-8 col-md-8">
-                    <div class="navbar-toggle-btn">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{route('doutores.create')}}">Ser
-                                    colaborador</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#department">Departamentos</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#service">Serviços</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#about">Sobre</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#contact">Contactos</a></li>
-
-                            @if (!Session::has('loginSession'))
-                            <li class="nav-item"><a
-                                    class="nav-link text-secondary {{request()->routeIs('login') ? 'ative' : ''}}"
-                                    href="http://localhost:8000/login">Login</a></li>
-                            <li class="nav-item d-flex gap-1 align-items-center">
-                                <a class="nav-link text-dark border-bottom-3"
-                                    href="http://localhost:8000/register">Registrar-se</a>
-                            </li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-2 col-md-2 text-right">
-                    <div class="d-flex gap-2">
-                        @if (Session::has('loginSession'))
-                        <a href="{{route('consultas.index')}}" class="appointment-btn d-none">Marcar Consulta </a>
-                        @else
-                        <a href="{{route('consultas.index')}}" class="appointment-btn">Marcar Consulta </a>
-                        @endif
-                        @if (Session::has('loginSession'))
-                        <div class="dropdown rounded-1">
-                            <button class=" dropdown-toggle dropdown-profile-user div-profile-img nav-link"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
-                                    src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}"
-                                    @endif alt=" profile-page-img" class="img-profile-page">
-                                {{@Session::get('loginSession')['username']}}
-                            </button>
-                            <ul class="dropdown-menu">
-
-                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
-                                (@Session::get('loginSession')['tipoUsuario']) == 'normal')
-                                <li>
-                                    <a href="{{route('minhas-consultas')}}"
-                                        class="dropdown-item li-profile fw-ligh fs-6">Minhas Consultas</a>
-                                </li>
-                                @endif
-
-                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
-                                (@Session::get('loginSession')['tipoUsuario']) == 'admin')
-                                <li>
-                                    <a href="{{route('dashboard.index')}}"
-                                        class="dropdown-item li-profile fw-ligh fs-6">Dashboard</a>
-                                </li>
-                                @endif
-
-                                <li class="dropdown-item li-profile fw-light fs-6">
-                                    {{
-                                    @Session::get('loginSession')['username']
-                                    }}
-                                </li>
-                                <li class="dropdown-item li-profile fw-medium fs-6">
-                                    {{
-                                    @Session::get('loginSession')['email']
-                                    }}
-                                </li>
-                                <hr class="dropdown-divider">
-                                <li><a class="dropdown-item fw-bold li-profile fw-light fs-6"
-                                        href="http://localhost:8000/logout">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-
-        </div>
-    </nav>
-    <!-- End Navbar Area --> --}}
 
     <header class="header-home" style="background: linear-gradient(115deg, #62cff4, #2c67f2);">
 
@@ -161,149 +52,108 @@
                             <span class="fw-bolder fs-5"> EAB</span>
                         </a>
                     </div>
-                    <li class="ms-3"><a href="" class="text-white opacity-75">Home</a></li>
+                    <li class="ms-3 position-relative"><a href="#" class="text-white opacity-75">Home</a>
+                    </li>
                     <li><a href="#department" class="text-white opacity-75">Departamentos</a></li>
                     <li><a href="#team" class="text-white opacity-75">Team</a></li>
                     <li><a href="#service" class="text-white opacity-75">Serviços</a></li>
                     <li><a href="#contact" class="text-white opacity-75">Contactos</a></li>
                 </ul>
                 <ul class="d-flex gap-3 justify-content-center align-items-center list-unstyled">
-                <div class="d-flex gap-2 align-items-center">
-                    @if (Session::has('loginSession'))
-                    <div class="dropdown rounded-1">
-                        <button class=" dropdown-toggle dropdown-profile-user bg-transparent text-white opacity-75 fw-light border-0"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
-                                src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}"
-                                @endif alt=" profile-page-img" class="img-profile-page">
-                            {{@Session::get('loginSession')['username']}}
-                        </button>
-                        <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-secondary opacity-75">
+                    <div class="d-flex gap-2 align-items-center">
+                        @if (Session::has('loginSession'))
+                        <div class="dropdown rounded-1">
+                            <button
+                                class=" dropdown-toggle dropdown-profile-user bg-transparent text-white opacity-75 fw-light border-0"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
+                                    src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}"
+                                    @endif alt=" profile-page-img" class="img-profile-page">
+                                {{@Session::get('loginSession')['username']}}
+                            </button>
+                            <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-secondary opacity-75">
 
-                            @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
-                            (@Session::get('loginSession')['tipoUsuario']) == 'normal')
-                            <li>
-                                <a href="{{route('minhas-consultas')}}"
-                                    class="dropdown-item li-profile fw-light fs-6 text-white">Minhas Consultas</a>
-                            </li>
-                            @endif
+                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal')
+                                <li>
+                                    <a href="{{route('minhas-consultas')}}"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Minhas Consultas</a>
+                                </li>
+                                @endif
 
-                            @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
-                            (@Session::get('loginSession')['tipoUsuario']) == 'admin')
-                            <li>
-                                <a href="{{route('dashboard.index')}}"
-                                    class="dropdown-item li-profile fw-light fs-6 text-white">Dashboard</a>
-                            </li>
-                            @endif
+                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin')
+                                <li>
+                                    <a href="{{route('dashboard.index')}}"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Dashboard</a>
+                                </li>
+                                @endif
 
-                            <li class="dropdown-item li-profile fw-light fs-6 text-white">
-                                {{
-                                @Session::get('loginSession')['username']
-                                }}
-                            </li>
-                            <li class="dropdown-item li-profile fw-light fs-6 text-white">
-                                {{
-                                @Session::get('loginSession')['email']
-                                }}
-                            </li>
-                            <hr class="dropdown-divider text-white">
-                            <li><a class="dropdown-item fw-bold li-profile fw-light fs-6 text-white"
-                                    href="http://localhost:8000/logout">Logout</a></li>
-                        </ul>
+                                <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                                    {{
+                                    @Session::get('loginSession')['username']
+                                    }}
+                                </li>
+                                <li class="dropdown-item li-profile fw-light fs-6 text-white">
+                                    {{
+                                    @Session::get('loginSession')['email']
+                                    }}
+                                </li>
+                                <hr class="dropdown-divider text-white">
+                                <li><a class="dropdown-item fw-bold li-profile fw-light fs-6 text-white"
+                                        href="http://localhost:8000/logout">Logout</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                @else
-                <li><a href="http://localhost:8000/login"  class="fw-light fs-6 text-white opacity-75 align-self-center">Login</a></li>
-                <li><a href="http://localhost:8000/register" class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 " style="background-color: rgb(128, 128, 128); color: rgb(100, 166, 253);">Register</a></li>
-                @endif
+                    @else
+                    <li><a href="http://localhost:8000/login"
+                            class="fw-light fs-6 text-white opacity-75 align-self-center">Login</a></li>
+                    <li><a href="http://localhost:8000/register"
+                            class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 "
+                            style="background-color: rgb(128, 128, 128); color: rgb(100, 166, 253);">Register</a></li>
+                    @endif
             </div>
-        </div>
-
-                </ul>
-
+            </div>
+            </ul>
             </div>
         </nav>
-        <h1 class="fs-1 mx-auto fw-lighter text-center mt-5 text-white">Marcar uma consulta <br> nunca foi tão fácil</h1>
+        <h1 class="fs-1 mx-auto fw-lighter text-center mt-5 text-white">Marcar uma consulta <br> nunca foi tão fácil
+        </h1>
         <p class="fs-6 mx-auto fw-lighter text-center w-50 mx-auto my-3 text-white opacity-75">
             Nosso sistema online permite que você escolha a data e hora <br> que melhor se
             adequam à sua agenda
         </p>
-        <p class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15" style="background-color: rgb(128, 128, 128)">
-            <span class="ps-1"><a href="{{route('doutores.create')}}" class="text-white fw-bold" >ser colaborador</a></span>
-            <span><a href="{{route('consultas.index')}}" class="fw-medium" style="color: rgb(100, 166, 253);">marcar consulta <i class="icofont-arrow-right"></i></a></span>
+        <p class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15"
+            style="background-color: rgb(128, 128, 128)">
+            <span class="ps-1"><a href="{{route('doutores.create')}}" class="text-white fw-bold">ser
+                    colaborador</a></span>
+            <span><a href="{{route('consultas.index')}}" class="fw-medium" style="color: rgb(100, 166, 253);">marcar
+                    consulta <i class="icofont-arrow-right"></i></a></span>
         </p>
-        <div class="hero-bottom-img mx-auto mt-5 position-relative bg-black overflow-y-hidden rounded-top" style="width: 60rem; height: 15.2rem;">
-            <div class="position-absolute bg-white h-75 rounded" style="left:-97px; top: 18px; bottom: 0; width: 17rem; -webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+        <div class="hero-bottom-img mx-auto mt-5 position-relative bg-black overflow-y-hidden rounded-top"
+            style="width: 60rem; height: 15.2rem;">
+            <div class="position-absolute bg-white rounded" style="max-height: 75%;left:-97px; top: 18px; bottom: 0; width: 17rem; -webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
         -moz-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
         box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);">
-        <img src="{{URL::to('img/hero-left.png')}}" class="w-full rounded" alt="">
-    </div>
+                <img src="{{URL::to('img/hero-left.png')}}" class="w-full rounded" alt="" style="">
+            </div>
 
-    <img src="{{URL::to('img/hero-svg.svg')}}" class="position-absolute" style="right: 230px; top: 94px; width: 60px;" alt="">
-    <div class="position-absolute bg-white h-100 rounded" style="right:-97px; top: 18px; bottom: 0; width: 17rem;-webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
+            <img src="{{URL::to('img/hero-svg.svg')}}" class="position-absolute"
+                style="right: 230px; top: 94px; width: 60px;" alt="">
+            <div class="position-absolute bg-white h-100 rounded" style="right:-97px; top: 18px; bottom: 0; width: 17rem;-webkit-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);
     box-shadow: -2px -2px 17px -2px rgba(0,0,0,0.75);">
-        <img src="{{URL::to('img/hero-right.png')}}" class="w-full rounded" alt="">
-    </div>
-
-        </div>
-
-    </header>
-    <!-- Start Main Banner Area -->
-    {{-- <div id="home" class="main-banner">
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="hero-slides owl-carousel owl-theme">
-                                <div class="hero-content">
-                                    <h1 class="fs-2">Proporcionando saúde de qualidade. <br> A tua saúde e bem estar é o
-                                        nosso maior
-                                        <span>Compromisso</span>
-                                    </h1>
-                                    <p>
-                                        Estamos comprometidos em proporcionar saúde de qualidade aos nossos pacientes.
-                                        Acreditamos que o bem-estar é fundamental
-                                        para uma vida plena, e por isso dedicamos nossos esforços para oferecer serviços
-                                        de excelência em todas as áreas da
-                                        saúde.
-                                    </p>
-                                    <a href="{{route('consultas.index')}}" class="btn">Marcar Consulta Agora</a>
-                                </div>
-
-                                <div class="hero-content">
-                                    <h1 class="fs-2">Marca uma consulta nunca foi tão fácil. <br> Tudo a distância de um
-                                        <span>Clique</span>
-                                    </h1>
-                                    <p>
-                                        Nosso sistema online permite que você escolha a data e hora que melhor se
-                                        adequam à sua agenda, sem complicações.
-                                        Dedicamos nosso esforço em tornar a experiência de agendamento simples e
-                                        acessível para todos os nossos pacientes.
-                                        Experimente agora mesmo a facilidade de cuidar da sua saúde com apenas um
-                                        clique!"
-                                    </p>
-                                    <a href="{{route('consultas.index')}}" class="btn">Marcar Consulta Agora</a>
-                                </div>
-
-                            </div>
-                        </div>
-                        {{-- <div class="col-6">
-                            <img src="{{URL::to('img/landing-image.jpg')}}" alt=""
-                                class="landing-image z-3 position-absolute">
-                        </div> --}}
-                    {{-- </div>
-                </div>
+                <img src="{{URL::to('img/hero-right.png')}}" class="w-full rounded" alt="">
             </div>
         </div>
-    </div> --}}
-    <!-- End Main Banner Area -->
+    </header>
 
-    <!-- Start Boxes Area -->
-    <section class="boxes-area ptb-100 mt-5 pt-3 ">
+    <section class="boxes-area ptb-100 mt-5 pt-5 ">
         <div class="container">
             <div class="row">
+                <h3 class="text-center pt-5 text-dark opacity-75">Nosso Diferencial</h3>
+                <span class="text-center pb-5 text-primary opacity-75">Oque nos diferencia dos nossos
+                    concorrentes</span>
                 <div class="col-lg-3 col-md-6 left">
                     <div class="single-box">
                         <i class="icofont-doctor"></i>
@@ -341,7 +191,7 @@
                             Eliminamos formulários
                             extensos e tempo de espera, garantindo uma experiência ágil e eficiente para nossos
                             pacientes. Concentre-se no que
-                            realmente importa: sua saúde."
+                            realmente importa: sua saúde e o seu bem estar pessoal, onde tudo isso encontras no EAB."
                         </p>
                     </div>
                 </div>
@@ -355,7 +205,7 @@
                             saúde. Nosso sistema de
                             agendamento online permite que você marque consultas a qualquer momento, garantindo
                             flexibilidade e conveniência para
-                            sua agenda ocupada. Cuide da sua saúde .
+                            sua agenda ocupada. Cuide da sua saúde a qualquer momento apartir de um click.
                         </p>
                     </div>
                 </div>
@@ -1051,9 +901,6 @@
             </div>
         </div>
     </section>
-    <!-- End Fun Facts Area -->
-
-    <!-- Start Gallery Area -->
     <section id="gallery" class="gallery-area ptb-100">
         <div class="container">
             <div class="section-title">
@@ -1161,9 +1008,6 @@
             </div>
         </div>
     </section>
-    <!-- End Gallery Area -->
-
-    <!-- Start Pricing Area -->
     <section id="price" class="pricing-area ptb-100 bg-f9faff">
         <div class="container">
             <div class="section-title">
@@ -1262,9 +1106,6 @@
             </div>
         </div>
     </section>
-    <!-- End Pricing Area -->
-
-    <!-- Start Testimonials Area -->
     <section class="testimonials-area ptb-100">
         <div class="container">
             <div class="section-title">
@@ -1374,16 +1215,12 @@
 
                         <p>"Conheci a plataforma por meio do meu pai ele a utiliza para marcar as suas consultas
                             online."</p>
-
                         <i class="icofont-quote-right"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Testimonials Area -->
-
-    <!-- Start News Area -->
     <section id="blog" class="news-area ptb-100 bg-f9faff">
         <div class="container">
             <div class="section-title">
@@ -1460,9 +1297,6 @@
             </div>
         </div>
     </section>
-    <!-- End News Area -->
-
-    <!-- Start Contact Area -->
     <section id="contact" class="contact-area ptb-100">
         <div class="container">
             <div class="row">
@@ -1493,7 +1327,6 @@
                         <p><a href="#">+244 922 222 222</a></p>
                     </div>
                 </div>
-
                 <div class="col-lg-3 col-md-6">
                     <div class="contact-box">
                         <h3><i class="icofont-clock-time"></i> Horário</h3>
@@ -1522,7 +1355,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="col-lg-8 col-md-12">
                     <form id="" method="POST" action="{{route('mensagem.store')}}">
                         @csrf
@@ -1531,7 +1363,6 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="nome" id="name" required
                                         placeholder="Nome">
-                                    {{-- <div class="help-block with-errors"></div> --}}
                                 </div>
                             </div>
                             @if($errors->has('nome'))
@@ -1541,7 +1372,6 @@
                                 <div class="form-group">
                                     <input type="email" class="form-control" name="email" id="email" required
                                         placeholder="Email">
-                                    {{-- <div class="help-block with-errors"></div> --}}
                                 </div>
                             </div>
                             @if($errors->has('email'))
@@ -1551,7 +1381,6 @@
                                 <div class="form-group">
                                     <textarea name="conteudo" class="form-control" id="message" cols="30" rows="4"
                                         placeholder="Messagem"></textarea>
-                                    {{-- <div class="help-block with-errors"></div> --}}
                                 </div>
                             </div>
                             @if($errors->has('conteudo'))
@@ -1566,9 +1395,6 @@
             </div>
         </div>
     </section>
-    <!-- End Contact Area -->
-
-    <!-- Start Footer Area -->
     <footer class="footer-area bg-f9faff">
         <div class="container">
             <div class="row">
@@ -1585,11 +1411,8 @@
             </div>
         </div>
     </footer>
-    <!-- End Footer Area -->
 
     <div class="go-top"><i class="icofont-stylish-up"></i></div>
-
-    <!-- Link of JS files -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="{{URL::to('js/jquery.min.js')}}"></script>
     <script src="{{URL::to('js/jquery-ui.js')}}"></script>

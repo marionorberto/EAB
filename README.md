@@ -28,3 +28,12 @@ FRONTEND:
 
 <h3>How to run it 🚀</h3>
 Download the project -> http://github.com/marionorberto/EAB ⚓
+<hr>
+<h3>Funcionalidades:</h3>
+- UPLOAD DE IMAGENS <br>
+- CADASTRO DE USUARIOS <br>
+- AUTENTICAÇÃO VIA TOKEN <br>
+- REGISTRO | VERIFICAÇÃO | CONSULTA <br>
+- DASHBOARD
+<br>
+ 
