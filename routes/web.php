@@ -27,6 +27,7 @@ Route::view('termos-de-uso', 'terms-of-use');
 Route::get('login', [loginControlador::class, 'index'])->name('login');
 Route::post('login', [loginControlador::class, 'login']);
 Route::get('logout', [loginControlador::class, 'logout']);
+Route::get('recuperar-senha', [loginControlador::class, 'recuperarSenha']);
 
 
 Route::get('register', [UsuariosController::class, 'create'])

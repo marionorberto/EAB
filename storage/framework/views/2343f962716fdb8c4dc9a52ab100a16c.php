@@ -120,12 +120,12 @@
                 <div class="d-flex gap-5 w-100 mt-4">
                     <div class="">
                         <label for="" class="text-primary fw-light d-block">Primeiro Nome</label>
-                        <input type="text" required class="text-primary input-consulta" value="<?php echo e(old('firstname')); ?>"
+                        <input type="text" class="text-primary input-consulta" value="<?php echo e(old('firstname')); ?>"
                             name="firstname">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Último Nome</label>
-                        <input type="text" required value="<?php echo e(old('lastname')); ?>" class="text-primary input-consulta"
+                        <input type="text" value="<?php echo e(old('lastname')); ?>" class="text-primary input-consulta"
                             name="lastname">
                     </div>
                 </div>
@@ -147,13 +147,13 @@
 
                     <div>
                         <label for="" class="text-primary fw-light d-block">Telefone</label>
-                        <input type="tel" required class="text-primary input-consulta" value=" <?php echo e(old('telefone')); ?>"
+                        <input type="tel" class="text-primary input-consulta" value=" <?php echo e(old('telefone')); ?>"
                             name="telefone">
                     </div>
                     <div>
                         <label for="" class="text-primary fw-light d-block">Idade</label>
-                        <input type="number" required name="idade" value="<?php echo e(old('idade')); ?>" id="" min="0" max="90"
-                            value="0" class="bg-light text-primary input-consulta">
+                        <input type="number" name="idade" value="<?php echo e(old('idade')); ?>" id="" min="0" max="90" value="0"
+                            class="bg-light text-primary input-consulta">
                     </div>
                 </div>
                 <?php if($errors->has('idade')): ?>
@@ -167,10 +167,9 @@
                     
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
-                        <input type="date" required min="2024-05-01" value="<?php echo e(old('data')); ?>" max="2024-12-31"
-                            name="data" id="" class="p-2 bg-light text-primary border-0 input-consulta-data">
-                        <select name="hora" id="hora" pattern="[0-9]{2}:[0-9]{2}" class="text-primary input-consulta"
-                            required>
+                        <input type="date" min="2024-05-01" value="<?php echo e(old('data')); ?>" max="2024-12-31" name="data" id=""
+                            class="p-2 bg-light text-primary border-0 input-consulta-data">
+                        <select name="hora" id="hora" pattern="[0-9]{2}:[0-9]{2}" class="text-primary input-consulta">
                             <option value="06:00" class="text-secondary">06:00 AM</option>
                             <option value="06:30" class="text-secondary">06:30 AM</option>
                             <option value="07:00" class="text-secondary">07:00 AM</option>
@@ -188,7 +187,7 @@
                     </div>
                     <div class="">
                         <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>
-                        <select name="especialidade" id="especialidade" onchange="carregarDados()" required
+                        <select name="especialidade" id="especialidade" onchange="carregarDados()"
                             <?php echo e(old('especialidade')); ?> class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
                             <?php if(isset($especialidades_data)): ?>
@@ -200,7 +199,7 @@
                     </div>
                     <div class="">
                         <label for="doutor" class="text-primary fw-light d-block">Doutor</label>
-                        <select name="doutor" <?php echo e(old('doutor')); ?> required id="doutor"
+                        <select name="doutor" <?php echo e(old('doutor')); ?> id="doutor"
                             class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
                         </select>
@@ -210,7 +209,7 @@
 
                 <div class="d-flex flex-column gap-3">
                     <span class="text-primary">Motivo da consulta</span>
-                    <textarea name="motivo" id="" required cols="30" rows="10" class="consulta-textarea p-3"
+                    <textarea name="motivo" id="" cols="30" rows="10" class="consulta-textarea p-3"
                         placeholder="Mensagem"><?php echo e(old('motivo')); ?></textarea>
                     <?php if($errors->has('motivo')): ?>
                     <span class="text-start text-danger span-error2 fs-6 mt-2"> <?php echo e($errors->first('motivo')); ?></span> <br>
@@ -283,5 +282,4 @@
     </script>
 </body>
 
-</html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/index.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/index.blade.php ENDPATH**/ ?>

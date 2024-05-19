@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\UserMessage;
 use App\Models\Mensagens;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class MensagensController extends Controller
@@ -57,40 +58,28 @@ class MensagensController extends Controller
         $mensagens->conteudo = $request->conteudo;
         $mensagens->save();
 
-        // $fromEmail = $request->email;
-        // $subject = 'Mensagem de availiação da aplicação';
-        // $message = $request->conteudo;
-
-        // Mail::to($fromEmail)->send(new UserMessage(
-        //     $message,
-        //     $subject,
-        // ));
-
         return view('home');
     }
 
-    /**
-     * Display the speclified resource.
-     */
     public function show(Mensagens $mensagens)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Mensagens $mensagens)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Mensagens $mensagens)
+    public function update(Request $request, string $id)
     {
-        //
+        DB::connection()->select("
+            update Mensagens
+            set status = 'lida'
+            where idMensagem = '$id'
+        ");
+
+        return redirect()->back()->with(["smsLida" => true]);
     }
 
     /**

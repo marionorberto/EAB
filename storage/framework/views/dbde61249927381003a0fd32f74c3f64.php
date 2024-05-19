@@ -146,11 +146,202 @@
                                 </span>
                             </i>
                         </a>
-
-
                     </div>
                 </div>
                 <div class="sidebar-right-bottom text-dark p-4">
+
+                    <!-- Modal Aceites -->
+                    <div class="modal fade" id="aceites" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title  align-self-center text-center fs-5" id="exampleModalLabel">
+                                        Pedidos
+                                        Aceites
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body w-full">
+                                    <table id="myTable" class="table table-hover small-fs-6 w-full">
+                                        <thead class="tborder-0 border-bottom border-opacity-75 w-full">
+                                            <tr class="text-medium small-fs-6 w-full">
+                                                <th>COD</th>
+                                                <th>NOME</th>
+                                                <th>ESPECIALIDADE</th>
+                                                <th>ANOS EXP.</th>
+                                                <th>MOTIVO</th>
+                                                <th>TELEFONE</th>
+                                                <th>DATA ENVIO</th>
+                                                <th>DOC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-muted text-opacity-50 fs-6 w-full">
+                                            <?php if(@count($notificationsAceites)<= 0): ?> <tr>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                </tr>
+                                                <?php else: ?>
+                                                <?php $__currentLoopData = $notificationsAceites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr class="md-fs-6">
+                                                    <td>
+                                                        <?php echo e($notification->idPedidoVagaDoutor); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->firstname); ?> <?php echo e($notification->lastname); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->especialidade); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        +<?php echo e($notification->anos_experiencia); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php if(Str::length($notification->motivo) > 34): ?>
+                                                        <?php echo e(Str::substr($notification->motivo, 0, 34)); ?>...
+                                                        <?php else: ?>
+                                                        <?php echo e($notification->motivo); ?>
+
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->created_at); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->telefone); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <a target="blank" href="/storage/<?php echo e($notification->url_cv); ?>"
+                                                            class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="rejeitados" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-lg modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title  align-self-center text-center fs-5" id="exampleModalLabel">
+                                        Pedidos
+                                        Rejeitados
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="myTable" class="table table-hover small-fs-6 w-full">
+                                        <thead class="tborder-0 border-bottom border-opacity-75 w-full">
+                                            <tr class="text-medium small-fs-6">
+                                                <th>COD</th>
+                                                <th>NOME</th>
+                                                <th>ESPECIALIDADE</th>
+                                                <th>ANOS EXP.</th>
+                                                <th>MOTIVO</th>
+                                                <th>TELEFONE</th>
+                                                <th>DATA ENVIO</th>
+                                                <th>DOC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-muted text-opacity-50 fs-6 w-full">
+                                            <?php if(@count($notificationsRejeitados)<= 0): ?> <tr>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                </tr>
+                                                <?php else: ?>
+                                                <?php $__currentLoopData = $notificationsRejeitados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr class="md-fs-6">
+                                                    <td>
+                                                        <?php echo e($notification->idPedidoVagaDoutor); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->firstname); ?> <?php echo e($notification->lastname); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->especialidade); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        +<?php echo e($notification->anos_experiencia); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php if(Str::length($notification->motivo) > 34): ?>
+                                                        <?php echo e(Str::substr($notification->motivo, 0, 34)); ?>...
+                                                        <?php else: ?>
+                                                        <?php echo e($notification->motivo); ?>
+
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->created_at); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->telefone); ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <a target="blank" href="/storage/<?php echo e($notification->url_cv); ?>"
+                                                            class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start align-items-center gap-3">
+                        <button type="button" class="text-success text-bold border-0 bg-transparent"
+                            data-bs-toggle="modal" data-bs-target="#aceites">
+                            ver aceites
+                        </button>
+                        <button type="button" class="text-danger text-bold border-0 bg-transparent"
+                            data-bs-toggle="modal" data-bs-target="#rejeitados">
+                            ver rejeitados
+                        </button>
+                    </div>
                     <table id="myTable" class="table table-hover small-fs-6">
                         <?php if(@count($notifications)<= 0): ?> <div class="alert alert-warning opacity-75 text-center py-3">Sem
                             notificações no
@@ -159,12 +350,13 @@
                 <?php endif; ?>
 
                 <thead class="tborder-0 border-bottom border-opacity-75">
-                    <tr class="text-medium small-fs-6">
+                    <tr class="text-medium small-fs-6 w-full">
                         <th>COD</th>
                         <th>NOME</th>
                         <th>ESPECIALIDADE</th>
                         <th>ANOS EXP.</th>
                         <th>MOTIVO</th>
+                        <th>TELEFONE</th>
                         <th>DATA ENVIO</th>
                         <th>DOC</th>
                         <th>ACÕES</th>
@@ -172,6 +364,7 @@
                 </thead>
                 <tbody class="text-muted text-opacity-50 fs-6">
                     <?php if(@count($notifications)<= 0): ?> <tr>
+                        <td>--</td>
                         <td>--</td>
                         <td>--</td>
                         <td>--</td>
@@ -210,6 +403,10 @@
                             </td>
                             <td>
                                 <?php echo e($notification->created_at); ?>
+
+                            </td>
+                            <td>
+                                <?php echo e($notification->telefone); ?>
 
                             </td>
                             <td>
@@ -278,5 +475,4 @@
         });
 </script>
 
-</html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-notifications.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-notifications.blade.php ENDPATH**/ ?>

@@ -78,4 +78,37 @@ class loginControlador extends Controller
 
         return redirect()->route('login');
     }
+
+    public function recuperarSenha()
+    {
+        // verificar se o email existe na base de dados:
+
+        //*gerar a cod de 6 digitos e guardar na sessão:
+        //enviar um email com o código de 6 digitos no email do usuarios
+
+        //verificar se o código do email é o mesmo que foi gerado
+
+        // mostrar a página para ele introduzir a nova senha
+
+        // *apagar o cod de 6 dígitos da sessão
+        // reecaminhar para a página de login para o
+
+        dd($this->generateRandomNumbers());
+        session()->flush('loginSession');
+        return redirect()->route('login');
+    }
+
+    public function generateRandomNumbers()
+    {
+        $randNums = [];
+
+        array_push($randNums, random_int(0, 9));
+        array_push($randNums, random_int(0, 9));
+        array_push($randNums, random_int(0, 9));
+        array_push($randNums, random_int(0, 9));
+        array_push($randNums, random_int(0, 9));
+        array_push($randNums, random_int(0, 9));
+
+        return implode($randNums);
+    }
 }

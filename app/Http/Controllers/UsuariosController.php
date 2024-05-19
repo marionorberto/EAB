@@ -74,6 +74,7 @@ class UsuariosController extends Controller
                 'bi.unique' => 'BI já cadastrado',
             ]
         );
+
         if ($validator->fails()) {
             return redirect()
                 ->back()
@@ -102,22 +103,24 @@ class UsuariosController extends Controller
                 )
                 ->withInput($request->all());
         }
+        if (null !== $request->file('fotoFile')) {
 
-        $formatImagesAvailable = ["jpg", "png", "jpeg"];
-        $flag = false;
+            $formatImagesAvailable = ["jpg", "png", "jpeg"];
+            $flag = false;
 
-        for ($i = 0; $i < count($formatImagesAvailable); $i++) {
-            if ($formatImagesAvailable[$i] == $request->file('fotoFile')->getClientOriginalExtension())
-                $flag  = true;
-        }
+            for ($i = 0; $i < count($formatImagesAvailable); $i++) {
+                if ($formatImagesAvailable[$i] == $request->file('fotoFile')->getClientOriginalExtension())
+                    $flag  = true;
+            }
 
-        if ($flag == false) {
-            return redirect()
-                ->back()
-                ->with(
-                    ["fileFormatError" => true]
-                )
-                ->withInput($request->all());
+            if ($flag == false) {
+                return redirect()
+                    ->back()
+                    ->with(
+                        ["fileFormatError" => true]
+                    )
+                    ->withInput($request->all());
+            }
         }
 
         $usuario = new Usuarios();
@@ -146,33 +149,46 @@ class UsuariosController extends Controller
             where Usuarios.BI = '$request->bi'
         ");
 
-        $userImages->extension = $request->file('fotoFile')
-            ->getClientOriginalExtension();
-
-        $originalNameImage = $request->file('fotoFile')->getClientOriginalName();
-
-        if (str_ends_with(substr($originalNameImage, 0, -4), '.')) {
-            $basenameImage = substr($originalNameImage, 0,  -5);
-        } else {
-            $basenameImage = substr($originalNameImage, 0, -4);
+        if (null == $request->file('fotoFile')) {
+            $userImages->extension = 'jpg';
+            $userImages->idUsuario = $idUsuario[0]->idUsuario;
+            $userImages->filename = 'avatar.png';
+            $userImages->basename = 'avatar';
+            $userImages->url = 'userPhotos/avatar.png';
+            $userImages->save();
         }
 
-        $userImages->idUsuario = $idUsuario[0]->idUsuario;
-        $userImages->filename = $request->file('fotoFile')
-            ->getClientOriginalName();
 
-        $userImages->basename = $basenameImage;
-        $userImages->url =
-            $request->file('fotoFile')->store('userPhotos');
 
-        $userImages->save();
+        if (null !== $request->file('fotoFile')) {
 
+            $userImages->extension = $request->file('fotoFile')
+                ->getClientOriginalExtension();
+
+            $originalNameImage = $request->file('fotoFile')->getClientOriginalName();
+
+            if (str_ends_with(substr($originalNameImage, 0, -4), '.')) {
+                $basenameImage = substr($originalNameImage, 0,  -5);
+            } else {
+                $basenameImage = substr($originalNameImage, 0, -4);
+            }
+
+            $userImages->idUsuario = $idUsuario[0]->idUsuario;
+            $userImages->filename = $request->file('fotoFile')
+                ->getClientOriginalName();
+
+            $userImages->basename = $basenameImage;
+            $userImages->url =
+                $request->file('fotoFile')->store('userPhotos');
+
+            $userImages->save();
+        }
         // send an email to new user:
-        $emailData = [
-            "username" => $request->username
-        ];
+        // $emailData = [
+        //     "username" => $request->username
+        // ];
 
-        Mail::to($request->email)->send(new welcome($emailData));
+        // Mail::to($request->email)->send(new welcome($emailData));
 
         return view('login', [
             'alert_success' => 'Usuário registrado com successo. '

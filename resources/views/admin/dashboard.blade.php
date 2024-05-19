@@ -185,9 +185,14 @@
                                 <div class="d-flex flex-column mb-2">
                                     <label for="" class="text-secondary">email</label>
                                     <input type="text" name="email"
-                                        class="w-full border-0 border-bottom btn-outline-secondary opacity-75"
-                                        value="{{$adminData[0]->email}}">
+                                        class="w-full border-0 border-bottom btn-outline-secondary opacity-75">
                                 </div>
+                                @if (null !== session('emailError'))
+                                <span class="text-start text-danger span-error2 fs-6">
+                                    email já cadastrado, escolha outro email.
+                                </span>
+                                <br>
+                                @endif
                                 <div class="d-flex flex-column mb-2">
                                     <label for="" class="text-secondary">password</label>
                                     <input type="text" name="password"

@@ -89,8 +89,11 @@
             @if ( null !== session('pedidoAceite'))
             <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-success w-25 text-center">
                 <span>
-                    Pedido aceito com sucesso <i class="icofont-info-circle"></i> <br> <a href=""
-                        class="text-decoration-underline">ver todos (aceites)</a>
+                    Pedido aceito com sucesso <i class="icofont-info-circle"></i> <br>
+                    <button type="button" class="text-danger text-bold border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#aceites">
+                        ver rejeitados
+                    </button>
                 </span> <br>
                 <span class="text-sm">O candidato recebeu um email de aceitação.</span>
             </div>
@@ -98,8 +101,11 @@
             @if ( null !== session('pedidoRejeitado'))
             <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-success w-25 text-center">
                 <span>
-                    Pedido rejeitado com sucesso <i class="icofont-info-circle"></i> <br> <a href=""
-                        class="text-decoration-underline">ver todos (rejeitados)</a>
+                    Pedido rejeitado com sucesso <i class="icofont-info-circle"></i> <br>
+                    <button type="button" class="text-danger text-bold border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#rejeitados">
+                        ver rejeitados
+                    </button>
                 </span> <br>
                 <span class="text-sm">O candidato recebeu um email de rejeição.</span>
             </div>
@@ -148,11 +154,200 @@
                                 </span>
                             </i>
                         </a>
-
-
                     </div>
                 </div>
                 <div class="sidebar-right-bottom text-dark p-4">
+
+                    <!-- Modal Aceites -->
+                    <div class="modal fade" id="aceites" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title  align-self-center text-center fs-5" id="exampleModalLabel">
+                                        Pedidos
+                                        Aceites
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body w-full">
+                                    <table id="myTable" class="table table-hover small-fs-6 w-full">
+                                        <thead class="tborder-0 border-bottom border-opacity-75 w-full">
+                                            <tr class="text-medium small-fs-6 w-full">
+                                                <th>COD</th>
+                                                <th>NOME</th>
+                                                <th>ESPECIALIDADE</th>
+                                                <th>ANOS EXP.</th>
+                                                <th>MOTIVO</th>
+                                                <th>TELEFONE</th>
+                                                <th>DATA ENVIO</th>
+                                                <th>DOC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-muted text-opacity-50 fs-6 w-full">
+                                            @if(@count($notificationsAceites)<= 0) <tr>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                </tr>
+                                                @else
+                                                @foreach ($notificationsAceites as $notification)
+                                                <tr class="md-fs-6">
+                                                    <td>
+                                                        {{$notification->idPedidoVagaDoutor}}
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->firstname}} {{$notification->lastname}}
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                        $notification->especialidade
+                                                        }}
+                                                    </td>
+                                                    <td>
+                                                        +{{$notification->anos_experiencia}}
+                                                    </td>
+                                                    <td>
+                                                        @if (Str::length($notification->motivo) > 34)
+                                                        {{
+                                                        Str::substr($notification->motivo, 0, 34)
+                                                        }}...
+                                                        @else
+                                                        {{
+                                                        $notification->motivo
+                                                        }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->created_at}}
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->telefone}}
+                                                    </td>
+                                                    <td>
+                                                        <a target="blank" href="/storage/{{$notification->url_cv}}"
+                                                            class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="rejeitados" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-lg modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title  align-self-center text-center fs-5" id="exampleModalLabel">
+                                        Pedidos
+                                        Rejeitados
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="myTable" class="table table-hover small-fs-6 w-full">
+                                        <thead class="tborder-0 border-bottom border-opacity-75 w-full">
+                                            <tr class="text-medium small-fs-6">
+                                                <th>COD</th>
+                                                <th>NOME</th>
+                                                <th>ESPECIALIDADE</th>
+                                                <th>ANOS EXP.</th>
+                                                <th>MOTIVO</th>
+                                                <th>TELEFONE</th>
+                                                <th>DATA ENVIO</th>
+                                                <th>DOC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-muted text-opacity-50 fs-6 w-full">
+                                            @if(@count($notificationsRejeitados)<= 0) <tr>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                </tr>
+                                                @else
+                                                @foreach ($notificationsRejeitados as $notification)
+                                                <tr class="md-fs-6">
+                                                    <td>
+                                                        {{$notification->idPedidoVagaDoutor}}
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->firstname}} {{$notification->lastname}}
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                        $notification->especialidade
+                                                        }}
+                                                    </td>
+                                                    <td>
+                                                        +{{$notification->anos_experiencia}}
+                                                    </td>
+                                                    <td>
+                                                        @if (Str::length($notification->motivo) > 34)
+                                                        {{
+                                                        Str::substr($notification->motivo, 0, 34)
+                                                        }}...
+                                                        @else
+                                                        {{
+                                                        $notification->motivo
+                                                        }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->created_at}}
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->telefone}}
+                                                    </td>
+                                                    <td>
+                                                        <a target="blank" href="/storage/{{$notification->url_cv}}"
+                                                            class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start align-items-center gap-3">
+                        <button type="button" class="text-success text-bold border-0 bg-transparent"
+                            data-bs-toggle="modal" data-bs-target="#aceites">
+                            ver aceites
+                        </button>
+                        <button type="button" class="text-danger text-bold border-0 bg-transparent"
+                            data-bs-toggle="modal" data-bs-target="#rejeitados">
+                            ver rejeitados
+                        </button>
+                    </div>
                     <table id="myTable" class="table table-hover small-fs-6">
                         @if(@count($notifications)<= 0) <div class="alert alert-warning opacity-75 text-center py-3">Sem
                             notificações no
@@ -161,12 +356,13 @@
                 @endif
 
                 <thead class="tborder-0 border-bottom border-opacity-75">
-                    <tr class="text-medium small-fs-6">
+                    <tr class="text-medium small-fs-6 w-full">
                         <th>COD</th>
                         <th>NOME</th>
                         <th>ESPECIALIDADE</th>
                         <th>ANOS EXP.</th>
                         <th>MOTIVO</th>
+                        <th>TELEFONE</th>
                         <th>DATA ENVIO</th>
                         <th>DOC</th>
                         <th>ACÕES</th>
@@ -174,6 +370,7 @@
                 </thead>
                 <tbody class="text-muted text-opacity-50 fs-6">
                     @if(@count($notifications)<= 0) <tr>
+                        <td>--</td>
                         <td>--</td>
                         <td>--</td>
                         <td>--</td>
@@ -213,6 +410,9 @@
                             </td>
                             <td>
                                 {{$notification->created_at}}
+                            </td>
+                            <td>
+                                {{$notification->telefone}}
                             </td>
                             <td>
                                 <a target="blank" href="/storage/{{$notification->url_cv}}"

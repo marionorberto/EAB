@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class dashboardController extends Controller
 {
@@ -71,6 +72,32 @@ class dashboardController extends Controller
 
     public function update(Request $request, string $id)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "firstname" => "required|min:3|max:30",
+                "lastname" => "required|min:3|max:30",
+                "username" => "required|min:3|max:30",
+            ],
+            [
+                "firstname.required" => "Primeiro nome é um campo obrigatório.",
+                "firstname.min" => "Primeiro nome deve ter entre 3 à 30 caracteres,",
+                "firstname.max" => "Primeiro nome deve ter entre 3 à 30 caracteres.",
+                "lastname.required" => "Último nome é um campo obrigatório.",
+                "lastname.min" => "último nome deve ter entre 3 à 30 caracteres.",
+                "lastname.max" => "Último nome deve ter entre 3 à 30 caracteres.",
+                "username.required" => "username é um campo obrigatório.",
+                "username.max" => "username deve ter entre 3 à 30 caracteres.",
+                "username.min" => "username deve ter entre 3 à 30 caracteres.",
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()->withErrors($validator);
+        }
+
         $isStringFirstnameIncorrect = count(explode(" ", $request->firstname)) > 1;
         $isStringLastnameIncorrect = count(explode(" ", $request->lastname)) > 1;
         $isStringUsernameIncorrect = count(explode(" ", $request->username)) > 1;
@@ -94,7 +121,17 @@ class dashboardController extends Controller
         }
 
 
-        if (!isset($request->password)) {
+        if (!isset($request->password) & isset($request->email)) {
+
+
+            $emailExists = DB::connection()->select("
+            SELECT * from Usuarios
+            WHERE email = '$request->email'
+            ");
+
+            if (count($emailExists) > 0) {
+                return redirect()->back()->with(["emailError" => true]);
+            }
 
             DB::connection()->select("
             UPDATE Usuarios
@@ -104,8 +141,54 @@ class dashboardController extends Controller
             email = '$request->email'
             WHERE idUsuario = '$id'
             ");
-            return redirect()->back();
+
+            session()->flush('loginSession');
+
+            return redirect()->route('login');
         }
+
+
+        if (isset($request->password) & !isset($request->email)) {
+            if (strlen($request->password) < 8) {
+                return redirect()->back()
+                    ->with([
+                        "errorsMessage" => ["passwordLenght" =>
+                        "password deve ter no minimo 8 caracteres"]
+                    ]);
+            }
+
+            $passHashed = Hash::make($request->password);
+
+            DB::connection()->select("
+            UPDATE Usuarios
+            set firstname = '$request->firstname',
+            lastname = '$request->lastname',
+            username = '$request->username',
+            pass = '$passHashed'
+            WHERE idUsuario = '$id'
+            ");
+
+            session()->flush('loginSession');
+
+            return redirect()->route('login');
+        }
+
+
+        if (!isset($request->password) & !isset($request->email)) {
+
+            DB::connection()->select("
+            UPDATE Usuarios
+            set firstname = '$request->firstname',
+            lastname = '$request->lastname',
+            username = '$request->username'
+            WHERE idUsuario = '$id'
+            ");
+
+            session()->flush('loginSession');
+
+            return redirect()->route('login');
+        }
+
 
         if (strlen($request->password) < 8) {
             return redirect()->back()
@@ -114,7 +197,6 @@ class dashboardController extends Controller
                     "password deve ter no minimo 8 caracteres"]
                 ]);
         }
-
 
         $passwordHashed = Hash::make($request->password);
         DB::connection()->select("
@@ -127,7 +209,12 @@ class dashboardController extends Controller
             WHERE idUsuario = '$id'
             ");
 
-        return redirect()->back();
+        session()->flush('loginSession');
+
+        return redirect()->route('login');
+        Session()->flush('loginSession');
+
+        return route('login');
     }
 
     public function destroy(string $id)
@@ -258,7 +345,11 @@ class dashboardController extends Controller
     public function getMensagens()
     {
         $mensagens = DB::connection()->select("
-            select * from Mensagens;
+            select *
+            from Mensagens
+            where status = 'pendente'
+            order by idMensagem desc
+            ;
         ");
 
         $notificationCount = DB::connection()->select("
@@ -278,6 +369,14 @@ class dashboardController extends Controller
             select * from PedidoVagaDoutor where status = 'pendente'
         ");
 
+        $notificationsAceites = DB::connection()->select("
+            select * from PedidoVagaDoutor where status = 'aceite'
+        ");
+
+        $notificationsRejeitados = DB::connection()->select("
+            select * from PedidoVagaDoutor where status = 'rejeitado'
+        ");
+
         $notificationCount = DB::connection()->select("
             select count(idPedidoVagaDoutor) AS count from PedidoVagaDoutor where status = 'pendente'
         ");
@@ -288,7 +387,13 @@ class dashboardController extends Controller
 
         // Manda um email para o canditado: para apartir do deu email:
 
-        return view('admin.dashboard-notifications', compact('notifications', 'notificationCount', 'messageCount'));
+        return view('admin.dashboard-notifications', compact(
+            'notifications',
+            'notificationCount',
+            'messageCount',
+            'notificationsAceites',
+            'notificationsRejeitados'
+        ));
     }
 
     public function aceitar(string $id)

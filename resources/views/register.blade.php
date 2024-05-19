@@ -20,13 +20,7 @@
     <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
-    <style>
-        #canvas {
-            background: #0072ff;
 
-
-        }
-    </style>
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
 
@@ -72,7 +66,7 @@
                 <div class="d-flex gap-2">
                     <input type="text" placeholder="Primeiro Nome" name="firstname" value="{{old('firstname')}}"
                         class="input-login">
-                    <input type="text" required placeholder="Último Nome" name="lastname" value="{{old('lastname')}}"
+                    <input type="text" placeholder="Último Nome" name="lastname" value="{{old('lastname')}}"
                         class="input-login">
                 </div>
                 @if (null !== session('namesIncorret'))
@@ -109,9 +103,14 @@
                 @if($errors->has('email'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('email')}}</span> <br>
                 @endif
-                <div>
+                <div class="d-flex gap-2">
                     <input type="text" placeholder="Telefone" name="telefone" value="{{old('telefone')}}"
                         class="input-login">
+                    <select name="sexo" id="" class="w-50 input-login bg-white">
+                        <option value="">selecione... (sexo)</option>
+                        <option value="M" @if (old('sexo')=='M' ) selected @endif>M - Masculino</option>
+                        <option value="F" @if (old('sexo')=='F' ) selected @endif>F - Femenino</option>
+                    </select>
                 </div>
                 @if($errors->has('telefone'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('telefone')}}</span> <br>
@@ -121,9 +120,13 @@
                         placeholder="BI - Bilhete de identidade" name="bi" value="{{old('bi')}}">
 
                     <select name="naturalidade" id="" class="w-50 text-start input-login bg-transparent">
-                        <option value="Angolana">🇦🇴 Angola (+244)</option>
-                        <option value="Brasileira">🇧🇷 Brasil (+55)</option>
-                        <option value="Portuguesa">🇵🇹 Portugal (+351)</option>
+                        <option value="">selecione... (nacionalidade) </option>
+                        <option value="Angolana" @if (old('naturalidade')=='Angolana' ) selected @endif>🇦🇴 Angolana
+                            (nacionalidade) </option>
+                        <option value="Brasileira" @if (old('naturalidade')=='Brasileira' ) selected @endif>🇧🇷
+                            Brasileira (nacionalidade)</option>
+                        <option value="Portuguesa" @if (old('naturalidade')=='Portuguesa' ) selected @endif>🇵🇹
+                            Portuguesa (nacionalidade)</option>
                     </select>
                 </div>
                 @if($errors->has('naturalidade'))
@@ -132,15 +135,13 @@
                 @if($errors->has('bi'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('bi')}}</span> <br>
                 @endif
-                <div class="d-flex gap-2">
-                    <select name="sexo" id="" class="w-50 input-login bg-white">
-                        <option value="M">M - Masculino</option>
-                        <option value="F">F - Femenino</option>
-                    </select>
+                <div class="w-full">
 
-                    <label for="fotoFile"
+
+                    <label for="fotoFile" id="label-fotoFile"
                         class="text-secondary  cursor-pointer border-secondary text-secondary font-bold border-1 text-center"
-                        style="border-style: dashed">Carregar Foto <i class="icofont-cloud-upload p-0 fs-4"></i></label>
+                        style="border-style: dashed">Carregar Foto - (OPCIONAL) <i
+                            class="icofont-cloud-upload p-0 fs-4"></i></label>
                     <input type="file" name="fotoFile" id="fotoFile" placeholder="Foto"
                         class="input-login w-50 bg-text-dark d-none" accept=".png,.jpg,.jpeg" title="Escolher">
 
@@ -211,6 +212,14 @@
   minHeight: 200.00,
   minWidth: 200.00,
 })
+
+    const inputFoto = document.getElementById('fotoFile');
+    const label = document.getElementById('label-fotoFile');
+
+    inputFoto.addEventListener('change', (e) => {
+            label.innerText = 'caminho ' + e.target.value;
+    });
+
     </script>
 </body>
 

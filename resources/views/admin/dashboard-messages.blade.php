@@ -2,7 +2,6 @@
 <html lang="pt-br">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -93,32 +92,38 @@
                         <a class="py-1 me-2" href="{{route('dashboard-mensagens')}}">
                             <i class="position-relative icofont-ui-messaging fw-light text-black fs-5 w-8">
                                 <span class="
-                                                                fs-6
-                                                                text-bolder
-                                                                fs-4
-                                                                text-info
-                                                                position-absolute" style="
-                                                            margin-top: -15px;
-                                                            right: -7px;
-                                                        ">
+                                    fs-6
+                                    text-bolder
+                                    fs-4
+                                    text-info
+                                    position-absolute" style="
+                                    margin-top: -15px;
+                                    right: -7px;
+                                    ">
                                     {{
                                     $messageCount[0]->count
                                     }}
                                 </span>
                             </i>
                         </a>
-
                         <a class="py-1 me-2" href="{{route('dashboard-notificacoes')}}">
-                            <i class="position-relative icofont-notification fw-light text-black p-0 fs-5 w-8">
+                            <i class="
+                            position-relative
+                            icofont-notification
+                            fw-light
+                            text-black
+                            p-0
+                            fs-5
+                            w-8">
                                 <span class="
-                                                                fs-6
-                                                                text-bolder
-                                                                fs-4
-                                                                text-info
-                                                                position-absolute" style="
-                                                            margin-top: -11px;
-                                                            right: -2px;
-                                                            ">
+                                       fs-6
+                                       text-bolder
+                                       fs-4
+                                       text-info
+                                       position-absolute" style="
+                                       margin-top: -11px;
+                                       right: -2px;
+                                       ">
                                     {{
                                     $notificationCount[0]->count
                                     }}
@@ -127,7 +132,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="sidebar-right-bottom text-dark">
+                <div class="sidebar-right-bottom text-dark p-3">
                     @if (request()->routeIs('dashboard-mensagens'))
                     <table id="myTable" class="table table-hover small-fs-6">
                         <thead class="tborder-0 border-bottom border-opacity-75">
@@ -136,11 +141,13 @@
                                 <th>CONTEUDO</th>
                                 <th>NOME</th>
                                 <th>EMAIL</th>
-                                <th>DATA ENVIO</th>
+                                <th>DATA DE ENVIO</th>
+                                <th>ACÕES</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
                             @if(@count($mensagens)<= 0) <tr>
+                                <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -181,6 +188,21 @@
                                         {{
                                         $sms->created_at
                                         }}
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="{{route('mensagem.update', $sms->idMensagem)}}">
+                                            @method('PUT')
+                                            @csrf
+                                            <button type="submit" class="
+                                                text-white
+                                                text-bold
+                                                bg-success
+                                                rounded-2
+                                                p-1
+                                                px-2
+                                                ">como lida
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

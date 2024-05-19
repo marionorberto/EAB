@@ -167,7 +167,7 @@
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('endereco')}}</span> <br>
                 @endif
                 <div class="">
-                    <label for="cv"
+                    <label for="cv" id="labelCv"
                         class="text-secondary cursor-pointer border-secondary text-secondary font-bold border-1 text-center"
                         style="border-style: dashed">Carregar Curriculum<i
                             class="icofont-cloud-upload p-0 fs-4"></i></label>
@@ -216,6 +216,15 @@
     <script src="{{URL::to('js/form-validator.min.js')}}"></script>
     <script src="{{URL::to('js/contact-form-script.js')}}"></script>
     <script src="{{URL::to('js/main.js')}}"></script>
+
+    <script>
+        const inputCv = document.getElementById('cv');
+            const label = document.getElementById('labelCv');
+
+            inputCv.addEventListener('change', (e) => {
+            label.innerText = 'caminho ' + e.target.value;
+            });
+    </script>
 </body>
 
 </html>
