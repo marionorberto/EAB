@@ -1,9 +1,16 @@
-[] - doutor deve ver todas as suas consultas gendadas , deve cancelar consultas
-
 [] -> recuperar senha
 
+
+
+*
 [] - ver o erro post too large  quando se faz uplaod ve um video  por acalho dá esse erro
 
 [] - Fazer a página de financeiro
 
 [] - responsividade
+
+
+[] -> COMO PEGAR A DATA DO TEMPLATE BLADE
+
+// doutor não pode por a consulta como feita se a data não for feita!
+// tela admin not... no campo idespcialidade não deve ser num

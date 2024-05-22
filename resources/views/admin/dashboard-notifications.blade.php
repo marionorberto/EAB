@@ -181,8 +181,8 @@
                                                 <th>ANOS EXP.</th>
                                                 <th>MOTIVO</th>
                                                 <th>TELEFONE</th>
-                                                <th>DATA ENVIO</th>
                                                 <th>DOC</th>
+                                                <th>DATA ENVIO</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-muted text-opacity-50 fs-6 w-full">
@@ -225,15 +225,16 @@
                                                         }}
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                        {{$notification->created_at}}
-                                                    </td>
+
                                                     <td>
                                                         {{$notification->telefone}}
                                                     </td>
                                                     <td>
                                                         <a target="blank" href="/storage/{{$notification->url_cv}}"
                                                             class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->created_at}}
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -271,8 +272,8 @@
                                                 <th>ANOS EXP.</th>
                                                 <th>MOTIVO</th>
                                                 <th>TELEFONE</th>
-                                                <th>DATA ENVIO</th>
                                                 <th>DOC</th>
+                                                <th>DATA ENVIO</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-muted text-opacity-50 fs-6 w-full">
@@ -315,15 +316,16 @@
                                                         }}
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                        {{$notification->created_at}}
-                                                    </td>
+
                                                     <td>
                                                         {{$notification->telefone}}
                                                     </td>
                                                     <td>
                                                         <a target="blank" href="/storage/{{$notification->url_cv}}"
                                                             class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                    <td>
+                                                        {{$notification->created_at}}
                                                     </td>
                                                 </tr>
                                                 @endforeach

@@ -85,8 +85,7 @@
             </div>
         </div>
         <div class=" dashboard-sidebar-right position-relative">
-            <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-danger w-25 text-center"> any error
-                displayed <i class="icofont-info-circle"></i></div>
+
             <div class="sidebar-right-container">
                 <div class="sidebar-right-top d-flex justify-content-between align-items-center">
                     <div><span class="text-secondary opacity-50 fs-4 fw-medium ms-4"><a
@@ -140,11 +139,13 @@
                                 <th>ESPECIALIDADE</th>
                                 <th>PACIENTE</th>
                                 <th>USERNAME</th>
+                                <th>STATUS</th>
                                 <th>DATA</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
                             @if(@count($consultas)<= 0) <tr>
+                                <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -171,6 +172,9 @@
                                     </td>
                                     <td>
                                         {{$consulta->username}}
+                                    </td>
+                                    <td>
+                                        {{$consulta->status}}
                                     </td>
                                     <td>
                                         {{$consulta->horario}}

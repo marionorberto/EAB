@@ -83,6 +83,15 @@
                                 <?php endif; ?>
 
                                 <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <li>
+                                    <a href="<?php echo e(route('doutores.index')); ?>"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Minhas
+                                        Consultas</a>
+                                </li>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
                                 (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
                                 <li>
                                     <a href="<?php echo e(route('dashboard.index')); ?>"
@@ -1424,5 +1433,4 @@
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
 </body>
 
-</html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>

@@ -57,7 +57,8 @@
             </a>
             <h1 class="text-white fw-medium mt-5">Faça o seu <strong>Login</strong></h1>
             <h1 class="text-white fw-medium mb-5">na plataforma</h1>
-            <img src="<?php echo e(URL::to('img/login.svg')); ?>" alt="login-image" style="width: 60%; height: 50%; padding-bottom:10px; ">
+            <img src="<?php echo e(URL::to('img/login.svg')); ?>" alt="login-image"
+                style="width: 60%; height: 50%; padding-bottom:10px; ">
         </div>
         <div class="login-section-2 pt-5 mt-5">
             <span class="d-flex gap-1 justify-content-end ms-auto pe-2">Não tem conta?<a
@@ -82,6 +83,7 @@
                 <div>
                     <button type="submit" class="btn">Entrar</button>
                 </div>
+                <a href="http://localhost:8000/recuperar-senha" class="text-decoration-underline">Esqueci a senha?</a>
 
             </form>
         </div>
@@ -105,5 +107,4 @@
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
 </body>
 
-</html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/login.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/login.blade.php ENDPATH**/ ?>

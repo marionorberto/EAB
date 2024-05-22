@@ -2,28 +2,109 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReagendamentoConsulta;
+use App\Models\Consultas;
 use App\Models\Doutores;
+use App\Models\Especialidades;
 use App\Models\PedidoVagaDoutor;
 use App\Models\PedidoVagaDoutorCurriculum;
+use App\Models\UsuarioDoutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class DoutoresController extends Controller
 {
 
     public function index()
     {
-        //
+        $consultas = new Consultas();
+        $consultas = Consultas::all();
+
+        $usuarioEmail = @Session('loginSession')['email'];
+
+        $usuarioData = DB::connection()->select("
+            select * from Usuarios where email = '$usuarioEmail'
+        ");
+
+        $idUsuario = $usuarioData[0]->idUsuario;
+
+        $result = DB::connection()->select("
+            select idDoutor from UsuariosDoutores where idUsuario = '$idUsuario'
+        ");
+
+
+        $idDoutor = $result[0]->idDoutor;
+
+        $consultaData = DB::connection()->select("
+        SELECT
+            consulta_marcada.idConsulta AS idConsulta,
+            Pacientes.firstname AS firstname_paciente,
+            Pacientes.lastname AS lastname_paciente,
+            Pacientes.idade AS idade,
+            consulta_marcada.motivo AS motivo,
+            consulta_marcada.status AS status,
+            consulta_marcada.horario AS horario
+        FROM
+            consulta_marcada
+        JOIN
+            Doutores ON consulta_marcada.idDoutor = Doutores.idDoutor
+        JOIN
+            Pacientes ON consulta_marcada.idPaciente = Pacientes.idPaciente
+        WHERE
+            consulta_marcada.idDoutor = '$idDoutor';
+        ");
+
+        $consultaPendenteContagem = DB::connection()
+            ->select("
+        SELECT
+            count(status) as count
+        FROM
+            consulta_marcada
+        WHERE
+            status = 'pendente' and consulta_marcada.idDoutor = '$idDoutor';
+        ");
+
+        $consultaCanceladaContagem = DB::connection()
+            ->select("
+        SELECT
+            count(status) as count
+        FROM
+            consulta_marcada
+        WHERE
+            status = 'cancelada' and consulta_marcada.idDoutor = '$idDoutor';
+        ");
+
+        $consultaFeitaContagem = DB::connection()
+            ->select("
+        SELECT
+            count(status) as count
+        FROM
+            consulta_marcada
+        WHERE
+            status = 'feita' and consulta_marcada.idDoutor = '$idDoutor';
+        ");
+
+        return view('doutor.minhas-consultas', compact(
+            'consultaData',
+            'usuarioData',
+            'consultaPendenteContagem',
+            'consultaCanceladaContagem',
+            'consultaFeitaContagem'
+        ));
     }
 
     public function create()
     {
+        $especialidade = new Especialidades();
+        $especialidades_data = $especialidade::all();
+
         if (@Session('loginSession')['tipoUsuario'] == 'admin') {
             return redirect()->back();
         }
 
-        return view('doutor.store');
+        return view('doutor.store', compact('especialidades_data'));
     }
 
     public function store(Request $request)
@@ -40,7 +121,7 @@ class DoutoresController extends Controller
                 'nacionalidade' => 'required|min:8|max:11',
                 'sexo' => 'required|max:1',
                 'email' => 'required|min:10|max:30',
-                'especialidade' => 'required|min:8|max:12',
+                'especialidade' => 'required',
                 'experiencia' => 'required|max:2',
                 'endereco' => 'required|min:10|max:35',
                 'cv' => 'required',
@@ -70,8 +151,6 @@ class DoutoresController extends Controller
                 'experiencia.required' => 'Experiencia é um campo obrigatório.',
                 'experiencia.max' => 'Experiencia não preenchido devidamente.',
                 'especialidade.required' => 'Especialidade é um campo obrigatório.',
-                'especialidade.min' => 'Especialidade não preenchido devidamente.',
-                'especialidade.max' => 'Especialidade não preechido devidamente.',
                 'email.required' => 'Email é um campo obrigatório.',
                 'email.max' => 'Email deve ter entre 10 à 30 caracteres.',
                 'email.min' => 'Email deve ter entre 10 à 30 caracteres.',
@@ -157,5 +236,93 @@ class DoutoresController extends Controller
     public function destroy(Doutores $doutores)
     {
         //
+    }
+    public function registerNewDoutores()
+    {
+        $especialidade = new  Especialidades();
+
+        $especialidades_data = $especialidade::all();
+        // dd($especialidade_data);
+        return view('doutor.register', compact('especialidades_data'));
+    }
+    public function feita(string $id)
+    {
+        DB::connection()->select("
+            update consulta_marcada
+            set status = 'feita'
+            where idConsulta = '$id'
+        ");
+
+        return redirect()->back()->with(['pedidoAceite' => true]);
+    }
+
+    public function reagendar(string $id, Request $request)
+    {
+
+        $emailDoutor = Session('loginSession')['email'];
+
+        $res = DB::connection()->select("
+            SELECT UsuariosDoutores.idDoutor AS dotor from UsuariosDoutores
+            INNER JOIN Usuarios
+            on UsuariosDoutores.idUsuario = Usuarios.idUsuario
+            where Usuarios.email = '$emailDoutor'
+        ");
+
+        $idDoutor = $res[0]->dotor;
+
+        $occupedDate = DB::connection()
+            ->select("
+            select idDoutor, horario
+            from consulta_marcada
+            where idDoutor = '$idDoutor' and horario = '$request->data $request->hora'
+        ");
+
+        if (count($occupedDate) > 0) {
+            return redirect()
+                ->back()
+                ->with(
+                    ["dataOccupedError" => true]
+                )
+                ->withInput($request->all());
+        }
+
+
+        DB::connection()->select("
+            update consulta_marcada
+            set status = 'cancelada'
+            where idConsulta = '$id'
+        ");
+
+        $consultaData = DB::connection()->select("
+             select *  from consulta_marcada
+            where idConsulta = '$id'
+        ");
+
+        $dataNovaConsulta = $request->data . ' ' . $request->hora;
+
+        $formatedConsultaData = $consultaData[0];
+
+        $consultaData = DB::connection()->select("
+             INSERT INTO consulta_marcada(motivo, status, horario, idEspecialidade, idPaciente, idDoutor, idUsuario, created_at, updated_at)
+                VALUES(
+                    '$formatedConsultaData->motivo', 'pendente', '$dataNovaConsulta', '$formatedConsultaData->idEspecialidade',
+                    '$formatedConsultaData->idPaciente', '$formatedConsultaData->idDoutor', '$formatedConsultaData->idUsuario', now(), now()
+                );
+        ");
+
+        $emailPaciente = DB::connection()->select("
+            select email
+            from Usuarios
+            where idUsuario = '$formatedConsultaData->idUsuario'
+        ");
+
+        Mail::to($emailPaciente[0]->email)->send(new ReagendamentoConsulta(
+            $request->dotor,
+            $request->horario,
+            $dataNovaConsulta,
+            $request->paciente,
+        ));
+
+        return redirect()->back()->with(['pedidoReagendado' => true]);
     }
 }

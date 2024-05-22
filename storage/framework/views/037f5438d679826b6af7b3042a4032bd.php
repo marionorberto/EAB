@@ -5,20 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/fontawesome.min')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/animate.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dataTables.dataTables.min.css')}}">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/fontawesome.min')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/animate.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.carousel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/magnific-popup.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.theme.default.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dataTables.dataTables.min.css')); ?>">
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
@@ -33,37 +33,34 @@
     </div>
 
     <section class="table-container">
-        @if(@count($consultaData)<= 0) <div class="alert alert-danger opacity-75 mb-md-5 text-center me-auto ms-auto">
+        <?php if(@count($consultaData)<= 0): ?> <div class="alert alert-danger opacity-75 mb-md-5 text-center me-auto ms-auto">
             <strong>Nenhuma consulta marcada.</strong> <br> Marque uma consulta para poder ver os seus dados.
-            <a href="{{route('consultas.index')}}"><strong class="text-decoration-underline">Marca agora!</strong></a>
+            <a href="<?php echo e(route('consultas.index')); ?>"><strong class="text-decoration-underline">Marca agora!</strong></a>
             </div>
-            @endif
+            <?php endif; ?>
             <section class="d-flex justify-content-between align-content-center mb-5">
                 <div>
-                    @if (@count($consultaData)<= 0) <h4 class="text-muted fs-6">{{$usuarioData[0]->email}}</h4>
+                    <?php if(@count($consultaData)<= 0): ?> <h4 class="text-muted fs-6"><?php echo e($usuarioData[0]->email); ?></h4>
                         <h2 class="text-dark fw-medium mt-2 mb-2">
-                            {{
-                            $usuarioData[0]->firstname
-                            }}
-                            {{
-                            $usuarioData[0]->lastname
-                            }}
+                            <?php echo e($usuarioData[0]->firstname); ?>
+
+                            <?php echo e($usuarioData[0]->lastname); ?>
+
                         </h2>
 
-                        @else
-                        <h2 class="text-muted fs-6"><i class="icofont-ui-email"></i> {{$usuarioData[0]->email}}</h2>
+                        <?php else: ?>
+                        <h2 class="text-muted fs-6"><i class="icofont-ui-email"></i> <?php echo e($usuarioData[0]->email); ?></h2>
                         <h2 class="text-dark fw-medium mt-2 mb-2">
-                            {{
-                            $usuarioData[0]->firstname
-                            }}
-                            {{
-                            $usuarioData[0]->lastname
-                            }}
+                            <?php echo e($usuarioData[0]->firstname); ?>
+
+                            <?php echo e($usuarioData[0]->lastname); ?>
+
                         </h2>
                         <h2 class="text-muted fs-6"><i class="icofont-badminton-birdie"></i> Criado desde
-                            {{ Str::substr($usuarioData[0]->created_at, 0, 10)}}
+                            <?php echo e(Str::substr($usuarioData[0]->created_at, 0, 10)); ?>
+
                         </h2>
-                        @endif
+                        <?php endif; ?>
                 </div>
                 <div>
                     <h2 class="fw-bold fst-italic fs-1 "><i class="icofont-table"></i> CONSULTAS</h2>
@@ -82,7 +79,7 @@
                     </tr>
                 </thead>
                 <tbody class="text-muted text-opacity-50">
-                    @if(@count($consultaData)<= 0) <tr>
+                    <?php if(@count($consultaData)<= 0): ?> <tr>
                         <td>--</td>
                         <td>--</td>
                         <td>--</td>
@@ -91,48 +88,51 @@
                         <td>--</td>
                         <td>--</td>
                         </tr>
-                        @else
-                        @foreach ($consultaData as $consulta)
+                        <?php else: ?>
+                        <?php $__currentLoopData = $consultaData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $consulta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td>
-                                {{$loop->iteration}}
+                                <?php echo e($loop->iteration); ?>
+
                             </td>
-                            <td>{{$consulta->firstname_doutor}} {{$consulta->lastname_doutor}}</td>
+                            <td><?php echo e($consulta->firstname_doutor); ?> <?php echo e($consulta->lastname_doutor); ?></td>
                             <td class="text-truncate">
-                                @if (Str::length($consulta->motivo) > 34)
-                                {{
-                                Str::substr($consulta->motivo, 0, 34)
-                                }}...
-                                @else
-                                {{
-                                $consulta->motivo
-                                }}
-                                @endif
+                                <?php if(Str::length($consulta->motivo) > 34): ?>
+                                <?php echo e(Str::substr($consulta->motivo, 0, 34)); ?>...
+                                <?php else: ?>
+                                <?php echo e($consulta->motivo); ?>
+
+                                <?php endif; ?>
                             </td>
-                            <td>{{$consulta->nome_especialidade}}
+                            <td><?php echo e($consulta->nome_especialidade); ?>
+
                             </td>
 
-                            <td>{{$consulta->firstname_paciente}} {{$consulta->lastname_paciente}}</td>
+                            <td><?php echo e($consulta->firstname_paciente); ?> <?php echo e($consulta->lastname_paciente); ?></td>
                             </td>
                             <td>
-                                {{$consulta->horario}}
+                                <?php echo e($consulta->horario); ?>
+
                             </td>
                             <td class="
-                                    @if ($consulta->status == 'pendente')
-                                        {{ 'text-warning opacity-50'}}
-                                    @endif
-                                    @if ($consulta->status == 'cancelada')
-                                    {{ 'text-danger opacity-50'}}
-                                @endif
-                                @if ($consulta->status == 'feita')
-                                {{ 'text-success opacity-50'}}
-                            @endif
+                                    <?php if($consulta->status == 'pendente'): ?>
+                                        <?php echo e('text-warning opacity-50'); ?>
+
+                                    <?php endif; ?>
+                                    <?php if($consulta->status == 'cancelada'): ?>
+                                    <?php echo e('text-danger opacity-50'); ?>
+
+                                <?php endif; ?>
+                                <?php if($consulta->status == 'feita'): ?>
+                                <?php echo e('text-success opacity-50'); ?>
+
+                            <?php endif; ?>
                                 ">
-                                {{$consulta->status}} <i class="icofont-loop"></i>
+                                <?php echo e($consulta->status); ?> <i class="icofont-loop"></i>
                             </td>
                         </tr>
-                        @endforeach
-                        @endif
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                 </tbody>
             </table>
             <section class="d-flex justify-content-between align-items-baseline mt-5">
@@ -174,16 +174,14 @@
                 </div>
                 <div class="d-flex flex-column">
                     <div>
-                        <p class="mb-2">Pendentes: {{$consultaPendenteContagem[0]->count}}</p>
-                        <p class="mb-2">Canceladas: {{$consultaCanceladaContagem[0]->count}}</p>
-                        <p class="mb-2">Feitas: {{$consultaFeitaContagem[0]->count}}</p>
+                        <p class="mb-2">Pendentes: <?php echo e($consultaPendenteContagem[0]->count); ?></p>
+                        <p class="mb-2">Canceladas: <?php echo e($consultaCanceladaContagem[0]->count); ?></p>
+                        <p class="mb-2">Feitas: <?php echo e($consultaFeitaContagem[0]->count); ?></p>
                     </div>
                     <div>
                         <button class="text-white bg-primary px-5 nowrap border-0 fw-bold align-content-center">
-                            TOTAL {{
-                            $consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count +
-                            $consultaFeitaContagem[0]->count
-                            }}</button>
+                            TOTAL <?php echo e($consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count +
+                            $consultaFeitaContagem[0]->count); ?></button>
                     </div>
                 </div>
 
@@ -204,18 +202,18 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/owl.carousel.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{URL::to('js/form-validator.min.js')}}"></script>
-    <script src="{{URL::to('js/contact-form-script.js')}}"></script>
-    <script src="{{URL::to('js/main.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{URL::to('js/dataTables.min.js')}}"></script>
-    <script src="{{URL::to('js/dataTables.dataTables.min.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.dataTables.min.js')); ?>"></script>
 
     <script>
         $('#myTable').DataTable({
@@ -250,4 +248,4 @@
 
 </body>
 
-</html>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/consulta/minhas-consultas.blade.php ENDPATH**/ ?>

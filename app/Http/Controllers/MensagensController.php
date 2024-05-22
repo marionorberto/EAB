@@ -46,8 +46,8 @@ class MensagensController extends Controller
                 'email.email' => 'email inválido',
                 'email.max' => 'email deve ter até 50 caracteres',
                 'conteudo.required' => 'email  50 caracteres',
-                'conteudo.min' => 'conteudo deve ter até 50 caracteres',
-                'conteudo.max' => 'conteudo deve ter até 50 caracteres',
+                'conteudo.min' => 'conteudo deve ter entre 15 até 150 caracteres',
+                'conteudo.max' => 'conteudo deve ter entre 15 até 150  caracteres',
             ]
         );
 

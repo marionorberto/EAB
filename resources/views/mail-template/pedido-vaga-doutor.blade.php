@@ -7,7 +7,7 @@
 </p>
 <img src="{{URL::to('img/undraw_doctor_kw-5-l.svg')}}" alt="" srcset="">
 <p>Agora és um de nós 🙂. clique para se cadastrar na nossa plataforma -
-    <a href="http://localhost:8000/doutor/register">casdastrar-me agora</a>
+    <a href="http://localhost:8000/doutor/create">casdastrar-me agora</a>
 </p>
 @endif
 

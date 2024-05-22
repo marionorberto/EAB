@@ -15,6 +15,7 @@ use App\Http\Controllers\PacientesController;
 use App\Http\Controllers\TelefoneController;
 use App\Http\Controllers\TipoConsultasController;
 use App\Http\Controllers\UsuariosController;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,12 +29,14 @@ Route::get('login', [loginControlador::class, 'index'])->name('login');
 Route::post('login', [loginControlador::class, 'login']);
 Route::get('logout', [loginControlador::class, 'logout']);
 Route::get('recuperar-senha', [loginControlador::class, 'recuperarSenha']);
+Route::post('recuperar-senha', [loginControlador::class, 'handleRecuperarSenha']);
 
 
 Route::get('register', [UsuariosController::class, 'create'])
     ->name('register');
 
 Route::resource('usuarios', UsuariosController::class);
+Route::post('doutor/register', [UsuariosController::class, 'storeDoutores']);
 Route::resource('consultas', ConsultasController::class)
     ->middleware('LoginAuth');
 Route::resource('agendament_consultas', AgendamentoConsultasController::class);
@@ -47,6 +50,9 @@ Route::get('minhas-consultas', [ConsultasController::class, 'minhasConsultas'])
     ->name('minhas-consultas');
 
 Route::resource('doutores', DoutoresController::class);
+Route::get('/doutor/consulta/feita/{id}', [DoutoresController::class, 'feita'])->name('consulta-doutor-feita');
+Route::get('/doutor/consulta/reagedada/{id}', [DoutoresController::class, 'reagendar'])->name('consulta-doutor-reagendar');
+Route::get('doutor/create', [DoutoresController::class, 'registerNewDoutores']);
 
 Route::resource('dashboard', dashboardController::class);
 Route::prefix('dashboard')->group(function () {
@@ -78,4 +84,12 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/admin/notificacoes', [dashboardController::class, 'getNotificacoes'])->name('dashboard-notificacoes');
     Route::get('/admin/notificacoes/aceitar/{id}', [dashboardController::class, 'aceitar'])->name('vaga-doutor-aceitar');
     Route::get('/admin/notificacoes/rejeitar/{id}', [dashboardController::class, 'rejeitar'])->name('vaga-doutor-rejeitar');
+});
+
+
+
+Route::get('hash', function () {
+    $passHashed = Hash::make('12345678');
+
+    dd($passHashed);
 });

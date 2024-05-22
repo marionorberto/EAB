@@ -85,8 +85,7 @@
             </div>
         </div>
         <div class=" dashboard-sidebar-right position-relative">
-            <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-danger w-25 text-center"> any error
-                displayed <i class="icofont-info-circle"></i></div>
+
             <div class="sidebar-right-container">
                 <div class="sidebar-right-top d-flex justify-content-between align-items-center">
                     <div><span class="text-secondary opacity-50 fs-4 fw-medium ms-4"><a
@@ -139,10 +138,12 @@
                                 <th>EMAIL</th>
                                 <th>BI</th>
                                 <th>NACIONALIDADE</th>
+                                <th>CARGO</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
                             <?php if(@count($usuarios)<= 0): ?> <tr>
+                                <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -176,6 +177,10 @@
                                     </td>
                                     <td>
                                         <?php echo e($usuario->naturalidade); ?>
+
+                                    </td>
+                                    <td>
+                                        <?php echo e($usuario->tipo_usuario); ?>
 
                                     </td>
                                 </tr>
@@ -234,5 +239,4 @@
     </script>
 </body>
 
-</html>
-<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-paginas-usuarios.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-paginas-usuarios.blade.php ENDPATH**/ ?>

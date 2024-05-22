@@ -82,6 +82,15 @@
                                 @endif
 
                                 @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor')
+                                <li>
+                                    <a href="{{route('doutores.index')}}"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Minhas
+                                        Consultas</a>
+                                </li>
+                                @endif
+
+                                @if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
                                 (@Session::get('loginSession')['tipoUsuario']) == 'admin')
                                 <li>
                                     <a href="{{route('dashboard.index')}}"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RecoverPassword;
 use App\Mail\welcome;
 use App\Models\Usuarios;
 use Error;
@@ -66,10 +67,13 @@ class loginControlador extends Controller
 
         if ($usuario[0]['tipo_usuario'] == 'admin') {
             return redirect()->route('dashboard.index');
-        }
+        } else if ($usuario[0]['tipo_usuario'] == 'doutor') {
+            return redirect()->route('doutores.index');
+        } else {
 
-        return redirect()
-            ->route('consultas.index');
+            return redirect()
+                ->route('consultas.index');
+        }
     }
 
     public function logout()
@@ -93,9 +97,49 @@ class loginControlador extends Controller
         // *apagar o cod de 6 dígitos da sessão
         // reecaminhar para a página de login para o
 
-        dd($this->generateRandomNumbers());
-        session()->flush('loginSession');
-        return redirect()->route('login');
+        return view('recuperar-senha');
+
+        // dd($this->generateRandomNumbers());
+        // session()->flush('loginSession');
+        // return redirect()->route('login');
+    }
+
+    public function handleRecuperarSenha(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "email" => "required|email|min:11|max:35"
+            ],
+            [
+                "email.required" => "Email é um campo obrigatório.",
+                "email.email" => "Email formato de email inváalido, reintroduza o seu email.",
+                "email.min" => "Email deve ter entre 11 à 35 caracteres.",
+                "email.max" => "Email deve ter entre 11 à 35 caracteres.",
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // verify with email exists in BD
+
+        $user = DB::connection()->select("
+        SELECT *
+        FROM Usuarios
+        WHERE email = '$request->email'
+        ");
+
+        $doesEmailExists = count($user[0]->email) > 0;
+
+        if ($doesEmailExists == false) {
+            return redirect()->back()->with(["emailNotFound" => true]);
+        }
+
+        $userName = $user[0]->firstname . ' ' . $user[0]->lastname;
+        $codGenerated = $this->generateRandomNumbers();
+        Mail::to($request->email)->send(new RecoverPassword($userName, $codGenerated));
     }
 
     public function generateRandomNumbers()

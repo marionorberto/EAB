@@ -89,8 +89,11 @@
             <?php if( null !== session('pedidoAceite')): ?>
             <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-success w-25 text-center">
                 <span>
-                    Pedido aceito com sucesso <i class="icofont-info-circle"></i> <br> <a href=""
-                        class="text-decoration-underline">ver todos (aceites)</a>
+                    Pedido aceito com sucesso <i class="icofont-info-circle"></i> <br>
+                    <button type="button" class="text-danger text-bold border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#aceites">
+                        ver rejeitados
+                    </button>
                 </span> <br>
                 <span class="text-sm">O candidato recebeu um email de aceitação.</span>
             </div>
@@ -98,8 +101,11 @@
             <?php if( null !== session('pedidoRejeitado')): ?>
             <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-success w-25 text-center">
                 <span>
-                    Pedido rejeitado com sucesso <i class="icofont-info-circle"></i> <br> <a href=""
-                        class="text-decoration-underline">ver todos (rejeitados)</a>
+                    Pedido rejeitado com sucesso <i class="icofont-info-circle"></i> <br>
+                    <button type="button" class="text-danger text-bold border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#rejeitados">
+                        ver rejeitados
+                    </button>
                 </span> <br>
                 <span class="text-sm">O candidato recebeu um email de rejeição.</span>
             </div>
@@ -173,8 +179,8 @@
                                                 <th>ANOS EXP.</th>
                                                 <th>MOTIVO</th>
                                                 <th>TELEFONE</th>
-                                                <th>DATA ENVIO</th>
                                                 <th>DOC</th>
+                                                <th>DATA ENVIO</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-muted text-opacity-50 fs-6 w-full">
@@ -216,10 +222,7 @@
 
                                                         <?php endif; ?>
                                                     </td>
-                                                    <td>
-                                                        <?php echo e($notification->created_at); ?>
 
-                                                    </td>
                                                     <td>
                                                         <?php echo e($notification->telefone); ?>
 
@@ -227,6 +230,10 @@
                                                     <td>
                                                         <a target="blank" href="/storage/<?php echo e($notification->url_cv); ?>"
                                                             class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->created_at); ?>
+
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -264,8 +271,8 @@
                                                 <th>ANOS EXP.</th>
                                                 <th>MOTIVO</th>
                                                 <th>TELEFONE</th>
-                                                <th>DATA ENVIO</th>
                                                 <th>DOC</th>
+                                                <th>DATA ENVIO</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-muted text-opacity-50 fs-6 w-full">
@@ -307,10 +314,7 @@
 
                                                         <?php endif; ?>
                                                     </td>
-                                                    <td>
-                                                        <?php echo e($notification->created_at); ?>
 
-                                                    </td>
                                                     <td>
                                                         <?php echo e($notification->telefone); ?>
 
@@ -318,6 +322,10 @@
                                                     <td>
                                                         <a target="blank" href="/storage/<?php echo e($notification->url_cv); ?>"
                                                             class="text-decoration-underline text-info">CV</a>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo e($notification->created_at); ?>
+
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

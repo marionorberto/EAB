@@ -127,7 +127,7 @@
                 <div class="d-flex gap-2">
                     <select name="especialidade" id="especialidade" class=" w-50
                         text-start input-login bg-transparent">
-                        <option value="">especialidade (especialidade)</option>
+                        {{-- <option value="">especialidade (especialidade)</option>
                         <option value="Oftalmologia" @if (old('especialidade')=='Oftalmologia' ) selected @endif>
                             Oftalmologia (especialidade)</option>
                         <option value="Cardiologia" @if (old('especialidade')=='Cardiologia' ) selected @endif>
@@ -139,7 +139,13 @@
                         <option value="Ortopedia" @if (old('especialidade')=='Ortopedia' ) selected @endif>Ortopedia
                             (especialidade)</option>
                         <option value="Radiologia" @if (old('especialidade')=='Radiologia' ) selected @endif>Radiologia
-                            (especialidade)</option>
+                            (especialidade)</option> --}}
+                        <option value="" class="text-opacity-50">selecione...(especialidade)</option>
+                        @if (isset($especialidades_data))
+                        @foreach ($especialidades_data as $esp)
+                        <option value="{{$esp['idEspecialidade']}}">{{$esp['descricao']}}</option>
+                        @endforeach
+                        @endif
                     </select>
                     <select name="experiencia" id="experiencia" class="w-50 text-start input-login bg-transparent">
                         <option value="">selecione... (experiência)</option>
