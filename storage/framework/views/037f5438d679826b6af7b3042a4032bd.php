@@ -145,14 +145,15 @@
                     <div class="d-flex flex-column gap-1 mb-3">
                         <h1 class="fs-5 text-secondary fw-medium ">Telefones <i class="icofont-phone"></i></h1>
 
-                        <span class="fs-6 text-secondary fw-lighter "><i class="icofont-location"></i> +244 921 538 /
-                            952 353 781</span>
+                        <span class="fs-6 text-secondary fw-lighter "><i class="icofont-location"></i> +244 936 327 990
+                            /
+                            936 026 462</span>
 
                     </div>
                     <div class="d-flex flex-column gap-1 mb-3">
-                        <h1 class="fs-5 text-secondary fw-medium ">email <i class="icofont-email"></i> </h1>
+                        <h1 class="fs-5 text-secondary fw-medium ">Email <i class="icofont-email"></i> </h1>
                         <span class="fs-6 text-secondary fw-lighter "><i
-                                class="icofont-location"></i>eabhealth@gmail.com</span>
+                                class="icofont-location"></i>eabhealth24@gmail.com</span>
                     </div>
                     <div class="mb-3">
                         <h1 class="fs-4">Informação <i class="icofont-info-circle"></i></h1>

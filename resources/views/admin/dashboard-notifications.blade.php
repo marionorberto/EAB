@@ -89,10 +89,11 @@
             @if ( null !== session('pedidoAceite'))
             <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-success w-25 text-center">
                 <span>
-                    Pedido aceito com sucesso <i class="icofont-info-circle"></i> <br>
-                    <button type="button" class="text-danger text-bold border-0 bg-transparent" data-bs-toggle="modal"
-                        data-bs-target="#aceites">
-                        ver rejeitados
+                    Pedido aceito com sucesso! <i class="icofont-info-circle"></i> <br>
+                    <button type="button"
+                        class="text-secondary text-decoration-underline text-bold border-0 bg-transparent"
+                        data-bs-toggle="modal" data-bs-target="#aceites">
+                        ver aceitos
                     </button>
                 </span> <br>
                 <span class="text-sm">O candidato recebeu um email de aceitação.</span>
@@ -101,9 +102,10 @@
             @if ( null !== session('pedidoRejeitado'))
             <div class="position-absolute bottom-0 end-0 mb-4 me-4 alert alert-success w-25 text-center">
                 <span>
-                    Pedido rejeitado com sucesso <i class="icofont-info-circle"></i> <br>
-                    <button type="button" class="text-danger text-bold border-0 bg-transparent" data-bs-toggle="modal"
-                        data-bs-target="#rejeitados">
+                    Pedido rejeitado com sucesso! <i class="icofont-info-circle"></i> <br>
+                    <button type="button"
+                        class="text-secondary text-bold border-0 text-decoration-underline bg-transparent"
+                        data-bs-toggle="modal" data-bs-target="#rejeitados">
                         ver rejeitados
                     </button>
                 </span> <br>
@@ -161,18 +163,17 @@
                     <!-- Modal Aceites -->
                     <div class="modal fade" id="aceites" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-lg modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title  align-self-center text-center fs-5" id="exampleModalLabel">
-                                        Pedidos
-                                        Aceites
+                                        Pedidos Aceites
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body w-full">
-                                    <table id="myTable" class="table table-hover small-fs-6 w-full">
+                                <div class="modal-body">
+                                    <table id="" class="table table-hover small-fs-6 w-full">
                                         <thead class="tborder-0 border-bottom border-opacity-75 w-full">
                                             <tr class="text-medium small-fs-6 w-full">
                                                 <th>COD</th>
@@ -263,7 +264,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <table id="myTable" class="table table-hover small-fs-6 w-full">
+                                    <table id="" class="table table-hover small-fs-6 w-full">
                                         <thead class="tborder-0 border-bottom border-opacity-75 w-full">
                                             <tr class="text-medium small-fs-6">
                                                 <th>COD</th>
@@ -365,8 +366,8 @@
                         <th>ANOS EXP.</th>
                         <th>MOTIVO</th>
                         <th>TELEFONE</th>
-                        <th>DATA ENVIO</th>
                         <th>DOC</th>
+                        <th>DATA ENVIO</th>
                         <th>ACÕES</th>
                     </tr>
                 </thead>
@@ -411,15 +412,17 @@
                                 @endif
                             </td>
                             <td>
-                                {{$notification->created_at}}
-                            </td>
-                            <td>
                                 {{$notification->telefone}}
                             </td>
                             <td>
                                 <a target="blank" href="/storage/{{$notification->url_cv}}"
                                     class="text-decoration-underline text-info">CV</a>
                             </td>
+                            <td>
+                                {{$notification->created_at}}
+                            </td>
+
+
                             <td class="d-flex justify-content-center align-items-center gap-2">
                                 <a href="{{route('vaga-doutor-aceitar', $notification->idPedidoVagaDoutor)}}"
                                     class="text-white text-bold bg-success rounded-2 p-1 px-2">aceitar</a>

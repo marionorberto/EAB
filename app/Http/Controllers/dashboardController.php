@@ -261,7 +261,7 @@ class dashboardController extends Controller
     {
         $doutores = DB::connection()->select("
 
-            select Doutores.idDoutor,Doutores.firstname, Doutores.lastname, Doutores.carteiraProfissional,
+            select Doutores.idDoutor,Doutores.firstname, Doutores.lastname, Doutores.created_at, Doutores.carteiraProfissional,
             Doutores.BI, Doutores.sex, Especialidade.descricao
             from Doutores
             join Especialidade
@@ -334,7 +334,7 @@ class dashboardController extends Controller
 
     public function getAnalisesFinanceiro()
     {
-        dd('getAnalisesFinanceiro');
+        return redirect()->back();
     }
 
     public function getUsuarioHelp()

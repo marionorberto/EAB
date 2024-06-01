@@ -98,6 +98,9 @@
         </section>
     </div>
     <?php endif; ?>
+
+
+
     <div class="consulta-container pt-5">
         <section class="consulta-section-container">
             <div id="" class="consulta-section-left d-flex flex-column gap-3">
@@ -167,27 +170,42 @@
                     
                     <div>
                         <label for="" class="text-primary fw-light d-block">Data de Consulta</label>
-                        <input type="date" min="2024-05-01" value="<?php echo e(old('data')); ?>" max="2024-12-31" name="data" id=""
-                            class="p-2 bg-light text-primary border-0 input-consulta-data">
-                        <select name="hora" id="hora" pattern="[0-9]{2}:[0-9]{2}" class="text-primary input-consulta">
-                            <option value="06:00" class="text-secondary">06:00 AM</option>
-                            <option value="06:30" class="text-secondary">06:30 AM</option>
-                            <option value="07:00" class="text-secondary">07:00 AM</option>
-                            <option value="07:30" class="text-secondary">07:30 AM</option>
-                            <option value="08:00" class="text-secondary">08:00 AM</option>
-                            <option value="08:30" class="text-secondary">08:30 AM</option>
-                            <option value="09:00" class="text-secondary">09:00 AM</option>
-                            <option value="09:30" class="text-secondary">09:30 AM</option>
-                            <option value="10:00" class="text-secondary">10:00 AM</option>
-                            <option value="10:30" class="text-secondary">10:30 AM</option>
-                            <option value="11:00" class="text-secondary">11:00 AM</option>
-                            <option value="11:30" class="text-secondary">11:30 AM</option>
-                            <option value="12:00" class="text-secondary">12:00 AM</option>
+
+                        <input type="date" required min="<?php echo e($dateNow); ?>" value="<?php echo e(old('data')); ?>" max="2024-12-31"
+                            name="data" id="" class="p-2 bg-light text-primary border-0 input-consulta-data">
+                        <select name="hora" required id="hora" pattern="[0-9]{2}:[0-9]{2}"
+                            class="text-primary input-consulta">
+                            <option value="06:00" class="text-secondary">06:00 AM
+                            </option>
+                            <option value="06:30" class="text-secondary">06:30 AM
+                            </option>
+                            <option value="07:00" class="text-secondary">07:00 AM
+                            </option>
+                            <option value="07:30" class="text-secondary">07:30 AM
+                            </option>
+                            <option value="08:00" class="text-secondary">08:00 AM
+                            </option>
+                            <option value="08:30" class="text-secondary">08:30 AM
+                            </option>
+                            <option value="09:00" class="text-secondary">09:00 AM
+                            </option>
+                            <option value="09:30" class="text-secondary">09:30 AM
+                            </option>
+                            <option value="10:00" class="text-secondary">10:00 AM
+                            </option>
+                            <option value="10:30" class="text-secondary">10:30 AM
+                            </option>
+                            <option value="11:00" class="text-secondary">11:00 AM
+                            </option>
+                            <option value="11:30" class="text-secondary">11:30 AM
+                            </option>
+                            <option value="12:00" class="text-secondary">12:00 AM
+                            </option>
                         </select>
                     </div>
                     <div class="">
                         <label for="especialidade" class="text-primary fw-light d-block">Tipo de consulta</label>
-                        <select name="especialidade" id="especialidade" onchange="carregarDados()"
+                        <select name="especialidade" required id="especialidade" onchange="carregarDados()"
                             <?php echo e(old('especialidade')); ?> class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
                             <?php if(isset($especialidades_data)): ?>
@@ -199,7 +217,7 @@
                     </div>
                     <div class="">
                         <label for="doutor" class="text-primary fw-light d-block">Doutor</label>
-                        <select name="doutor" <?php echo e(old('doutor')); ?> id="doutor"
+                        <select required name="doutor" id="doutor"
                             class="text-primary p-2 bg-light border-0 input-consulta-data">
                             <option value="" class="text-opacity-50">selecione...</option>
                         </select>

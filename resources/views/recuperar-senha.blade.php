@@ -35,7 +35,7 @@
         {{$errors->first('email')}}
     </div>
     @else
-    <h1 class="fs-6 text-center">OBS: Enviaremos uma mensagem com o código de confirmação no teu email 📧.</h1>
+    <h1 class="text-center fs-4 pt-4">OBS: Enviaremos uma mensagem com o código de confirmação no teu email 📧.</h1>
     @endif
     @if(null !== session('emailNotFound'))
     <div class="mx-auto w-50 alert alert-danger text-center text-danger mt-4">
@@ -43,7 +43,7 @@
     </div>
     @endif
     <section class="d-flex justify-content-center align-content-center mb-5 pb-5">
-        <div class="pt-3 mt-5 div-conainter-recuperar-senha shadow-sm">
+        <div class="pt-3 mt-5 div-container-recuperar-senha shadow-sm">
             <form action="recuperar-senha" method="post"
                 class="d-flex flex-column align-items-center justify-content-center gap-3">
                 @csrf
@@ -56,7 +56,7 @@
             </form>
         </div>
     </section>
-    <div class="d-flex gap-3 align-items-center justify-content-center mt-5 pt-5 mb-5 pb-5">
+    <div class="d-flex gap-3 align-items-center justify-content-center mt-2 pt-2 mb-5 pb-5">
         <a href="http://localhost:8000/politicas-de-privacidade" class="text-primary">Políticas de privacidade</a> <span
             class="text-primary fw-bolder">|</span>
         <a href="http://localhost:8000/termos-de-uso" class="text-primary">Termos de uso</a></span>

@@ -7,6 +7,7 @@ use App\Models\Mensagens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class MensagensController extends Controller
 {
@@ -31,12 +32,12 @@ class MensagensController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
+        $validator =  Validator::make(
+            $request->all(),
             [
                 'nome' => 'required|min:3|max:50',
                 'email' => 'required|max:50|email',
-                'conteudo' => 'required|min:15|max:150'
+                'conteudo' => 'required|min:3|max:150'
             ],
             [
                 'nome.required' => 'nome é um campo requerido.',
@@ -51,6 +52,10 @@ class MensagensController extends Controller
             ]
         );
 
+        if ($validator->fails()) {
+            redirect()->route('home#contact')->withErrors($validator);
+        }
+
         $mensagens =  new Mensagens();
 
         $mensagens->nome = $request->nome;
@@ -63,12 +68,10 @@ class MensagensController extends Controller
 
     public function show(Mensagens $mensagens)
     {
-        //
     }
 
     public function edit(Mensagens $mensagens)
     {
-        //
     }
 
     public function update(Request $request, string $id)
@@ -82,11 +85,7 @@ class MensagensController extends Controller
         return redirect()->back()->with(["smsLida" => true]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Mensagens $mensagens)
     {
-        //
     }
 }

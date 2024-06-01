@@ -140,10 +140,12 @@
                                 <th>BI</th>
                                 <th>ESPECIALIDADE</th>
                                 <th>SEXO</th>
+                                <th>DATA REGISRTO</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
                             @if(@count($doutores)<= 0) <tr>
+                                <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -177,6 +179,9 @@
                                     </td>
                                     <td>
                                         {{$doutor->sex}}
+                                    </td>
+                                    <td>
+                                        {{$doutor->created_at}}
                                     </td>
                                 </tr>
                                 @endforeach

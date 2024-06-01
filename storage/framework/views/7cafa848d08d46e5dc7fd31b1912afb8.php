@@ -72,13 +72,17 @@
                                 <?php echo e(@Session::get('loginSession')['username']); ?>
 
                             </button>
-                            <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-secondary opacity-75">
-
+                            <ul class="dropdown-menu fw-light fs-6 rounded-0 bg-dark opacity-75">
+                                <li>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#perfil"
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Perfil</a>
+                                </li>
                                 <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
                                 (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
                                 <li>
                                     <a href="<?php echo e(route('minhas-consultas')); ?>"
-                                        class="dropdown-item li-profile fw-light fs-6 text-white">Minhas Consultas</a>
+                                        class="dropdown-item li-profile fw-light fs-6 text-white">Minhas
+                                        Consultas</a>
                                 </li>
                                 <?php endif; ?>
 
@@ -98,18 +102,9 @@
                                         class="dropdown-item li-profile fw-light fs-6 text-white">Dashboard</a>
                                 </li>
                                 <?php endif; ?>
-
-                                <li class="dropdown-item li-profile fw-light fs-6 text-white">
-                                    <?php echo e(@Session::get('loginSession')['username']); ?>
-
-                                </li>
-                                <li class="dropdown-item li-profile fw-light fs-6 text-white">
-                                    <?php echo e(@Session::get('loginSession')['email']); ?>
-
-                                </li>
                                 <hr class="dropdown-divider text-white">
                                 <li><a class="dropdown-item fw-bold li-profile fw-light fs-6 text-white"
-                                        href="http://localhost:8000/logout">Logout</a></li>
+                                        href="http://localhost:8000/logout">Sair</a></li>
                             </ul>
                         </div>
                     </div>
@@ -117,26 +112,98 @@
                     <li><a href="http://localhost:8000/login"
                             class="fw-light fs-6 text-white opacity-75 align-self-center">Login</a></li>
                     <li><a href="http://localhost:8000/register"
-                            class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 "
-                            style="background-color: rgb(128, 128, 128); color: rgb(100, 166, 253);">Register</a></li>
+                            class="fw-light fs-6 opacity-75 fw-bold rounded-4 py-1 px-2 bg-dark"
+                            style="color: rgb(100, 166, 253);">Register</a></li>
                     <?php endif; ?>
             </div>
             </div>
             </ul>
             </div>
         </nav>
+        <div class="modal fade" id="perfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content modal-dialog-centered modal-sm">
+                    <div class="modal-header">
+
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="d-flex flex-column align-items-center justify-content-center gap-3"
+                            action="<?php echo e(route('update-photo-user')); ?>" method="post" enctype="multipart/form-data">
+                            <?php echo csrf_field(); ?>
+                            <label for="user-image-update">
+                                <img id="user-photo-updated" <?php if(null
+                                    !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
+                                    src="<?php echo e(env('APP_URL')); ?>:8000/storage/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>"
+                                    <?php endif; ?> alt=" profile-page-img" class="img-profile-page cursor-pointer"
+                                    style="width: 100px; height: 100px;">
+                            </label>
+                            <span id="user-path"></span>
+                            <input type="file" name="fotoUser" id="user-image-update" placeholder="Foto"
+                                class="input-login w-50 bg-text-dark d-none" accept=".png,.jpg,.jpeg">
+                            <p class="fw-light fs-5 text-secondary">
+                                <input disabled
+                                    class="rounded-2 w-full fw-light text-secondary border  border-secondary fs-5"
+                                    type="text" value="<?php echo e(@Session::get('loginSession')['username']); ?>">
+                            </p>
+                            <p class="fw-light fs-5 text-secondary">
+                                <input class="rounded-2 w-full fw-light text-secondary border  border-secondary fs-5"
+                                    type="text" disabled value="<?php echo e(@Session::get('loginSession')['email']); ?>">
+                            </p>
+                            <label for="user-image-update"
+                                class="fs-5 cursor-pointer text-primary text-bold bg-light p-1 shadow-lg">
+                                Atualizar Foto
+                            </label>
+                            <button type="submit" class=" mt-2 btn rounded-2 w-full">Submeter</button>
+                            <span class="fs-6">Obs: Clique em <span class="text-primary">atualizar foto</span> para
+                                poder alterá-la se desejar.</span>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
         <h1 class="fs-1 mx-auto fw-lighter text-center mt-5 text-white">Marcar uma consulta <br> nunca foi tão fácil
         </h1>
         <p class="fs-6 mx-auto fw-lighter text-center w-50 mx-auto my-3 text-white opacity-75">
             Nosso sistema online permite que você escolha a data e hora <br> que melhor se
             adequam à sua agenda
         </p>
-        <p class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-secondary opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15"
-            style="background-color: rgb(128, 128, 128)">
+        <p
+            class="rounded-4 mx-auto py-2 px-3 my-3 mb-5 bg-dark opacity-75 d-flex align-content-center justify-content-center gap-4 fw-lighter  p-w-15">
+            <?php if(
+            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
             <span class="ps-1"><a href="<?php echo e(route('doutores.create')); ?>" class="text-white fw-bold">ser
-                    colaborador</a></span>
-            <span><a href="<?php echo e(route('consultas.index')); ?>" class="fw-medium" style="color: rgb(100, 166, 253);">marcar
-                    consulta <i class="icofont-arrow-right"></i></a></span>
+                    colaborador </a> </span>
+            <span class="ps-1"><a href="<?php echo e(route('consultas.index')); ?>" class="text-primary fw-bold">Marcar consulta <i
+                        class="icofont-arrow-right"></i></a> </span>
+            <?php endif; ?>
+
+            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+            <span>
+                <a href="<?php echo e(route('doutores.index')); ?>" class="fw-medium" style="color: rgb(100, 166, 253);">minhas
+                    consultas <i class="icofont-arrow-right"></i></a></span>
+            <?php endif; ?>
+
+            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+            <span>
+                <a href="<?php echo e(route('minhas-consultas')); ?>" class="fw-medium" style="color: rgb(100, 166, 253);">minhas
+                    consultas <i class="icofont-arrow-right"></i></a></span>
+            <?php endif; ?>
+
+            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+            <span>
+                <a href="<?php echo e(route('dashboard.index')); ?>" class="fw-medium" style="color: rgb(100, 166, 253);">Ver
+                    Dashboard <i class="icofont-arrow-right"></i></a></span>
+            <?php endif; ?>
         </p>
         <div class="hero-bottom-img mx-auto mt-5 position-relative bg-black overflow-y-hidden rounded-top"
             style="width: 60rem; height: 15.2rem;">
@@ -171,7 +238,7 @@
                             Mais de 10 anos de experiência em atendimento médico
                             Certificações em suas respectivas áreas de atuação
                             Abordagem de atendimento humanizado e personalizado para cada paciente
-                            Equipe composta por 5 médicos especialistas
+                            Equipe composta por +1 médicos especialistas e capacitado para ajudar.
                         </p>
                     </div>
                 </div>
@@ -185,7 +252,7 @@
                             Pagamentos online seguros e fáceis de realizar
                             Plataforma intuitiva e amigável para uma experiência digital sem complicações
                             Suporte técnico dedicado para auxiliar em qualquer dúvida ou problema relacionado aos
-                            serviços digitais"
+                            serviços digitais da nossa clínica"
                         </p>
                     </div>
                 </div>
@@ -199,7 +266,7 @@
                             Eliminamos formulários
                             extensos e tempo de espera, garantindo uma experiência ágil e eficiente para nossos
                             pacientes. Concentre-se no que
-                            realmente importa: sua saúde e o seu bem estar pessoal, onde tudo isso encontras no EAB."
+                            realmente importa: sua saúde e o seu bem estar pessoal, onde encontras aqui."
                         </p>
                     </div>
                 </div>
@@ -288,8 +355,13 @@
                             <li>Serviços que se ajustam a tua rotina diária</li>
                             <li>Serviços disponível 24/24</li>
                         </ul>
-
+                        <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                        (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                        <a href="<?php echo e(route('minhas-consultas')); ?>" class="btn">Minhas
+                            Consultas</a>
+                        <?php else: ?>
                         <a href="<?php echo e(route('doutores.create')); ?>" class="btn"> Ser colaborador</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -315,10 +387,34 @@
                             especializado, estamos aqui para
                             ajudá-lo a encontrar o melhor médico para você.
                         </p>
+                        <?php if(
+                        (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                        (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                        (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                         <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                        <?php endif; ?>
+
+                        <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                        (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                        <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                            Marcar Agora
+                        </a>
+                        <?php endif; ?>
+
+                        <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                        (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                        <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                            Minhas Consultas</a>
+                        <?php endif; ?>
+
+                        <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                        (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                        <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                            Dashboard</a>
+                        <?php endif; ?>
+
                     </div>
                 </div>
-
                 <div class="col-lg-8 col-md-12">
                     <ul class="team-members">
                         <li class="clearfix">
@@ -326,8 +422,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img1.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Narivaldo Nunes</h3>
-                                        <p>Especialista em Cardiologia</p>
+                                        <h3>DR. Mariano Ventura</h3>
+                                        <p>Especialista em Oftalmologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -341,8 +437,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img2.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Domingos Afonso</h3>
-                                        <p>Especialista em Oftalmologia</p>
+                                        <h3>DR. Wilson Pinto</h3>
+                                        <p>Especialista em Neurologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -356,8 +452,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img3.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Rosa Cristovão</h3>
-                                        <p>Especialista em Ortironaringologia</p>
+                                        <h3>DR. Maria De Jesus</h3>
+                                        <p>Especialista em Cardiologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -373,8 +469,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img4.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. João Miguel</h3>
-                                        <p>Medicina Infantil</p>
+                                        <h3>DR. Emanuel Ventura</h3>
+                                        <p>Especialista em Fisioterapia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -388,8 +484,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img5.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Daniel João</h3>
-                                        <p>Especialista em Fisioterapia</p>
+                                        <h3>DR. Yuri Miala</h3>
+                                        <p>Especialista em Oftalmologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -403,8 +499,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img6.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Mara Mendonça</h3>
-                                        <p>Especialista em Ginecologia</p>
+                                        <h3>DR. Ntembo Simba</h3>
+                                        <p>Especialista em Estomatologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -420,8 +516,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img7.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Maria Norberto</h3>
-                                        <p>Especialista em Sexologia</p>
+                                        <h3>DR. Viviane Silveira</h3>
+                                        <p>Especialista em Ginecologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -435,8 +531,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img8.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Manuel Vimbi</h3>
-                                        <p>Especialista em Odontologia</p>
+                                        <h3>DR. Denilson Belarmino</h3>
+                                        <p>Especialista em Fisioterapia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -450,8 +546,8 @@
                                 <div>
                                     <img src="<?php echo e(URL::to('img/doctor-img9.png')); ?>" alt="doctor">
                                     <div class="member-info">
-                                        <h3>DR. Maria Fátima</h3>
-                                        <p>Especialista em Ortopedia</p>
+                                        <h3>DR. Núria Francisco</h3>
+                                        <p>Especialista em Dermatologia</p>
                                         <ul>
                                             <li><a href="#" class="icofont-facebook"></a></li>
                                             <li><a href="#" class="icofont-twitter"></a></li>
@@ -472,7 +568,7 @@
     <section id="department" class="departments-area ptb-100 bg-f9faff">
         <div class="container">
             <div class="section-title">
-                <h3>Nossos Departmentos</h3>
+                <h3>Nossos Departamentos</h3>
                 <span>Quais serviços temos</span>
                 <p>Explore nossos departamentos especializados, cada um dedicado a fornecer cuidados de alta qualidade
                     em diferentes áreas
@@ -546,7 +642,31 @@
                                                 <li>Cirurgias Cardíacas</li>
                                                 <li>Reabilitação Cardíaca</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Consulta</a>
+                                            <?php if(
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                                Marcar Agora
+                                            </a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                                Minhas Consultas</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                                Dashboard</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -572,7 +692,31 @@
                                                 <li>Tratamento de Emergências Neurológicas</li>
                                                 <li>Gestão de Doenças Crônicas</li>
                                             </ul>
-                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Consulta</a>
+                                            <?php if(
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                                Marcar Agora
+                                            </a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                                Minhas Consultas</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                                Dashboard</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -598,7 +742,31 @@
                                                 <li>Tratamento Conservador:</li>
                                                 <li>Cirurgias Ortopédicas</li>
                                             </ul>
+                                            <?php if(
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                             <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                                Marcar Agora
+                                            </a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                                Minhas Consultas</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                                Dashboard</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -629,7 +797,31 @@
                                                 </li>
                                                 <li>Relatórios e Laudos</li>
                                             </ul>
+                                            <?php if(
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                             <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                                Marcar Agora
+                                            </a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                                Minhas Consultas</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                                Dashboard</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -657,7 +849,31 @@
                                                 <li>Cirurgias de Urgência</li>
                                                 <li>Cirurgias Especializadas</li>
                                             </ul>
+                                            <?php if(
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                             <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                                Marcar Agora
+                                            </a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                                Minhas Consultas</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                                Dashboard</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -691,7 +907,31 @@
                                                 </li>
                                                 <li>Acompanhamento e Orientação</li>
                                             </ul>
+                                            <?php if(
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                             <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                                Marcar Agora
+                                            </a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                                Minhas Consultas</a>
+                                            <?php endif; ?>
+
+                                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                                Dashboard</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -820,7 +1060,7 @@
                         <h3>Cirurgia na próstata</h3>
                         <p>Oferecemos cirurgia na próstata com o compromisso de proporcionar tratamentos eficazes e
                             seguros. Nossos médicos possuem
-                            vasta experiência e especialização nesse procedimento, garantindo resultados de alta
+                            vasta experiência e especialização nesse procedimento, garantindo resultados <br> de alta
                             qualidade para os nossos pacientes.</p>
                         <a href="#" class="icofont-paper-plane"></a>
                     </div>
@@ -878,7 +1118,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="fun-fact">
                         <i class="icofont-wink-smile"></i>
-                        <h3 class="count">25000</h3>
+                        <h3 class="count">+100</h3>
                         <span>Pacientes satisfeitos</span>
                     </div>
                 </div>
@@ -886,7 +1126,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="fun-fact">
                         <i class="icofont-doctor-alt"></i>
-                        <h3 class="count">180</h3>
+                        <h3 class="count">+12</h3>
                         <span>Dotores experientes</span>
                     </div>
                 </div>
@@ -894,7 +1134,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="fun-fact">
                         <i class="icofont-patient-bed"></i>
-                        <h3 class="count">1200</h3>
+                        <h3 class="count">+200</h3>
                         <span>Operações bem sucedidas</span>
                     </div>
                 </div>
@@ -902,7 +1142,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="fun-fact">
                         <i class="icofont-bed"></i>
-                        <h3 class="count">2800</h3>
+                        <h3 class="count">+30</h3>
                         <span>Números de camas</span>
                     </div>
                 </div>
@@ -941,7 +1181,28 @@
                             <div class="gallery-content">
                                 <h3>Electrocardiograma</h3>
                                 <span>Cardiologia</span>
+                                <?php if(
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                 <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i>
+                                </a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <a href="<?php echo e(route('doutores.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <a href="<?php echo e(route('dashboard.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
                                 <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -954,7 +1215,30 @@
                             <div class="gallery-content">
                                 <h3>Exame Neurológico</h3>
                                 <span>Neurologia</span>
+                                <?php if(
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                 <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i>
+                                </a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <a href="<?php echo e(route('doutores.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <a href="<?php echo e(route('dashboard.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+                                <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
+                                        class="icofont-expand"></i></a>
                                 <a href="<?php echo e(URL::to('img/gallery-img2.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
@@ -967,8 +1251,29 @@
                             <div class="gallery-content">
                                 <h3>Operações de risco</h3>
                                 <span>Cirurgia</span>
+                                <?php if(
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                 <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
-                                <a href="<?php echo e(URL::to('img/gallery-img3.jpg')); ?>" class="popup-btn"><i
+                                <?php endif; ?>
+
+                                <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i>
+                                </a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <a href="<?php echo e(route('doutores.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <a href="<?php echo e(route('dashboard.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+                                <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
                         </div>
@@ -980,8 +1285,29 @@
                             <div class="gallery-content">
                                 <h3>Exames ortotpédicos</h3>
                                 <span>Ortopedia</span>
+                                <?php if(
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                 <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
-                                <a href="<?php echo e(URL::to('img/gallery-img4.jpg')); ?>" class="popup-btn"><i
+                                <?php endif; ?>
+
+                                <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i>
+                                </a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <a href="<?php echo e(route('doutores.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <a href="<?php echo e(route('dashboard.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+                                <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
                         </div>
@@ -993,8 +1319,29 @@
                             <div class="gallery-content">
                                 <h3>Exames Urológicos</h3>
                                 <span>Urologia</span>
+                                <?php if(
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                 <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
-                                <a href="<?php echo e(URL::to('img/gallery-img5.jpg')); ?>" class="popup-btn"><i
+                                <?php endif; ?>
+
+                                <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i>
+                                </a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <a href="<?php echo e(route('doutores.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <a href="<?php echo e(route('dashboard.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+                                <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
                         </div>
@@ -1006,8 +1353,29 @@
                             <div class="gallery-content">
                                 <h3>Exames Urológicos</h3>
                                 <span>Urologia</span>
+                                <?php if(
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                                (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
                                 <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
-                                <a href="<?php echo e(URL::to('img/gallery-img6.jpg')); ?>" class="popup-btn"><i
+                                <?php endif; ?>
+
+                                <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                                <a href="<?php echo e(route('consultas.index')); ?>" class="link-btn"><i class="icofont-link"></i>
+                                </a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                                <a href="<?php echo e(route('doutores.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                                (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                                <a href="<?php echo e(route('dashboard.index')); ?>" class="link-btn"><i class="icofont-link"></i></a>
+                                <?php endif; ?>
+                                <a href="<?php echo e(URL::to('img/gallery-img1.jpg')); ?>" class="popup-btn"><i
                                         class="icofont-expand"></i></a>
                             </div>
                         </div>
@@ -1035,7 +1403,7 @@
                         </div>
 
                         <div class="price">
-                            <span><sup>kz</sup>22145</span>
+                            <span><sup>kz</sup>30.500</span>
                         </div>
 
                         <div class="pricing-features">
@@ -1051,7 +1419,31 @@
                         </div>
 
                         <div class="pricing-footer">
-                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marque Agora</a>
+                            <?php if(
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                            <?php endif; ?>
+
+                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                Marcar Agora
+                            </a>
+                            <?php endif; ?>
+
+                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                Minhas Consultas</a>
+                            <?php endif; ?>
+
+                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                Dashboard</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -1063,7 +1455,7 @@
                         </div>
 
                         <div class="price">
-                            <span><sup>kz</sup>111350</span>
+                            <span><sup>kz</sup>150.000</span>
                         </div>
 
                         <div class="pricing-features">
@@ -1079,7 +1471,31 @@
                         </div>
 
                         <div class="pricing-footer">
-                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marque Agora</a>
+                            <?php if(
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                            <?php endif; ?>
+
+                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                Marcar Agora
+                            </a>
+                            <?php endif; ?>
+
+                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                Minhas Consultas</a>
+                            <?php endif; ?>
+
+                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                Dashboard</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -1091,7 +1507,7 @@
                         </div>
 
                         <div class="price">
-                            <span><sup>kz</sup>15000</span>
+                            <span><sup>kz</sup>15.000</span>
                         </div>
 
                         <div class="pricing-features">
@@ -1107,7 +1523,31 @@
                         </div>
 
                         <div class="pricing-footer">
-                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marque Agora</a>
+                            <?php if(
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'normal' &&
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'doutor' &&
+                            (@Session::get('loginSession')['tipoUsuario']) !== 'admin' ): ?>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">Marcar Agora</a>
+                            <?php endif; ?>
+
+                            <?php if(null !== (@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'normal'): ?>
+                            <a href="<?php echo e(route('consultas.index')); ?>" class="btn">
+                                Marcar Agora
+                            </a>
+                            <?php endif; ?>
+
+                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'doutor'): ?>
+                            <a href="<?php echo e(route('doutores.index')); ?>" class="btn">
+                                Minhas Consultas</a>
+                            <?php endif; ?>
+
+                            <?php if(null !==(@Session::get('loginSession')['tipoUsuario']) &&
+                            (@Session::get('loginSession')['tipoUsuario']) == 'admin'): ?>
+                            <a href="<?php echo e(route('dashboard.index')); ?>" class="btn">
+                                Dashboard</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -1319,11 +1759,9 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="contact-box">
                         <h3><i class="icofont-envelope"></i> Email</h3>
+                        <p>Email Oficial - EAB</p>
                         <p><a href="#"><span class="__cf_email__"
-                                    data-cfemail="e48d8a828ba4808b87908b96ca878b89">eabhealth@hotmail.com</span></a>
-                        </p>
-                        <p><a href="#"><span class="__cf_email__"
-                                    data-cfemail="e48d8a828ba4808b87908b96ca878b89">eabemployee@gmail.com</span></a>
+                                    data-cfemail="e48d8a828ba4808b87908b96ca878b89">eabhealth24@gmail.com</span></a>
                         </p>
                     </div>
                 </div>
@@ -1331,16 +1769,16 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="contact-box">
                         <h3><i class="icofont-phone"></i> Telefones</h3>
-                        <p><a href="#">+244 911 111 111</a></p>
-                        <p><a href="#">+244 922 222 222</a></p>
+                        <p><a href="#">+244 935 327 990</a></p>
+                        <p><a href="#">+244 936 026 462</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="contact-box">
                         <h3><i class="icofont-clock-time"></i> Horário</h3>
                         <ul>
-                            <li>Segunda - Sexta <span>6H - 21H</span></li>
-                            <li>Sábado<span>6H - 17H</span></li>
+                            <li>Segunda - Sexta <span>24H</span></li>
+                            <li>Sábado - Domingo<span>24H</span></li>
                         </ul>
                     </div>
                 </div>
@@ -1364,7 +1802,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                    <form id="" method="POST" action="<?php echo e(route('mensagem.store')); ?>">
+                    <form id="sms" method="POST" action="<?php echo e(route('mensagem.store')); ?>">
                         <?php echo csrf_field(); ?>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
@@ -1431,6 +1869,17 @@
     <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
     <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
+    <script>
+        const img = document.querySelector('#user-photo-updated');
+        const fotoUpdated = document.querySelector('#user-image-update');
+        const userPath = document.querySelector('#user-path');
+
+        fotoUpdated.addEventListener('change', (event) => {
+
+            userPath.innerText = fotoUpdated.value;
+        })
+    </script>
 </body>
 
-</html><?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/home.blade.php ENDPATH**/ ?>

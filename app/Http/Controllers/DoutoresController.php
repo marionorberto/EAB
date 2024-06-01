@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use DateTime;
 
 class DoutoresController extends Controller
 {
@@ -21,6 +22,12 @@ class DoutoresController extends Controller
     {
         $consultas = new Consultas();
         $consultas = Consultas::all();
+
+        $dateNow = new Datetime('now');
+        $dateNowYear = $dateNow->format('Y');
+        $dateNowMonth = $dateNow->format('m');
+        $dateNowDay = $dateNow->format('d');
+        $dateNow = $dateNowYear . '-' . $dateNowMonth . '-' . $dateNowDay + 1;
 
         $usuarioEmail = @Session('loginSession')['email'];
 
@@ -91,6 +98,7 @@ class DoutoresController extends Controller
             'usuarioData',
             'consultaPendenteContagem',
             'consultaCanceladaContagem',
+            'dateNow',
             'consultaFeitaContagem'
         ));
     }
@@ -145,9 +153,9 @@ class DoutoresController extends Controller
                 'motivo.required' => 'Motivo da consulta é campo requerido.',
                 'motivo.min' => 'Motivo da consulta deve ter no mínimo 10 caracteres.',
                 'cv.required' => 'Documento não carregado. clique em cima para carregar.',
-                'endereco.required' => 'Endereco é um campo obrigatório.',
-                'endereco.max' => 'Endereco deve ter entre 10 à 35 caracteres.',
-                'endereco.min' => 'Endereco deve ter entre 10 à 35 caracteres.',
+                'endereco.required' => 'Endereco é um campo obrigatório. Seguindo o formato Ex: Angola - Luanda  - Cazenga',
+                'endereco.max' => 'Endereco deve ter entre 10 à 35 caracteres. Seguindo o formato Ex: Angola - Luanda - Cazenga',
+                'endereco.min' => 'Endereco deve ter entre 10 à 35 caracteres. Seguindo o formato Ex: Angola - Luanda - Cazenga',
                 'experiencia.required' => 'Experiencia é um campo obrigatório.',
                 'experiencia.max' => 'Experiencia não preenchido devidamente.',
                 'especialidade.required' => 'Especialidade é um campo obrigatório.',
@@ -247,6 +255,46 @@ class DoutoresController extends Controller
     }
     public function feita(string $id)
     {
+        $datetime = new DateTime('now');
+        $currentDate = $datetime->format('Y-m-d H:m:s');
+
+
+        $bookingDate = DB::connection()->select("
+        SELECT horario
+        FROM consulta_marcada where idConsulta = '$id'
+        ");
+
+        $dateTableCurrentTime =
+            [
+                "year"  => substr($currentDate, 0, 4),
+                "month" => substr($currentDate, 5, 2),
+                "day"   => substr($currentDate, 8, 2),
+                "hour"  => substr($currentDate, 11, 2),
+                "min"   => substr($currentDate, 14, 2),
+            ];
+
+        $dateTableBookingDate =
+            [
+                "year"  => substr($bookingDate[0]->horario, 0, 4),
+                "month" => substr($bookingDate[0]->horario, 5, 2),
+                "day"   => substr($bookingDate[0]->horario, 8, 2),
+                "hour"  => substr($bookingDate[0]->horario, 11, 2),
+                "min"   => substr($bookingDate[0]->horario, 14, 2),
+            ];
+
+
+        if ($dateTableBookingDate["year"] == $dateTableCurrentTime["year"]) {
+
+            if ((int) $dateTableCurrentTime["month"] < (int) $dateTableBookingDate["month"]) return redirect()->back()->with(['bookingCheckFail' => true]);
+
+            if ((int) $dateTableCurrentTime["day"] < (int) $dateTableBookingDate["day"]) return redirect()->back()->with(['bookingCheckFail' => true]);
+
+            if ((int) $dateTableCurrentTime["hour"] < (int) $dateTableBookingDate["hour"]) return redirect()->back()->with(['bookingCheckFail' => true]);
+            if ((int) $dateTableCurrentTime["min"] < (int) $dateTableBookingDate["min"]) return redirect()->back()->with(['bookingCheckFail' => true]);
+        } else {
+            return redirect()->back()->with(['bookingCheckFail' => true]);
+        }
+
         DB::connection()->select("
             update consulta_marcada
             set status = 'feita'
@@ -258,6 +306,14 @@ class DoutoresController extends Controller
 
     public function reagendar(string $id, Request $request)
     {
+        $dateNow = new DateTime('now');
+
+        if ($request->date == $dateNow->format('Y-m-d')) {
+            return redirect()->back()->with(
+                ["dataInvalida" => true]
+            )
+                ->withInput($request->all());
+        }
 
         $emailDoutor = Session('loginSession')['email'];
 
@@ -324,5 +380,16 @@ class DoutoresController extends Controller
         ));
 
         return redirect()->back()->with(['pedidoReagendado' => true]);
+    }
+
+    private function remiderBooking()
+    {
+        $rawBoooking = DB::connection()->select("
+        SELECT horario
+        FROM consulta_marcada
+        where h
+
+
+        ");
     }
 }

@@ -141,10 +141,12 @@
                                 <th>BI</th>
                                 <th>NACIONALIDADE</th>
                                 <th>CARGO</th>
+                                <th>DATA REGISTRO</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
                             @if(@count($usuarios)<= 0) <tr>
+                                <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -183,6 +185,9 @@
                                     </td>
                                     <td>
                                         {{$usuario->tipo_usuario}}
+                                    </td>
+                                    <td>
+                                        {{$usuario->created_at}}
                                     </td>
                                 </tr>
                                 @endforeach

@@ -139,7 +139,7 @@ class loginControlador extends Controller
 
         $userName = $user[0]->firstname . ' ' . $user[0]->lastname;
         $codGenerated = $this->generateRandomNumbers();
-        Mail::to($request->email)->send(new RecoverPassword($userName, $codGenerated));
+        // Mail::to($request->email)->send(new RecoverPassword($userName, $codGenerated));
     }
 
     public function generateRandomNumbers()

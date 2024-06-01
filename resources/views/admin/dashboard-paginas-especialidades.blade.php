@@ -130,13 +130,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="sidebar-right-bottom text-dark p-3">
-                    <table id="myTable" class="table table-hover small-fs-6">
+                <div class="sidebar-right-bottom text-dark p-3 ">
+                    <table id="myTable" class="table table-hover small-fs-6 w-50">
                         <thead class="tborder-0 border-bottom border-opacity-75">
                             <tr class="text-medium small-fs-6">
                                 <th>COD</th>
                                 <th>DESCRICAO</th>
-                                <th>DATA</th>
+                                <th>DATA REGISTRO</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">

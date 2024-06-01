@@ -36,6 +36,7 @@ Route::get('register', [UsuariosController::class, 'create'])
     ->name('register');
 
 Route::resource('usuarios', UsuariosController::class);
+Route::post('update-foto-user', [UsuariosController::class, 'updateFotoUser'])->name('update-photo-user');
 Route::post('doutor/register', [UsuariosController::class, 'storeDoutores']);
 Route::resource('consultas', ConsultasController::class)
     ->middleware('LoginAuth');
@@ -45,6 +46,7 @@ Route::resource('notificacoes', NotificacoesController::class);
 Route::resource('pacientes', PacientesController::class);
 Route::resource('pacientes_consultas', PacienteConsultasController::class);
 Route::resource('mensagem', MensagensController::class);
+// Route::('mensagem', MensagensController::class);
 Route::get('getData', [ConsultasController::class, 'getAllDoutores']);
 Route::get('minhas-consultas', [ConsultasController::class, 'minhasConsultas'])
     ->name('minhas-consultas');

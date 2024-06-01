@@ -140,7 +140,7 @@
                                 <th>PACIENTE</th>
                                 <th>USERNAME</th>
                                 <th>STATUS</th>
-                                <th>DATA</th>
+                                <th>DATA REGISTRO</th>
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">

@@ -118,32 +118,19 @@
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('sexo')}}</span> <br>
                 @endif
                 <div class="gap-2">
-                    <input type="email" placeholder="Email Address" name="email" value="{{old('email')}}"
+                    <input type="email" placeholder="Teu Email " name="email" value="{{old('email')}}"
                         class="input-login">
                 </div>
                 @if($errors->has('email'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('email')}}</span> <br>
                 @endif
                 <div class="d-flex gap-2">
-                    <select name="especialidade" id="especialidade" class=" w-50
+                    <select required name="especialidade" id="especialidade" class=" w-50
                         text-start input-login bg-transparent">
-                        {{-- <option value="">especialidade (especialidade)</option>
-                        <option value="Oftalmologia" @if (old('especialidade')=='Oftalmologia' ) selected @endif>
-                            Oftalmologia (especialidade)</option>
-                        <option value="Cardiologia" @if (old('especialidade')=='Cardiologia' ) selected @endif>
-                            Cardiologia (especialidade)</option>
-                        <option value="Pedriatria" @if (old('especialidade')=='Pedriatria' ) selected @endif>Pedriatria
-                            (especialidade)</option>
-                        <option value="Cirurgia" @if (old('especialidade')=='Cirurgia' ) selected @endif>Cirurgia
-                            (especialidade)</option>
-                        <option value="Ortopedia" @if (old('especialidade')=='Ortopedia' ) selected @endif>Ortopedia
-                            (especialidade)</option>
-                        <option value="Radiologia" @if (old('especialidade')=='Radiologia' ) selected @endif>Radiologia
-                            (especialidade)</option> --}}
                         <option value="" class="text-opacity-50">selecione...(especialidade)</option>
                         @if (isset($especialidades_data))
                         @foreach ($especialidades_data as $esp)
-                        <option value="{{$esp['idEspecialidade']}}">{{$esp['descricao']}}</option>
+                        <option value="{{$esp['descricao']}}">{{$esp['descricao']}}</option>
                         @endforeach
                         @endif
                     </select>
@@ -178,7 +165,7 @@
                         style="border-style: dashed">Carregar Curriculum<i
                             class="icofont-cloud-upload p-0 fs-4"></i></label>
                     <input type="file" id="cv" placeholder="Curriculum Vitae" name="cv" value="{{old('cv')}}"
-                        class="input-login w-50 bg-text-dark d-none" accept=".pdf" title="Escolher">
+                        class="input-login w-50 bg-text-dark d-none" accept=".pdf">
                 </div>
                 @if($errors->has('cv'))
                 <span class="text-start text-danger span-error2 fs-6"> {{$errors->first('cv')}}</span> <br>

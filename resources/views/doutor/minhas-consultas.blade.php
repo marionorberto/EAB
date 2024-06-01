@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/fontawesome.min')}}">
     <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/animate.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
     <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
@@ -43,6 +41,18 @@
             consulta reagendada 👌
         </div>
         @endif
+        @if (null !== session('bookingCheckFail'))
+        <div class="alert alert-danger opacity-75 mb-md-5 text-center me-auto ms-auto">
+            consulta não pode ser marcada como feita, devido a data
+        </div>
+        @endif
+
+        @if (null !== session('dataInvalida'))
+        <div class="alert alert-success opacity-75 mb-md-5 text-center me-auto ms-auto">
+            Data inválida
+        </div>
+        @endif
+
         @if (null !== session('dataOccupedError'))
         <div class="alert alert-danger opacity-75 mb-md-5 text-center me-auto ms-auto">
             já tem uma consulta agendada para essa data!
@@ -195,7 +205,7 @@
                                                             value="{{$consulta->horario}}">
                                                         <input type="hidden" name="dotor"
                                                             value="{{$usuarioData[0]->firstname}} {{$usuarioData[0]->lastname}}">
-                                                        <input type="date" required min="2024-05-25"
+                                                        <input type="date" required min="{{$dateNow}}"
                                                             value="{{old('data')}}" max="2024-12-31" name="data" id=""
                                                             class="p-2 bg-light text-primary border-0 input-consulta-data">
                                                         <select name="hora" required id="hora"

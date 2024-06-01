@@ -186,11 +186,11 @@ class UsuariosController extends Controller
             $userImages->save();
         }
         // send an email to new user:
-        // $emailData = [
-        //     "username" => $request->username
-        // ];
+        $emailData = [
+            "username" => $request->username
+        ];
 
-        // Mail::to($request->email)->send(new welcome($emailData));
+        Mail::to($request->email)->send(new welcome($emailData));
 
         return view('login', [
             'alert_success' => 'Usuário registrado com successo. '
@@ -387,11 +387,11 @@ class UsuariosController extends Controller
         $usuariodoutor->save();
 
         // send an email to new user:
-        // $emailData = [
-        //     "username" => $request->username
-        // ];
+        $emailData = [
+            "username" => $request->username
+        ];
 
-        // Mail::to($request->email)->send(new welcome($emailData));
+        Mail::to($request->email)->send(new welcome($emailData));
 
         return view('login', [
             'alert_success' => 'Usuário registrado com successo.  Faça o seu login!'
@@ -404,16 +404,59 @@ class UsuariosController extends Controller
 
     public function edit(Usuarios $usuarios)
     {
-        //
     }
 
     public function update(Request $request, Usuarios $usuarios)
     {
-        //
     }
 
     public function destroy(Usuarios $usuarios)
     {
-        //
+    }
+
+    public function updateFotoUser(Request $request)
+    {
+        $isFotoUserNull = null == $request->file('fotoUser');
+
+        if ($isFotoUserNull) return redirect()->back();
+
+
+        $extension = $request->file('fotoUser')
+            ->getClientOriginalExtension();
+
+        $originalNameImage = $request->file('fotoUser')->getClientOriginalName();
+
+        if (str_ends_with(substr($originalNameImage, 0, -4), '.')) {
+            $basenameImage = substr($originalNameImage, 0,  -5);
+        } else {
+            $basenameImage = substr($originalNameImage, 0, -4);
+        }
+
+        $email = @Session('loginSession')['email'];
+        $idUsuario = DB::connection()->select("
+        SELECT UsuarioImagens.idUsuario
+        FROM UsuarioImagens
+        INNER JOIN Usuarios
+        on Usuarios.idUsuario = UsuarioImagens.idUsuario
+        WHERE Usuarios.email = '$email'
+        ");
+
+        $idUsuario = $idUsuario[0]->idUsuario;
+        $filename = $request->file('fotoUser')
+            ->getClientOriginalName();
+
+        $basename = $basenameImage;
+        $url = $request->file('fotoUser')->store('userPhotos');
+
+        $idUsuario = DB::connection()->select("
+        UPDATE UsuarioImagens
+        SET extension = '$extension',
+        filename = '$filename',
+        url = '$url',
+        basename = '$basename'
+        WHERE idUsuario = '$idUsuario'
+        ");
+
+        return redirect()->route('login');
     }
 }

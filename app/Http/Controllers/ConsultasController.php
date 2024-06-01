@@ -22,26 +22,34 @@ use App\Mail\ConsultaMarcada;
 use App\Models\PacienteConsultas;
 use App\Models\User;
 use App\Notifications\consultaMarcada as NotificationsConsultaMarcada;
+use DateTime;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class ConsultasController extends Controller
 {
+    private $dateNow;
 
     public function __construct(private $especialidades = new Especialidades())
     {
         $this->especialidades = $especialidades::all()->toArray();
+        $this->dateNow = new DateTime('now');
+        $this->dateNow = $this->dateNow->format('Y-m-d');
     }
 
     public function index()
     {
+
+        $dateNow = new Datetime('now');
+
         if (@Session('loginSession')['tipoUsuario'] == 'admin') {
             return redirect()->back();
         }
 
         return view('consulta.index', [
             'especialidades_data' => $this->especialidades,
+            'dateNow' => $this->dateNow,
         ]);
     }
 
@@ -93,6 +101,7 @@ class ConsultasController extends Controller
                 )
                 ->withInput($request->all());
         }
+
 
         $paciente = new Pacientes();
         $telefone = new Telefone();
@@ -185,7 +194,8 @@ class ConsultasController extends Controller
 
         return view('consulta.index', [
             'alert_success' => 'Consulta marcada com sucesso',
-            'especialidades_data' => $this->especialidades
+            'especialidades_data' => $this->especialidades,
+            'dateNow' => $this->dateNow
         ]);
     }
 
