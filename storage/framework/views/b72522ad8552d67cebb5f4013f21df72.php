@@ -6,18 +6,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/animate.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/animate.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.carousel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/magnific-popup.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.theme.default.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
 
     <title> EAB - Medical Healthcare</title>
 </head>
@@ -34,25 +34,25 @@
                 </a>
             </div>
             <div class="mt-3 align-self-start ms-2 text-secondary mb-3">
-                <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
-                    src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}" @endif
+                <img <?php if(null !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
+                    src="<?php echo e(env('APP_URL')); ?>:8000/storage/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>" <?php endif; ?>
                     alt=" profile-page-img" class="img-profile-page">
-                <span class="text-secondary">{{@Session::get('loginSession')['username']}}</span>
+                <span class="text-secondary"><?php echo e(@Session::get('loginSession')['username']); ?></span>
             </div>
             <div class="">
-                <li class=""><a href="{{route('dashboard.index')}}"><i class="icofont-home text-secondary">
+                <li class=""><a href="<?php echo e(route('dashboard.index')); ?>"><i class="icofont-home text-secondary">
                         </i> Dashboard</a></li>
             </div>
             <div class="mt-2">
                 <span class="text-secondary mt-2 dashboard-sl-span"> Páginas</span>
                 <ul class="list-unstyled d-flex flex-column gap-2 mt-2 position-relative w-full">
-                    <li class="dashboard-sl-li"><a href="{{route('dashboard-paginas-usuarios')}}"><i
+                    <li class="dashboard-sl-li"><a href="<?php echo e(route('dashboard-paginas-usuarios')); ?>"><i
                                 class="icofont-user text-secondary">
                             </i> Usuários</a></li>
-                    <li class="dashboard-sl-li"><a href="{{route('dashboard-paginas-colaboradores')}}"> <i
+                    <li class="dashboard-sl-li"><a href="<?php echo e(route('dashboard-paginas-colaboradores')); ?>"> <i
                                 class="icofont-doctor text-secondary">
                             </i> Colaboradores</a></li>
-                    <li class="dashboard-sl-li" s><a href="{{route('dashboard-paginas-especialidades')}}"> <i
+                    <li class="dashboard-sl-li" s><a href="<?php echo e(route('dashboard-paginas-especialidades')); ?>"> <i
                                 class="icofont-card text-secondary">
                             </i> Especialidades</a></li>
                 </ul>
@@ -62,13 +62,13 @@
 
                 <span class="text-secondary mt-2 dashboard-sl-span">Análises</span>
                 <ul class="list-unstyled d-flex flex-column gap-2 mt-2 position-relative w-full">
-                    <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-consultas')}}"><i
+                    <li class="dashboard-sl-li2"><a href="<?php echo e(route('dashboard-analises-consultas')); ?>"><i
                                 class="icofont-crutch text-secondary">
                             </i> Consultas</a></li>
-                    <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-pacientes')}}"><i
+                    <li class="dashboard-sl-li2"><a href="<?php echo e(route('dashboard-analises-pacientes')); ?>"><i
                                 class="icofont-operation-theater text-secondary">
                             </i> Pacientes</a></li>
-                    <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-financeiro')}}"><i
+                    <li class="dashboard-sl-li2"><a href="<?php echo e(route('dashboard-analises-financeiro')); ?>"><i
                                 class="icofont-money text-secondary">
                             </i>Estatísticas</a></li>
                 </ul>
@@ -89,11 +89,11 @@
             <div class="sidebar-right-container">
                 <div class="sidebar-right-top d-flex justify-content-between align-items-center">
                     <div><span class="text-secondary opacity-50 fs-4 fw-medium ms-4"><a
-                                href="{{route('dashboard.index')}}">Dashboard</a> /<span
+                                href="<?php echo e(route('dashboard.index')); ?>">Dashboard</a> /<span
                                 class="text-primary text-decoration-underline text-bold"> Colaboradores</span></span>
                     </div>
                     <div class="me-4">
-                        <a class="py-1 me-2" href="{{route('dashboard-mensagens')}}">
+                        <a class="py-1 me-2" href="<?php echo e(route('dashboard-mensagens')); ?>">
                             <i class="position-relative icofont-ui-messaging fw-light text-black fs-5 w-8">
                                 <span class="
                                                     fs-6
@@ -104,14 +104,13 @@
                                                 margin-top: -15px;
                                                 right: -7px;
                                             ">
-                                    {{
-                                    $messageCount[0]->count
-                                    }}
+                                    <?php echo e($messageCount[0]->count); ?>
+
                                 </span>
                             </i>
                         </a>
 
-                        <a class="py-1 me-2" href="{{route('dashboard-notificacoes')}}">
+                        <a class="py-1 me-2" href="<?php echo e(route('dashboard-notificacoes')); ?>">
                             <i class="position-relative icofont-notification fw-light text-black p-0 fs-5 w-8">
                                 <span class="
                                                     fs-6
@@ -122,9 +121,8 @@
                                                 margin-top: -11px;
                                                 right: -2px;
                                                 ">
-                                    {{
-                                    $notificationCount[0]->count
-                                    }}
+                                    <?php echo e($notificationCount[0]->count); ?>
+
                                 </span>
                             </i>
                         </a>
@@ -144,7 +142,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
-                            @if(@count($doutores)<= 0) <tr>
+                            <?php if(@count($doutores)<= 0): ?> <tr>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -153,39 +151,40 @@
                                 <td>--</td>
                                 <td>--</td>
                                 </tr>
-                                @else
-                                @foreach ($doutores as $doutor)
+                                <?php else: ?>
+                                <?php $__currentLoopData = $doutores; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doutor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="md-fs-6">
                                     <td>
-                                        {{$doutor->idDoutor}}
+                                        <?php echo e($doutor->idDoutor); ?>
+
                                     </td>
                                     <td>
-                                        {{$doutor->firstname}} {{$doutor->lastname}}
+                                        <?php echo e($doutor->firstname); ?> <?php echo e($doutor->lastname); ?>
+
                                     </td>
                                     <td>
-                                        {{
-                                        $doutor->carteiraProfissional
-                                        }}
+                                        <?php echo e($doutor->carteiraProfissional); ?>
+
                                     </td>
                                     <td>
-                                        {{
-                                        $doutor->BI
-                                        }}
+                                        <?php echo e($doutor->BI); ?>
+
                                     </td>
                                     <td>
-                                        {{
-                                        $doutor->descricao
-                                        }}
+                                        <?php echo e($doutor->descricao); ?>
+
                                     </td>
                                     <td>
-                                        {{$doutor->sex}}
+                                        <?php echo e($doutor->sex); ?>
+
                                     </td>
                                     <td>
-                                        {{$doutor->created_at}}
+                                        <?php echo e($doutor->created_at); ?>
+
                                     </td>
                                 </tr>
-                                @endforeach
-                                @endif
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -194,18 +193,18 @@
     </section>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/owl.carousel.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{URL::to('js/form-validator.min.js')}}"></script>
-    <script src="{{URL::to('js/contact-form-script.js')}}"></script>
-    <script src="{{URL::to('js/main.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{URL::to('js/dataTables.min.js')}}"></script>
-    <script src="{{URL::to('js/dataTables.dataTables.min.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.dataTables.min.js')); ?>"></script>
 
     <script>
         $('#myTable').DataTable({
@@ -240,3 +239,4 @@
 </body>
 
 </html>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-paginas-colaboradores.blade.php ENDPATH**/ ?>

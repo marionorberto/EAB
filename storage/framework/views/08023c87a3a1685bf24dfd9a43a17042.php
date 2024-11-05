@@ -5,18 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/fontawesome.min')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/animate.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dark-style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/dataTables.dataTables.min.css')}}">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/fontawesome.min')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/animate.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.carousel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/magnific-popup.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/owl.theme.default.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dark-style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/dataTables.dataTables.min.css')); ?>">
 
     <title> EAB - Medical Healthcare & Doctors Clinic </title>
 </head>
@@ -31,75 +31,69 @@
     </div>
 
     <section class="table-container">
-        @if (null !== session('pedidoAceite'))
+        <?php if(null !== session('pedidoAceite')): ?>
         <div class="alert alert-success opacity-75 mb-md-5 text-center me-auto ms-auto">
             consulta marcada como feita 👌
         </div>
-        @endif
-        @if (null !== session('pedidoReagendado'))
+        <?php endif; ?>
+        <?php if(null !== session('pedidoReagendado')): ?>
         <div class="alert alert-success opacity-75 mb-md-5 text-center me-auto ms-auto">
             consulta reagendada 👌
         </div>
-        @endif
-        @if (null !== session('bookingCheckFail'))
+        <?php endif; ?>
+        <?php if(null !== session('bookingCheckFail')): ?>
         <div class="alert alert-danger opacity-75 mb-md-5 text-center me-auto ms-auto">
             consulta não pode ser marcada como feita, devido a data
         </div>
-        @endif
+        <?php endif; ?>
 
-        @if (null !== session('dataInvalida'))
+        <?php if(null !== session('dataInvalida')): ?>
         <div class="alert alert-success opacity-75 mb-md-5 text-center me-auto ms-auto">
             Data inválida
         </div>
-        @endif
+        <?php endif; ?>
 
-        @if (null !== session('dataOccupedError'))
+        <?php if(null !== session('dataOccupedError')): ?>
         <div class="alert alert-danger opacity-75 mb-md-5 text-center me-auto ms-auto">
             já tem uma consulta agendada para essa data!
         </div>
-        @endif
-        @if(@count($consultaData)<= 0) <div class="alert alert-warning opacity-75 mb-md-5 text-center me-auto ms-auto">
+        <?php endif; ?>
+        <?php if(@count($consultaData)<= 0): ?> <div class="alert alert-warning opacity-75 mb-md-5 text-center me-auto ms-auto">
             <h2 class="fs-6">
                 Nenhuma consulta agendada para sr/sra doutor
                 <span class="text-bold fs-5 text-dark">
-                    {{
-                    $usuarioData[0]->firstname
-                    }}
+                    <?php echo e($usuarioData[0]->firstname); ?>
 
-                    {{
-                    $usuarioData[0]->lastname
-                    }}
+
+                    <?php echo e($usuarioData[0]->lastname); ?>
+
                 </span>
                 até ao momento.
             </h2>
             </div>
-            @endif
+            <?php endif; ?>
             <section class="d-flex justify-content-between align-content-center mb-5">
                 <div>
-                    @if (@count($consultaData)<= 0) <h4 class="text-muted fs-6">{{$usuarioData[0]->email}}</h4>
+                    <?php if(@count($consultaData)<= 0): ?> <h4 class="text-muted fs-6"><?php echo e($usuarioData[0]->email); ?></h4>
                         <h2 class="text-dark fw-medium mt-2 mb-2">
-                            {{
-                            $usuarioData[0]->firstname
-                            }}
-                            {{
-                            $usuarioData[0]->lastname
-                            }}
+                            <?php echo e($usuarioData[0]->firstname); ?>
+
+                            <?php echo e($usuarioData[0]->lastname); ?>
+
                         </h2>
 
-                        @else
-                        <h2 class="text-muted fs-6"><i class="icofont-ui-email"></i> {{$usuarioData[0]->email}}</h2>
+                        <?php else: ?>
+                        <h2 class="text-muted fs-6"><i class="icofont-ui-email"></i> <?php echo e($usuarioData[0]->email); ?></h2>
                         <h2 class="text-dark fw-medium mt-2 mb-2">
-                            {{
-                            $usuarioData[0]->firstname
-                            }}
-                            {{
-                            $usuarioData[0]->lastname
-                            }} 🧑‍⚕️
+                            <?php echo e($usuarioData[0]->firstname); ?>
+
+                            <?php echo e($usuarioData[0]->lastname); ?> 🧑‍⚕️
                         </h2>
                         <h2 class="text-muted fs-6"><i class="icofont-badminton-birdie"></i> Criado desde
-                            {{ Str::substr($usuarioData[0]->created_at, 0, 10)}}
+                            <?php echo e(Str::substr($usuarioData[0]->created_at, 0, 10)); ?>
+
                         </h2>
-                        @endif
+                        <?php endif; ?>
                 </div>
                 <div>
                     <h2 class="fw-bold fst-italic fs-1 "><i class="icofont-table"></i> CONSULTAS</h2>
@@ -118,7 +112,7 @@
                     </tr>
                 </thead>
                 <tbody class="text-muted text-opacity-50">
-                    @if(@count($consultaData)<= 0) <tr>
+                    <?php if(@count($consultaData)<= 0): ?> <tr>
                         <td>--</td>
                         <td>--</td>
                         <td>--</td>
@@ -127,54 +121,56 @@
                         <td>--</td>
                         <td>--</td>
                         </tr>
-                        @else
-                        @foreach ($consultaData as $consulta)
+                        <?php else: ?>
+                        <?php $__currentLoopData = $consultaData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $consulta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td>
-                                {{$loop->iteration}}
+                                <?php echo e($loop->iteration); ?>
+
                             </td>
-                            <td>{{$consulta->firstname_paciente}} {{$consulta->lastname_paciente}}</td>
-                            <td>{{$consulta->idade}}</td>
+                            <td><?php echo e($consulta->firstname_paciente); ?> <?php echo e($consulta->lastname_paciente); ?></td>
+                            <td><?php echo e($consulta->idade); ?></td>
                             <td class="text-truncate">
-                                @if (Str::length($consulta->motivo) > 34)
-                                {{
-                                Str::substr($consulta->motivo, 0, 34)
-                                }}...
-                                @else
-                                {{
-                                $consulta->motivo
-                                }}
-                                @endif
+                                <?php if(Str::length($consulta->motivo) > 34): ?>
+                                <?php echo e(Str::substr($consulta->motivo, 0, 34)); ?>...
+                                <?php else: ?>
+                                <?php echo e($consulta->motivo); ?>
+
+                                <?php endif; ?>
                             </td>
 
                             <td>
-                                {{$consulta->horario}}
+                                <?php echo e($consulta->horario); ?>
+
                             </td>
                             <td class="
-                                    @if ($consulta->status == 'pendente')
-                                        {{ 'text-warning opacity-50'}}
-                                    @endif
-                                    @if ($consulta->status == 'cancelada')
-                                    {{ 'text-danger opacity-50'}}
-                                @endif
-                                @if ($consulta->status == 'feita')
-                                {{ 'text-success opacity-50'}}
-                            @endif
-                                ">
-                                {{$consulta->status}} <i class="icofont-loop"></i>
-                            </td>
-                            <td>@if ($consulta->status == 'feita' | $consulta->status == 'cancelada')
-                                ###############
-                                @else
+                                    <?php if($consulta->status == 'pendente'): ?>
+                                        <?php echo e('text-warning opacity-50'); ?>
 
-                                <a href="{{route('consulta-doutor-feita', $consulta->idConsulta)}}"
+                                    <?php endif; ?>
+                                    <?php if($consulta->status == 'cancelada'): ?>
+                                    <?php echo e('text-danger opacity-50'); ?>
+
+                                <?php endif; ?>
+                                <?php if($consulta->status == 'feita'): ?>
+                                <?php echo e('text-success opacity-50'); ?>
+
+                            <?php endif; ?>
+                                ">
+                                <?php echo e($consulta->status); ?> <i class="icofont-loop"></i>
+                            </td>
+                            <td><?php if($consulta->status == 'feita' | $consulta->status == 'cancelada'): ?>
+                                ###############
+                                <?php else: ?>
+
+                                <a href="<?php echo e(route('consulta-doutor-feita', $consulta->idConsulta)); ?>"
                                     class="text-white text-bold bg-success rounded-2 px-2">Feita</a>
                                 <button type="button" class="text-white bg-warning border-0 rounded-2"
                                     data-bs-toggle="modal" data-bs-target="#reagendar">
                                     Reagendar
                                 </button>
 
-                                {{-- //start modal --}}
+                                
                                 <div class="modal fade" id="reagendar" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -189,22 +185,22 @@
                                             </div>
                                             <div class="modal-body w-full">
                                                 <form
-                                                    action="{{route('consulta-doutor-reagendar', $consulta->idConsulta)}}">
-                                                    @csrf
-                                                    @method('PUT')
+                                                    action="<?php echo e(route('consulta-doutor-reagendar', $consulta->idConsulta)); ?>">
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('PUT'); ?>
                                                     <div>
                                                         <h1 class="fs-5 text-center my-3">Reagendamento de consulta</h1>
                                                         <label for="" class="text-primary fw-light d-block">
                                                             Nova data para Consulta
                                                         </label>
                                                         <input type="hidden" name="paciente"
-                                                            value="{{$consulta->firstname_paciente}} {{$consulta->lastname_paciente}}">
+                                                            value="<?php echo e($consulta->firstname_paciente); ?> <?php echo e($consulta->lastname_paciente); ?>">
                                                         <input type="hidden" name="horario"
-                                                            value="{{$consulta->horario}}">
+                                                            value="<?php echo e($consulta->horario); ?>">
                                                         <input type="hidden" name="dotor"
-                                                            value="{{$usuarioData[0]->firstname}} {{$usuarioData[0]->lastname}}">
-                                                        <input type="date" required min="{{$dateNow}}"
-                                                            value="{{old('data')}}" max="2024-12-31" name="data" id=""
+                                                            value="<?php echo e($usuarioData[0]->firstname); ?> <?php echo e($usuarioData[0]->lastname); ?>">
+                                                        <input type="date" required min="<?php echo e($dateNow); ?>"
+                                                            value="<?php echo e(old('data')); ?>" max="2024-12-31" name="data" id=""
                                                             class="p-2 bg-light text-primary border-0 input-consulta-data">
                                                         <select name="hora" required id="hora"
                                                             pattern="[0-9]{2}:[0-9]{2}"
@@ -252,12 +248,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- //end modal --}}
+                                
                             </td>
-                            @endif
+                            <?php endif; ?>
                         </tr>
-                        @endforeach
-                        @endif
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                 </tbody>
             </table>
             <section class="d-flex justify-content-between align-items-baseline mt-5">
@@ -283,16 +279,14 @@
                 </div>
                 <div class="d-flex flex-column">
                     <div>
-                        <p class="mb-2">Pendentes: {{$consultaPendenteContagem[0]->count}}</p>
-                        <p class="mb-2">Canceladas: {{$consultaCanceladaContagem[0]->count}}</p>
-                        <p class="mb-2">Feitas: {{$consultaFeitaContagem[0]->count}}</p>
+                        <p class="mb-2">Pendentes: <?php echo e($consultaPendenteContagem[0]->count); ?></p>
+                        <p class="mb-2">Canceladas: <?php echo e($consultaCanceladaContagem[0]->count); ?></p>
+                        <p class="mb-2">Feitas: <?php echo e($consultaFeitaContagem[0]->count); ?></p>
                     </div>
                     <div>
                         <button class="text-white bg-primary px-5 nowrap border-0 fw-bold align-content-center">
-                            TOTAL {{
-                            $consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count +
-                            $consultaFeitaContagem[0]->count
-                            }}</button>
+                            TOTAL <?php echo e($consultaPendenteContagem[0]->count + $consultaCanceladaContagem[0]->count +
+                            $consultaFeitaContagem[0]->count); ?></button>
                     </div>
                 </div>
 
@@ -313,18 +307,18 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/owl.carousel.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{URL::to('js/form-validator.min.js')}}"></script>
-    <script src="{{URL::to('js/contact-form-script.js')}}"></script>
-    <script src="{{URL::to('js/main.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/form-validator.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/contact-form-script.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/main.js')); ?>"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{URL::to('js/dataTables.min.js')}}"></script>
-    <script src="{{URL::to('js/dataTables.dataTables.min.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.dataTables.min.js')); ?>"></script>
 
     <script>
         $('#myTable').DataTable({
@@ -360,3 +354,4 @@
 </body>
 
 </html>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/doutor/minhas-consultas.blade.php ENDPATH**/ ?>

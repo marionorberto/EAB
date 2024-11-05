@@ -255,6 +255,8 @@ class DoutoresController extends Controller
     }
     public function feita(string $id)
     {
+
+
         $datetime = new DateTime('now');
         $currentDate = $datetime->format('Y-m-d H:m:s');
 
@@ -264,36 +266,9 @@ class DoutoresController extends Controller
         FROM consulta_marcada where idConsulta = '$id'
         ");
 
-        $dateTableCurrentTime =
-            [
-                "year"  => substr($currentDate, 0, 4),
-                "month" => substr($currentDate, 5, 2),
-                "day"   => substr($currentDate, 8, 2),
-                "hour"  => substr($currentDate, 11, 2),
-                "min"   => substr($currentDate, 14, 2),
-            ];
+        $isAllowedSwitchDone = $currentDate >= $bookingDate[0]->horario;
 
-        $dateTableBookingDate =
-            [
-                "year"  => substr($bookingDate[0]->horario, 0, 4),
-                "month" => substr($bookingDate[0]->horario, 5, 2),
-                "day"   => substr($bookingDate[0]->horario, 8, 2),
-                "hour"  => substr($bookingDate[0]->horario, 11, 2),
-                "min"   => substr($bookingDate[0]->horario, 14, 2),
-            ];
-
-
-        if ($dateTableBookingDate["year"] == $dateTableCurrentTime["year"]) {
-
-            if ((int) $dateTableCurrentTime["month"] < (int) $dateTableBookingDate["month"]) return redirect()->back()->with(['bookingCheckFail' => true]);
-
-            if ((int) $dateTableCurrentTime["day"] < (int) $dateTableBookingDate["day"]) return redirect()->back()->with(['bookingCheckFail' => true]);
-
-            if ((int) $dateTableCurrentTime["hour"] < (int) $dateTableBookingDate["hour"]) return redirect()->back()->with(['bookingCheckFail' => true]);
-            if ((int) $dateTableCurrentTime["min"] < (int) $dateTableBookingDate["min"]) return redirect()->back()->with(['bookingCheckFail' => true]);
-        } else {
-            return redirect()->back()->with(['bookingCheckFail' => true]);
-        }
+        if (!$isAllowedSwitchDone) return redirect()->back()->with(['bookingCheckFail' => true]);
 
         DB::connection()->select("
             update consulta_marcada

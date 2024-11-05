@@ -70,7 +70,7 @@
                             </i> Pacientes</a></li>
                     <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-financeiro')}}"><i
                                 class="icofont-money text-secondary">
-                            </i>Finaceiro</a></li>
+                            </i>Estatísticas</a></li>
                 </ul>
             </div>
             <div>

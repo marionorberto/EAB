@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{URL::to('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/icofont.min.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/style.css')}}">
-    <link rel="stylesheet" href="{{URL::to('css/responsive.css')}}">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/jquery-ui.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/icofont.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/magnific-popup.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::to('css/responsive.css')); ?>">
 
     <title> EAB - Medical Healthcare</title>
 </head>
@@ -27,25 +27,25 @@
                 </a>
             </div>
             <div class="mt-3 align-self-start ms-2 text-secondary mb-3">
-                <img @if(null !==(@Session::get('loginSession')['urlImgUsuario']))
-                    src="{{env('APP_URL')}}:8000/storage/{{@Session::get('loginSession')['urlImgUsuario']}}" @endif
+                <img <?php if(null !==(@Session::get('loginSession')['urlImgUsuario'])): ?>
+                    src="<?php echo e(env('APP_URL')); ?>:8000/storage/<?php echo e(@Session::get('loginSession')['urlImgUsuario']); ?>" <?php endif; ?>
                     alt=" profile-page-img" class="img-profile-page">
-                <span class="text-secondary">{{@Session::get('loginSession')['username']}}</span>
+                <span class="text-secondary"><?php echo e(@Session::get('loginSession')['username']); ?></span>
             </div>
             <div class="">
-                <li class=""><a href="{{route('dashboard.index')}}"><i class="icofont-home text-secondary">
+                <li class=""><a href="<?php echo e(route('dashboard.index')); ?>"><i class="icofont-home text-secondary">
                         </i> Dashboard</a></li>
             </div>
             <div class="mt-2">
                 <span class="text-secondary mt-2 dashboard-sl-span"> Páginas</span>
                 <ul class="list-unstyled d-flex flex-column gap-2 mt-2 position-relative w-full">
-                    <li class="dashboard-sl-li"><a href="{{route('dashboard-paginas-usuarios')}}"><i
+                    <li class="dashboard-sl-li"><a href="<?php echo e(route('dashboard-paginas-usuarios')); ?>"><i
                                 class="icofont-user text-secondary">
                             </i> Usuários</a></li>
-                    <li class="dashboard-sl-li"><a href="{{route('dashboard-paginas-colaboradores')}}"> <i
+                    <li class="dashboard-sl-li"><a href="<?php echo e(route('dashboard-paginas-colaboradores')); ?>"> <i
                                 class="icofont-doctor text-secondary">
                             </i> Colaboradores</a></li>
-                    <li class="dashboard-sl-li" s><a href="{{route('dashboard-paginas-especialidades')}}"> <i
+                    <li class="dashboard-sl-li" s><a href="<?php echo e(route('dashboard-paginas-especialidades')); ?>"> <i
                                 class="icofont-card text-secondary">
                             </i> Especialidades</a></li>
                 </ul>
@@ -55,13 +55,13 @@
 
                 <span class="text-secondary mt-2 dashboard-sl-span">Análises</span>
                 <ul class="list-unstyled d-flex flex-column gap-2 mt-2 position-relative w-full">
-                    <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-consultas')}}"><i
+                    <li class="dashboard-sl-li2"><a href="<?php echo e(route('dashboard-analises-consultas')); ?>"><i
                                 class="icofont-crutch text-secondary">
                             </i> Consultas</a></li>
-                    <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-pacientes')}}"><i
+                    <li class="dashboard-sl-li2"><a href="<?php echo e(route('dashboard-analises-pacientes')); ?>"><i
                                 class="icofont-operation-theater text-secondary">
                             </i> Pacientes</a></li>
-                    <li class="dashboard-sl-li2"><a href="{{route('dashboard-analises-financeiro')}}"><i
+                    <li class="dashboard-sl-li2"><a href="<?php echo e(route('dashboard-analises-financeiro')); ?>"><i
                                 class="icofont-money text-secondary">
                             </i>Estatísticas</a></li>
                 </ul>
@@ -82,14 +82,14 @@
                 <div class="sidebar-right-top d-flex justify-content-between align-items-center">
                     <div>
                         <span class="text-secondary opacity-50 fs-4 fw-medium ms-4">
-                            <a href="{{route('dashboard.index')}}">Dashboard</a> /
+                            <a href="<?php echo e(route('dashboard.index')); ?>">Dashboard</a> /
                             <span class="text-primary text-decoration-underline text-bold">
                                 Mensagens
                             </span>
                         </span>
                     </div>
                     <div class="me-4">
-                        <a class="py-1 me-2" href="{{route('dashboard-mensagens')}}">
+                        <a class="py-1 me-2" href="<?php echo e(route('dashboard-mensagens')); ?>">
                             <i class="position-relative icofont-ui-messaging fw-light text-black fs-5 w-8">
                                 <span class="
                                     fs-6
@@ -100,13 +100,12 @@
                                     margin-top: -15px;
                                     right: -7px;
                                     ">
-                                    {{
-                                    $messageCount[0]->count
-                                    }}
+                                    <?php echo e($messageCount[0]->count); ?>
+
                                 </span>
                             </i>
                         </a>
-                        <a class="py-1 me-2" href="{{route('dashboard-notificacoes')}}">
+                        <a class="py-1 me-2" href="<?php echo e(route('dashboard-notificacoes')); ?>">
                             <i class="
                             position-relative
                             icofont-notification
@@ -124,16 +123,15 @@
                                        margin-top: -11px;
                                        right: -2px;
                                        ">
-                                    {{
-                                    $notificationCount[0]->count
-                                    }}
+                                    <?php echo e($notificationCount[0]->count); ?>
+
                                 </span>
                             </i>
                         </a>
                     </div>
                 </div>
                 <div class="sidebar-right-bottom text-dark p-3">
-                    @if (request()->routeIs('dashboard-mensagens'))
+                    <?php if(request()->routeIs('dashboard-mensagens')): ?>
                     <table id="myTable" class="table table-hover small-fs-6">
                         <thead class="tborder-0 border-bottom border-opacity-75">
                             <tr class="text-medium small-fs-6">
@@ -146,7 +144,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-muted text-opacity-50 fs-6">
-                            @if(@count($mensagens)<= 0) <tr>
+                            <?php if(@count($mensagens)<= 0): ?> <tr>
                                 <td>--</td>
                                 <td>--</td>
                                 <td>--</td>
@@ -154,45 +152,40 @@
                                 <td>--</td>
                                 <td>--</td>
                                 </tr>
-                                @else
-                                @foreach ($mensagens as $sms)
+                                <?php else: ?>
+                                <?php $__currentLoopData = $mensagens; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sms): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                 <tr class="md-fs-6">
                                     <td>
-                                        {{$sms->idMensagem}}
+                                        <?php echo e($sms->idMensagem); ?>
+
                                     </td>
 
                                     <td class="text-truncate">
-                                        @if (Str::length($sms->conteudo) > 34)
-                                        {{
-                                        Str::substr($sms->conteudo, 0, 34)
-                                        }}...
-                                        @else
-                                        {{
-                                        $sms->conteudo
-                                        }}
-                                        @endif
+                                        <?php if(Str::length($sms->conteudo) > 34): ?>
+                                        <?php echo e(Str::substr($sms->conteudo, 0, 34)); ?>...
+                                        <?php else: ?>
+                                        <?php echo e($sms->conteudo); ?>
+
+                                        <?php endif; ?>
                                     </td>
 
                                     <td>
-                                        {{
-                                        $sms->nome
-                                        }}
+                                        <?php echo e($sms->nome); ?>
+
                                     </td>
                                     <td>
-                                        {{
-                                        $sms->email
-                                        }}
+                                        <?php echo e($sms->email); ?>
+
                                     </td>
                                     <td>
-                                        {{
-                                        $sms->created_at
-                                        }}
+                                        <?php echo e($sms->created_at); ?>
+
                                     </td>
                                     <td>
-                                        <form method="POST" action="{{route('mensagem.update', $sms->idMensagem)}}">
-                                            @method('PUT')
-                                            @csrf
+                                        <form method="POST" action="<?php echo e(route('mensagem.update', $sms->idMensagem)); ?>">
+                                            <?php echo method_field('PUT'); ?>
+                                            <?php echo csrf_field(); ?>
                                             <button type="submit" class="
                                                 text-white
                                                 text-bold
@@ -205,24 +198,24 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
-                                @endif
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
                         </tbody>
                     </table>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/jquery.mixitup.min.js')); ?>"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{URL::to('js/dataTables.min.js')}}"></script>
-    <script src="{{URL::to('js/dataTables.dataTables.min.js')}}"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::to('js/dataTables.dataTables.min.js')); ?>"></script>
 
     <script>
         $('#myTable').DataTable({
@@ -257,3 +250,4 @@
 </body>
 
 </html>
+<?php /**PATH /home/kenny/Desktop/WWW/EAB/resources/views/admin/dashboard-messages.blade.php ENDPATH**/ ?>

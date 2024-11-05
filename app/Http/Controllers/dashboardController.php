@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PedidoVagaDoutor;
+use App\Models\Pacientes;
+use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -334,7 +336,59 @@ class dashboardController extends Controller
 
     public function getAnalisesFinanceiro()
     {
-        return redirect()->back();
+        $notificationCount = DB::connection()->select("
+            select count(idPedidoVagaDoutor) AS count from PedidoVagaDoutor where status = 'pendente'
+        ");
+
+        $messageCount = DB::connection()->select("
+            select count(idMensagem) AS count from Mensagens where status = 'pendente'
+        ");
+
+        $userData = Usuarios::select([
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('count(*) as total')
+        ])
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        foreach ($userData as $user) {
+            $month[] = $user->month;
+            $total[] = $user->total;
+        }
+
+
+        $pacienteData = Pacientes::select([
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('count(DISTINCT idPaciente) as totalPacientes')
+        ])
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        foreach ($pacienteData as $paciente) {
+            $monthPaciente[] = $paciente->month;
+            $totalPaciente[] = $paciente->totalPacientes;
+        }
+
+        // dd($monthPaciente[0], $totalPaciente[0]);
+
+        //         SELECT
+        //     DATE_FORMAT(data_marcacao, '%Y-%m') AS mes,
+        //     COUNT(DISTINCT paciente_id) AS quantidade_pacientes
+        // FROM
+        //     Consultas
+        // GROUP BY
+        //     mes
+        // ORDER BY
+        //     mes;
+
+
+        // $userTotal = implode(",", $total);
+
+        // dd($month, $total);
+
+        return view('admin.dashboard-financeiro', compact('notificationCount', 'messageCount', 'month', 'total', 'monthPaciente', 'totalPaciente'));
     }
 
     public function getUsuarioHelp()

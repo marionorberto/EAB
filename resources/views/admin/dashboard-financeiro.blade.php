@@ -52,9 +52,8 @@
                     <li class="dashboard-sl-li"><a href="{{route('dashboard-paginas-colaboradores')}}"> <i
                                 class="icofont-doctor text-secondary">
                             </i> Colaboradores</a></li>
-                    <li class="dashboard-sl-li" s><a href="{{route('dashboard-paginas-especialidades')}}"> <i
-                                class="icofont-card text-secondary">
-                            </i> Especialidades</a></li>
+                    <li class="dashboard-sl-li" s><a href="#"> <i class="icofont-card text-secondary">
+                            </i> Estatísticas</a></li>
                 </ul>
             </div>
 
@@ -90,20 +89,20 @@
                 <div class="sidebar-right-top d-flex justify-content-between align-items-center">
                     <div><span class="text-secondary opacity-50 fs-4 fw-medium ms-4"><a
                                 href="{{route('dashboard.index')}}">Dashboard</a> /<span
-                                class="text-primary text-decoration-underline text-bold"> Consultas</span></span>
+                                class="text-primary text-decoration-underline text-bold"> Estatísticas</span></span>
                     </div>
                     <div class="me-4">
                         <a class="py-1 me-2" href="{{route('dashboard-mensagens')}}">
                             <i class="position-relative icofont-ui-messaging fw-light text-black fs-5 w-8">
                                 <span class="
-                                                    fs-6
-                                                    text-bolder
-                                                    fs-4
-                                                    text-info
-                                                    position-absolute" style="
-                                                margin-top: -15px;
-                                                right: -7px;
-                                            ">
+                                                fs-6
+                                                text-bolder
+                                                fs-4
+                                                text-info
+                                                position-absolute" style="
+                                            margin-top: -15px;
+                                            right: -7px;
+                                        ">
                                     {{
                                     $messageCount[0]->count
                                     }}
@@ -114,14 +113,14 @@
                         <a class="py-1 me-2" href="{{route('dashboard-notificacoes')}}">
                             <i class="position-relative icofont-notification fw-light text-black p-0 fs-5 w-8">
                                 <span class="
-                                                    fs-6
-                                                    text-bolder
-                                                    fs-4
-                                                    text-info
-                                                    position-absolute" style="
-                                                margin-top: -11px;
-                                                right: -2px;
-                                                ">
+                                                fs-6
+                                                text-bolder
+                                                fs-4
+                                                text-info
+                                                position-absolute" style="
+                                            margin-top: -11px;
+                                            right: -2px;
+                                            ">
                                     {{
                                     $notificationCount[0]->count
                                     }}
@@ -130,108 +129,65 @@
                         </a>
                     </div>
                 </div>
-                <div class="sidebar-right-bottom text-dark p-3">
-                    <table id="myTable" class="table table-hover small-fs-6">
-                        <thead class="tborder-0 border-bottom border-opacity-75">
-                            <tr class="text-medium small-fs-6">
-                                <th>COD</th>
-                                <th>DOUTOR</th>
-                                <th>ESPECIALIDADE</th>
-                                <th>PACIENTE</th>
-                                <th>USERNAME</th>
-                                <th>STATUS</th>
-                                <th>DATA REGISTRO</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-muted text-opacity-50 fs-6">
-                            @if(@count($consultas)<= 0) <tr>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                </tr>
-                                @else
-                                @foreach ($consultas as $consulta)
-                                <tr class="md-fs-6">
-                                    <td>
-                                        {{$consulta->cod}}
-                                    </td>
-                                    <td>
-                                        {{$consulta->firstname_doutor}} {{$consulta->lastname_doutor}}
-                                    </td>
-                                    <td>
-                                        {{
-                                        $consulta->nome_especialidade
-                                        }}
-                                    </td>
-                                    <td>
-                                        {{$consulta->firstname_paciente}} {{$consulta->lastname_paciente}}
-                                    </td>
-                                    <td>
-                                        {{$consulta->username}}
-                                    </td>
-                                    <td>
-                                        {{$consulta->status}}
-                                    </td>
-                                    <td>
-                                        {{$consulta->horario}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endif
-                        </tbody>
-                    </table>
+                <div
+                    class="sidebar-right-bottom text-dark p-3  d-flex justify-content-center align-content-center pt-4">
+                    <div style=" height: 500px; width: 500px;">
+                        <canvas id="grafico1" style=""></canvas>
+                    </div>
+                    {{-- <span class="">|</span> --}}
+                    <div style=" height: 500px; width: 500px;">
+                        <canvas id="grafico2" style=""></canvas>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{URL::to('js/jquery.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery-ui.js')}}"></script>
-    <script src="{{URL::to('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{URL::to('js/owl.carousel.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{URL::to('js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{URL::to('js/form-validator.min.js')}}"></script>
-    <script src="{{URL::to('js/contact-form-script.js')}}"></script>
-    <script src="{{URL::to('js/main.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{URL::to('js/dataTables.min.js')}}"></script>
-    <script src="{{URL::to('js/dataTables.dataTables.min.js')}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        $('#myTable').DataTable({
-        "ordering": true,
-        "paging": true,
-        "searching": true,
-        "oLanguage": {
-            "sEmptyTable": "Nenhum registro encontrado na tabela",
-            "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
-            "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "Mostrar _MENU_ registros por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
+        const ctx1 = document.getElementById('grafico1');
+        const ctx2 = document.getElementById('grafico2');
+
+      new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+          datasets: [{
+            label: 'Adesão de novos usuários no EAB',
+            data: [0, 0, {{$total[0]}}, 0, {{ $total[1] }}, 0],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
             }
+          }
         }
-    });
+      });
+
+      new Chart(ctx2, {
+            type: 'bar',
+            data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+            datasets: [{
+            label: 'Números de consultas marcadas',
+            data: [0, 0, 0, 0, {{ $totalPaciente[0] }}, 0],
+            borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+            y: {
+            beginAtZero: true
+            }
+            }
+            }
+            });
     </script>
 </body>
 
